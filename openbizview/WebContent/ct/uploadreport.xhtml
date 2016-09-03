@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- 
+     Copyright (C) 2011 - 2016  DVCONSULTORES
+
+    Este programa es software libre: usted puede redistribuirlo y/o modificarlo 
+    bajo los términos de la Licencia Pública General GNU publicada 
+    por la Fundación para el Software Libre, ya sea la versión 3 
+    de la Licencia, o (a su elección) cualquier versión posterior.
+
+    Este programa se distribuye con la esperanza de que sea útil, pero 
+    SIN GARANTÍA ALGUNA; ni siquiera la garantía implícita 
+    MERCANTIL o de APTITUD PARA UN PROPÓSITO DETERMINADO. 
+    Consulte los detalles de la Licencia Pública General GNU para obtener 
+    una información más detallada. 
+
+    Debería haber recibido una copia de la Licencia Pública General GNU 
+    junto a este programa. 
+    En caso contrario, consulte <http://www.gnu.org/licenses/>.
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:include src="common/cabeceras.xhtml" />
+<ui:include src="common/timeout.xhtml" />
+<h:body onload="mnuAdmin()">
+	<f:view>
+		<!-- Top-->
+<ui:include src="common/top.xhtml" />
+<div id="wrapper">
+        <!-- Sidebar -->
+        <ui:include src="common/menu.xhtml" />
+                <!-- Menu Toggle Script -->
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content --> 
+     <f:event listener="#{fileUploadController.init}" type="preRenderView" /> 
+     <div class="container-fluid" id="containerF" style="padding-top: 100px">
+				<h:form id="formAutoext" enctype="multipart/form-data">
+					<!-- Panel -->
+					 <div class="panel panel-info">
+	                  <div class="panel-body">
+						<p:panel id="panel" header="#{msg.pntextreptit}">
+						<div class="pull-right"><a HREF="http://www.openbizview.com/wiki/doku.php?id=upload" target="_new" title="Wiki"><i class="fa fa-file-text text-info"></i></a></div>
+							<p:commandButton icon="fa fa-folder-open" update="panel"
+								process="@this" title="#{msg.html30}" value="#{msg.html30}">
+								<p:resetInput target="panel" />
+							</p:commandButton>
+							<br />
+							<div id="upload">		
+								<p:fileUpload
+									fileUploadListener="#{fileUploadController.handleReportUpload}"
+									style="padding-top:10px" 
+									mode="advanced" 
+									update="growl"
+									auto="true"
+									multiple="true" 
+									cancelLabel="#{msg.autos02Cancel}"
+									label="#{msg.autos02Sel}" 
+									uploadLabel="#{msg.autos02Up}"
+									allowTypes="/(\.|\/)(rptdesign|png|jpg)$/"
+									invalidFileMessage="#{msg.autos02Rpt}"
+									oncomplete="HideUpload()">
+								</p:fileUpload>
+								</div>
+						</p:panel>
+						</div>
+						</div>
+						
+		     <!-- Mensaje -->
+		     <p:messages globalOnly="true" id="growl" closable="true" showIcon="true"/>
+				 </h:form>
+   </div>
+    
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+	
+
+</f:view>	
+</h:body>
+</html>
+

@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- 
+     Copyright (C) 2011 - 2016  DVCONSULTORES
+
+    Este programa es software libre: usted puede redistribuirlo y/o modificarlo 
+    bajo los términos de la Licencia Pública General GNU publicada 
+    por la Fundación para el Software Libre, ya sea la versión 3 
+    de la Licencia, o (a su elección) cualquier versión posterior.
+
+    Este programa se distribuye con la esperanza de que sea útil, pero 
+    SIN GARANTÍA ALGUNA; ni siquiera la garantía implícita 
+    MERCANTIL o de APTITUD PARA UN PROPÓSITO DETERMINADO. 
+    Consulte los detalles de la Licencia Pública General GNU para obtener 
+    una información más detallada. 
+
+    Debería haber recibido una copia de la Licencia Pública General GNU 
+    junto a este programa. 
+    En caso contrario, consulte <http://www.gnu.org/licenses/>.
+ -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+<script src="../resources/js/bvt001.js" type="text/javascript"></script>
+<!-- Morris -->
+<link href="../resources/css/morris.css" rel="stylesheet" />
+<ui:include src="common/cabeceras.xhtml" />
+<ui:include src="common/timeout.xhtml" />
+<f:metadata>
+	<f:event type="preRenderView" listener="#{db.init}" />
+</f:metadata>
+<h:body
+	onload="modal('#{db.modal()}');chart('#{db.get1Rep()}','#{db.get2Rep()}','#{db.get3Rep()}','#{db.get4Rep()}','#{db.get5Rep()}','#{db.get1RepDesc()}','#{db.get2RepDesc()}','#{db.get3RepDesc()}','#{db.get4RepDesc()}','#{db.get5RepDesc()}'), mnuRep()">
+	<f:view>
+
+		<!-- Top-->
+		<ui:include src="common/top.xhtml" />
+		<div id="wrapper">
+			<!-- Sidebar -->
+			<ui:include src="common/menu.xhtml" />
+			<!-- Menu Toggle Script -->
+			<!-- /#sidebar-wrapper -->
+
+			<!-- Page Content -->
+			<div class="container-fluid" >
+				<h:form id="formDashBoard">
+
+
+					<div class="row">
+						<div class="col-lg-12">
+							<h1 class="page-header" style="margin-top: 55px">
+								#{msg.Bienvenido}: <small>#{loginBean.getLoggedUsr()}</small>
+							</h1>
+							<ol class="breadcrumb">
+								<li class="active"><i class="fa fa-dashboard"></i>
+									Dashboard</li>
+							</ol>
+						</div>
+					</div>
+
+					<!-- /.row -->
+
+					<div class="row">
+						<div class="col-lg-3 col-md-6">
+						
+							<div class="panel bg-aqua">
+								<div class="panel-heading" style="color: white;">
+									<div class="row">
+										<div class="col-xs-3 icon">           
+											<i class="fa fa-bar-chart fa-5x"></i>
+										</div>
+										<div class="col-xs-9 text-right">
+											<div style="font-size: 30px; font-weight: bold;">#{db.r1}</div>
+											<div>#{msg.dashRep}</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel-footer">
+								<h:outputLink rendered="#{smnubean.opcmnu('R01')}" value="bvt001">																	
+										<span class="pull-left">#{msg.dashVerDetalle}</span> </h:outputLink><span
+											class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+										<div class="clearfix"></div>								
+								
+								</div>
+							</div>
+
+						</div>
+						<div class="col-lg-3 col-md-6">
+						
+							<div class="panel bg-green">
+								<div class="panel-heading" style="color: white;">
+									<div class="row">
+										<div class="col-xs-3 icon">
+											<i class="fa fa-tasks fa-5x"></i>
+										</div>
+										<div class="col-xs-9 text-right">
+											<div style="font-size: 30px; font-weight: bold;">#{db.r2}</div>
+											<div>#{msg.dashTareas}</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel-footer">
+										<h:outputLink rendered="#{smnubean.opcmnu('M22')}" value="mailtarea">							
+										<span class="pull-left">#{msg.dashVerDetalle}</span></h:outputLink> <span
+											class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+										<div class="clearfix"></div>																	
+								</div>
+							</div>
+
+						</div>
+						<div class="col-lg-3 col-md-6">
+									
+							<div class="panel bg-yellow">
+								<div class="panel-heading" style="color: white;">
+									<div class="row">
+										<div class="col-xs-3 icon">
+											<i class="fa fa-users fa-5x"></i>
+										</div>
+										<div class="col-xs-9 text-right">
+											<div style="font-size: 30px; font-weight: bold;">#{db.r3}</div>
+											<div>#{msg.dashUser}</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel-footer">
+										<h:outputLink rendered="#{smnubean.opcmnu('M16')}" value="bvt002">				
+										<span class="pull-left">#{msg.dashVerDetalle}</span></h:outputLink> <span
+											class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+										<div class="clearfix"></div>																	
+								</div>
+							</div>
+
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="panel bg-red">
+								<div class="panel-heading" style="color: white;">
+									<div class="row">
+										<div class="col-xs-3 icon">
+											<i class="fa fa-print fa-5x"></i>
+										</div>
+										<div class="col-xs-9 text-right">
+											<div style="font-size: 30px; font-weight: bold;">#{db.r4}</div>
+											<div>#{msg.dashRepImpr}</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel-footer">
+																
+										<h:outputLink rendered="#{smnubean.opcmnu('M08')}" value="bvt006">
+										<span class="pull-left">#{msg.dashVerDetalle}</span></h:outputLink> <span
+											class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+										<div class="clearfix"></div>																	
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- /.row -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<i class="fa fa-tachometer"></i>&nbsp;&nbsp;#{msg.dashRepTop}
+									</h3>
+								</div>
+								<div class="panel-body">
+									<div id="morris-bar-chart" style="height: 260px;"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="panel panel-danger" style="display: #{db.isShow()}">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<i class="fa fa-wrench"></i>&nbsp;&nbsp;#{msg.dashNew}
+									</h3>
+								</div>
+								<div class="panel-body">
+								<h3><a href="http://www.openbizview.com" target="new">#{db.ControlV()}</a></h3>	
+								</div>
+							</div>
+						</div>
+					</div>
+
+					
+				</h:form>
+			</div>
+
+
+		</div>
+		<!-- /#wrapper -->
+	</f:view>
+</h:body>
+</html>

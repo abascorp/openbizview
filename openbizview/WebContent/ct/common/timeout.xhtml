@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- 
+     Copyright (C) 2011 - 2016  DVCONSULTORES
+
+    Este programa es software libre: usted puede redistribuirlo y/o modificarlo 
+    bajo los términos de la Licencia Pública General GNU publicada 
+    por la Fundación para el Software Libre, ya sea la versión 3 
+    de la Licencia, o (a su elección) cualquier versión posterior.
+
+    Este programa se distribuye con la esperanza de que sea útil, pero 
+    SIN GARANTÍA ALGUNA; ni siquiera la garantía implícita 
+    MERCANTIL o de APTITUD PARA UN PROPÓSITO DETERMINADO. 
+    Consulte los detalles de la Licencia Pública General GNU para obtener 
+    una información más detallada. 
+
+    Debería haber recibido una copia de la Licencia Pública General GNU 
+    junto a este programa. 
+    En caso contrario, consulte <http://www.gnu.org/licenses/>.
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+<h:body>
+	<p:idleMonitor timeout="5400000" onidle="PF('idleDialog').show()" />
+
+	<p:dialog header="#{msg.sessionCad}" resizable="false" closable="false" responsive="true"
+		widgetVar="idleDialog" modal="true" fitViewport="true">
+		<h:outputText value="#{msg.sessionMsj}" />
+		<br />
+		<br />
+		<h:form>
+			<center>
+				<p:commandButton value="OPEN-BIZVIEW - LOGIN" icon=""
+					action="#{loginBean.logout}" />
+			</center>
+		</h:form>
+	</p:dialog>
+	
+	<p:dialog header="#{msg.sessionCadNP}!!" resizable="false" closable="false" responsive="true"
+		widgetVar="idleDialogNP" modal="true"  fitViewport="true">	
+		<center><h:outputText value="#{msg.sessionMsjNP}."/><br /><br />
+				<i class="fa fa-exclamation-triangle fa-3x text-danger"></i>
+		</center>		
+	</p:dialog>
+	
+</h:body>
+</html>

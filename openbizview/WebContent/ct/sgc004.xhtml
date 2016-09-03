@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- 
+     Copyright (C) 2011 - 2016  DVCONSULTORES
+
+    Este programa es software libre: usted puede redistribuirlo y/o modificarlo 
+    bajo los tÃ©rminos de la Licencia PÃºblica General GNU publicada 
+    por la FundaciÃ³n para el Software Libre, ya sea la versiÃ³n 3 
+    de la Licencia, o (a su elecciÃ³n) cualquier versiÃ³n posterior.
+
+    Este programa se distribuye con la esperanza de que sea Ãºtil, pero 
+    SIN GARANTÃ�A ALGUNA; ni siquiera la garantÃ­a implÃ­cita 
+    MERCANTIL o de APTITUD PARA UN PROPÃ“SITO DETERMINADO. 
+    Consulte los detalles de la Licencia PÃºblica General GNU para obtener 
+    una informaciÃ³n mÃ¡s detallada. 
+
+    DeberÃ­a haber recibido una copia de la Licencia PÃºblica General GNU 
+    junto a este programa. 
+    En caso contrario, consulte <http://www.gnu.org/licenses/>.
+ -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<script src="../resources/js/sgc004.js" type="text/javascript"></script>
+<ui:include src="common/cabeceras.xhtml" />
+<ui:include src="common/timeout.xhtml" />
+<h:body onload="mnuSgc()">
+<f:view>
+
+<!-- Top-->
+<ui:include src="common/top.xhtml" />
+<div id="wrapper">
+        <!-- Sidebar -->
+        <ui:include src="common/menu.xhtml" />
+                <!-- Menu Toggle Script -->
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content --> 
+             
+     <div class="container-fluid" id="containerF">
+     <h:form id="formsgc004"  >
+     
+           <!-- Dialog Panel DISPLAY DE FORMAS FAG016 Y FAG017-->
+		   	<p:dialog header="#{msg.sgc003}" widgetVar="dlg1" modal="true" showEffect="fade" hideEffect="fade" height="185">
+		   	  <p:panel id="paneldlg1"  header="#{msg.Sgc012tit}" style="white-space: normal;">	
+			   <h:panelGrid  columns="1" columnClasses="col1" style="margin: 0 auto;">
+			    <p:commandButton value="#{msg.sgc012f16}" title="#{msg.sgc012f16}" styleClass="botonera" immediate="true" action="sgc003.xhmtl?faces-redirect=true" icon="ui-icon-folder-open" onclick="PF('dlg1').hide();"/>      
+                <p:commandButton value="#{msg.sgc012f17}" title="#{msg.sgc012f17}" styleClass="botonera" immediate="true" action="sgc012.xhmtl?faces-redirect=true" icon="ui-icon-folder-open" onclick="PF('dlg1').hide();"/>      
+			   </h:panelGrid>
+			  </p:panel>
+			</p:dialog>  
+     
+			  <!-- Dialog Panel DISPLAY DE FORMAS FAG016 Y FAG017 PARA IMPRIMIR-->
+		   	<p:dialog header="#{msg.sgc004}" widgetVar="dlg3" modal="true" showEffect="fade" hideEffect="fade" height="185">
+		   	  <p:panel id="paneldlg2"  header="#{msg.Sgc012tit}" style="white-space: normal;">	
+			   <h:panelGrid  columns="1" columnClasses="col1" style="margin: 0 auto;">
+			    <p:commandButton value="#{msg.sgc012f18}" title="#{msg.sgc012f18}" styleClass="botonera" immediate="true" action="sgc014.xhmtl?faces-redirect=true" icon="ui-icon-folder-open" onclick="PF('dlg3').hide();"/>
+			    <p:commandButton value="#{msg.sgc012f16}" title="#{msg.sgc012f16}" styleClass="botonera" immediate="true" action="sgc004.xhmtl?faces-redirect=true" icon="ui-icon-folder-open" onclick="PF('dlg3').hide();"/>      
+                <p:commandButton value="#{msg.sgc012f17}" title="#{msg.sgc012f17}" styleClass="botonera" immediate="true" action="sgc013.xhmtl?faces-redirect=true" icon="ui-icon-folder-open" onclick="PF('dlg3').hide();"/>      
+			   </h:panelGrid>
+			  </p:panel>
+			</p:dialog>  
+     
+       <!-- Botonera --> 
+     <div id="botones">                       
+     </div>
+     
+     <!-- Ajax loader --> 		
+	 <div class="pull-right" style="margin-top: -40px">   			  
+	 <ui:include src="common/loader.xhtml"/>
+	 </div>
+     <!-- Mensaje -->
+     <p:messages globalOnly="true" id="growl" closable="true" showIcon="true"/>
+	  	       
+     <!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	        <h4 class="modal-title" id="myModalLabel">#{msg.bvt001Det}</h4>
+	      </div>
+	      <div class="modal-body">
+	  <div class="list-group">
+	  <div class="panel panel-info modalInfo" >
+	        <div class="panel-body">    
+	        <p:panel id="panelDetalle" >
+	        <h:panelGrid columns="2" columnClasses="col1,colmsg">
+	        <h:outputText value="#{msg.bvt001TbCod}:"/>
+	        <span id="txt_det_1" class="detalleTarea"></span>
+	        <h:outputText value="#{msg.bvt001TbDes}:"/>
+	        <span id="txt_det_2" class="detalleTarea"></span>
+	        <h:outputText value="#{msg.bvt001TbCom}:"/>
+	        <span id="txt_det_3" class="detalleTarea"></span>
+	        <h:outputText value="#{msg.bvt001tbGrp}:"/>
+	        <span id="txt_det_4" class="detalleTarea"></span>  
+			</h:panelGrid>
+	        </p:panel>
+	        </div>
+	        </div>    	   
+	  </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-info" data-dismiss="modal" >#{msg.html48}</button>
+	       </div>
+	    </div>
+	  </div>
+	</div>
+        
+
+     <p:dataTable id="tbResult" styleClass="table table-striped" emptyMessage="#{msg.result}" var="tb"  value="#{sgc004.lazyModel}"  lazy="true" sortBy="#{tb.AREA}"
+			paginator="true" paginatorAlwaysVisible="false" rows="15" rowsPerPageTemplate="5,10,15,20,50,100,500" paginatorPosition="top"
+			paginatorTemplate="{FirstPageLink} {PreviousPageLink} &#160;&#160; {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}"
+			currentPageReportTemplate=" {currentPage} - {totalPages} #{msg.html28} #{sgc004.rows}"  
+			widgetVar="global" reflow="true">
+			
+			<f:facet name="header"> 			
+            <p:outputPanel>  
+                <h:outputText value="#{msg.htmlb}" />&#160;&#160;  
+                <p:inputText id="globalFilter" onkeyup="PF('global').filter()" style="width:150px;height:35px;" /> 
+                <p:tooltip for="globalFilter" value="#{msg.html36}" showEffect="fade" hideEffect="fade" />  
+                <p:watermark for="globalFilter" value="#{msg.html29}" /> 
+            </p:outputPanel>         
+            </f:facet> 
+            
+			<p:column sortBy="#{tb.zcomp}"  styleClass="wrap" >  
+            <f:facet name="header">#{msg.Sgc006tbcom}</f:facet> 
+            <h:outputLabel value="#{tb.zcomp}"  />  
+            </p:column>  
+            
+            <p:column sortBy="#{tb.zarea}"  styleClass="wrap" >  
+            <f:facet name="header">#{msg.sgc008tbare}</f:facet>  
+            <h:outputLabel value="#{tb.zarea}"  />  
+            </p:column> 
+            
+            <p:column sortBy="#{tb.zdesc}"  styleClass="wrap" >  
+            <f:facet name="header">#{msg.bvt001TbDes}</f:facet>  
+            <h:outputLabel value="#{tb.zdesc}"  />  
+            </p:column>             
+                        
+            <p:column width="60" >  
+            <f:facet name="header">#{msg.bvt001TbPrint}</f:facet>  
+            <p:commandLink styleClass="edit"  
+            onclick="imprimir('#{tb.zcomp}','#{tb.zarea}','#{sgc004.getLogin()}','#{tb.zinstancia}');" 
+            immediate="true"
+            title="Enviar"><i class="fa fa-print fa-2x"></i></p:commandLink>
+			</p:column>
+			
+
+            </p:dataTable>   
+
+       </h:form>
+   </div>
+    
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+	
+
+</f:view>	
+</h:body>
+</html>

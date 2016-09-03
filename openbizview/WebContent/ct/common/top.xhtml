@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- 
+     Copyright (C) 2011 - 2016  DVCONSULTORES
+
+    Este programa es software libre: usted puede redistribuirlo y/o modificarlo 
+    bajo los tÃ©rminos de la Licencia PÃºblica General GNU publicada 
+    por la FundaciÃ³n para el Software Libre, ya sea la versiÃ³n 3 
+    de la Licencia, o (a su elecciÃ³n) cualquier versiÃ³n posterior.
+
+    Este programa se distribuye con la esperanza de que sea Ãºtil, pero 
+    SIN GARANTÃ�A ALGUNA; ni siquiera la garantÃ­a implÃ­cita 
+    MERCANTIL o de APTITUD PARA UN PROPÃ“SITO DETERMINADO. 
+    Consulte los detalles de la Licencia PÃºblica General GNU para obtener 
+    una informaciÃ³n mÃ¡s detallada. 
+
+    DeberÃ­a haber recibido una copia de la Licencia PÃºblica General GNU 
+    junto a este programa. 
+    En caso contrario, consulte <http://www.gnu.org/licenses/>.
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+<script src="../resources/js/load.js" type="text/javascript"></script>
+</h:head>
+<h:body>
+	<h:form>
+	 <!-- Static navbar -->
+    <header class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container-fluid" >    
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" ><h:graphicImage value="../resources/img/OpenLogo.png" alt="img" style="height:50px; margin-top:-15px"/></a>
+        </div>
+        
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">    
+          <li><a href="#menu-toggle" id="menu-toggle"><span class="glyphicon glyphicon-align-left" title="MenÃº" style="margin-top: 3px"></span></a></li>         
+            <li class="dropdown">           
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opciones del Menú&nbsp;<span class="caret"></span></a>             
+              <ul class="dropdown-menu" role="menu">
+                <li><p:commandLink title="#{msg.globalBasico}" actionListener="#{navigateBean.href('bvtcat1')}" rendered="#{smnubean.opcmnu('M01')}" onclick="mnuBas()" ><i class="fa fa-tasks fa-2x text-info"></i><small>&nbsp;&nbsp;#{msg.globalBasico}</small></p:commandLink></li>
+                <li><p:commandLink title="#{msg.globalAdmin}"  actionListener="#{navigateBean.href('uploadreport')}" rendered="#{smnubean.opcmnu('M06')}" onclick="mnuAdmin()"   ><i class="fa fa-cogs fa-2x text-info"></i><small>&nbsp;&nbsp;#{msg.globalAdmin}</small></p:commandLink></li>
+                <li><p:commandLink title="#{msg.globalSeguridad}" actionListener="#{navigateBean.href('bvt002')}" rendered="#{smnubean.opcmnu('M10')}" onclick="mnuSeg()" ><i class="fa fa-key fa-2x text-info"></i><small>&nbsp;&nbsp;&nbsp;#{msg.globalSeguridad}</small></p:commandLink></li>
+                <li><p:commandLink title="#{msg.globalMail}"  actionListener="#{navigateBean.href('mailtarea')}" rendered="#{smnubean.opcmnu('M22')}" onclick="mnuTask()"><i class="fa fa-clock-o fa-2x text-info"></i><small>&nbsp;&nbsp;&nbsp;&nbsp;#{msg.globalMail}</small></p:commandLink></li>
+                <li><p:commandLink title="#{msg.globalRep}" actionListener="#{navigateBean.href('bvt001')}" rendered="#{smnubean.opcmnu('R01')}" onclick="mnuRep()"><i class="fa fa-print fa-2x text-info"></i><small>&nbsp;&nbsp;&nbsp;#{msg.globalRep}</small></p:commandLink></li>
+              </ul>
+            </li>  
+            
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opciones Particulares&nbsp;<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <!--<li><p:commandLink title="#{msg.globalchart}" actionListener="#{navigateBean.href('chart')}" rendered="#{smnubean.opcmnu('XXX')}" onclick="mnuCha()" ><h:graphicImage value="../resources/img/Measureunits.png" alt="Menu"  styleClass="imagenmenu" title="Menu" /><small>&nbsp;&nbsp;#{msg.globalchart}</small></p:commandLink></li> -->
+                <li><p:commandLink title="#{msg.globalCoyco}" actionListener="#{navigateBean.href('cst001')}" rendered="#{smnubean.opcmnu('C00')}" onclick="mnuCst()" ><h:graphicImage value="../resources/img/Bookofrecord.png" alt="Menu"  styleClass="imagenmenu" title="Menu" /><small>&nbsp;&nbsp;#{msg.globalCoyco}</small></p:commandLink></li>
+                <li><p:commandLink title="#{msg.globalSGC000}" actionListener="#{navigateBean.href('sgc001')}" rendered="#{smnubean.opcmnu('S00')}" onclick="mnuSgc()" ><h:graphicImage value="../resources/img/Shapes.png" alt="Menu"  styleClass="imagenmenu" title="Menu" /><small>&nbsp;&nbsp;#{msg.globalSGC000}</small></p:commandLink></li>
+                <li><p:commandLink title="#{msg.globalInd}" actionListener="#{navigateBean.href('indt01')}" rendered="#{smnubean.opcmnu('I00')}" onclick="mnuInd()" ><h:graphicImage value="../resources/img/Notepad.png" alt="Menu"  styleClass="imagenmenu" title="Menu" /><small>&nbsp;&nbsp;#{msg.globalInd}</small></p:commandLink></li>
+                <li><p:commandLink title="#{msg.globalParrep}" actionListener="#{navigateBean.href('pre001')}" rendered="#{smnubean.opcmnu('W00')}" onclick="mnuPre()" ><h:graphicImage value="../resources/img/Setup.png" alt="Menu"  styleClass="imagenmenu" title="Menu" /><small>&nbsp;&nbsp;#{msg.globalParrep}</small></p:commandLink></li>
+				<li><p:commandLink title="#{msg.globalVentas}" actionListener="#{navigateBean.href('ventas')}" rendered="#{smnubean.opcmnu('V00')}" onclick="mnuVta()" ><h:graphicImage value="../resources/img/Bank.png" alt="Menu"  styleClass="imagenmenu" title="Menu" /><small>&nbsp;&nbsp;#{msg.globalVentas}</small></p:commandLink></li>
+              </ul>
+            </li>
+                              
+           <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><strong>&nbsp;&nbsp;#{loginBean.getLogged()}</strong><span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><p:commandLink title="#{msg.html20}" actionListener="#{navigateBean.href('chgpwd')}"><i class="fa fa-lock fa-1" style="margin-top: -3px"></i><small>&nbsp;&nbsp;#{msg.html20}</small></p:commandLink></li>
+                <li><p:commandLink title="#{msg.salir}" actionListener="#{loginBean.logout}" ><i class="fa fa-sign-out fa-1 text-danger" style="margin-top: -3px"></i><small>&nbsp;&nbsp;#{msg.salir}</small></p:commandLink></li>                            
+              </ul>
+            </li>
+           </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+    </header>
+
+	</h:form>
+</h:body>
+</html>

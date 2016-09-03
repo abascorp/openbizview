@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- 
+     Copyright (C) 2011 - 2016  DVCONSULTORES
+
+    Este programa es software libre: usted puede redistribuirlo y/o modificarlo 
+    bajo los tÃ©rminos de la Licencia PÃºblica General GNU publicada 
+    por la FundaciÃ³n para el Software Libre, ya sea la versiÃ³n 3 
+    de la Licencia, o (a su elecciÃ³n) cualquier versiÃ³n posterior.
+
+    Este programa se distribuye con la esperanza de que sea Ãºtil, pero 
+    SIN GARANTÃ�A ALGUNA; ni siquiera la garantÃ­a implÃ­cita 
+    MERCANTIL o de APTITUD PARA UN PROPÃ“SITO DETERMINADO. 
+    Consulte los detalles de la Licencia PÃºblica General GNU para obtener 
+    una informaciÃ³n mÃ¡s detallada. 
+
+    DeberÃ­a haber recibido una copia de la Licencia PÃºblica General GNU 
+    junto a este programa. 
+    En caso contrario, consulte <http://www.gnu.org/licenses/>.
+ -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<script src="../resources/js/ventas.js" type="text/javascript"></script>
+<ui:include src="common/cabeceras.xhtml" />
+<ui:include src="common/timeout.xhtml" />
+<h:body onload="mnuVta()">
+<f:view>
+
+<!-- Top-->
+<ui:include src="common/top.xhtml" />
+<div id="wrapper">
+        <!-- Sidebar -->
+        <ui:include src="common/menu.xhtml" />
+                <!-- Menu Toggle Script -->
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content --> 
+             
+     <div class="container-fluid" id="containerF">
+     <h:form id="formventas"  >
+     
+      <!-- Botonera --> 
+     <div id="botones">     
+       <p:commandButton update="tbResult, panel, growl" accesskey="i" id="btnIn" action="#{ventas.guardar}" 
+        rendered="#{smnubean.opcbot('1')}" value="#{msg.htmlguardar}" title="#{msg.htmlg}" icon="fa fa-floppy-o text-info" styleClass="botonera"/>
+       <p:commandButton accesskey="r" id="btnEl" onclick="modalDelete();" 
+        rendered="#{smnubean.opcbot('2')}" value="#{msg.htmlborrar}" icon="fa fa-trash text-info" title="#{msg.htmle}" styleClass="botonera" />
+       <p:commandButton icon="fa fa-refresh text-info" update="tbResult, panel, growl" process="@this" actionListener="#{ventas.reset()}"
+        title="#{msg.htmlr}"  styleClass="botonera" accesskey="l">  
+       <p:resetInput target="panel" />
+         <f:actionListener binding="#{bd.setCodven('')}"/> 
+       </p:commandButton>                     
+     </div>
+     
+     <!-- Ajax loader --> 		
+	 <div class="pull-right" style="margin-top: -40px">   			  
+	 <ui:include src="common/loader.xhtml"/>
+	 </div>
+     <!-- Mensaje -->
+     <p:messages globalOnly="true" id="growl" closable="true" showIcon="true"/>
+     
+      <!-- Modal -->
+			<div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header bg-warning">
+			        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			        <h4 class="modal-title" id="myModalLabel"><b>#{msg.html32}</b></h4>
+			      </div>
+			      <div class="modal-body">
+			       <center style="font-size: 14px">#{msg.html31}</center>
+			      </div>
+			      <div class="modal-footer">
+			        <p:commandLink  action="#{ventas.delete}"  styleClass="btn btn-md btn-info" value="#{msg.htmlborrar}" immediate="true" update="tbResult, growl" accesskey="r" onclick="modalHide()"/>
+			        <p:spacer height="5"/>
+			        <p:commandLink  styleClass="btn btn-md btn-info" value="#{msg.html48}" immediate="true" update="tbResult, growl" onclick="modalHide()"/>
+			       </div>
+			    </div>
+			  </div>
+			</div>	
+				 
+	  	  
+	   <!-- Panel -->      
+     <div class="panel panel-info">
+     <div class="panel-body">
+     <p:panel id="panel"  header="#{msg.Ventastit}" toggleable="true" collapsed="true" style="white-space: normal;">	  
+     <div class="pull-right"><a HREF="http://www.openbizview.com/wiki/doku.php?id=reportes" target="_new" title="Wiki"><i class="fa fa-file-text text-info"></i></a></div>	         
+	     <div class="row">
+		 <div class="col-lg-4 col-md-4 col-sm-4">  
+			    <p:autoComplete id="codven" value="#{ventas.codven}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeTestsb}"  valueChangeListener="#{bd.setCodven(ventas.codven)}" dropdown="true" scrollHeight="250">
+			    <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setCodven(ventas.codven)}" />	     
+			    </p:autoComplete> 
+			    <p:watermark for="codven" value="#{msg.ventascodven}"  />
+			    <p:spacer height="1"/>
+			    <p:message for="codven"/>        
+			    <p:inputText id="porcvis" styleClass="spacing" maxlength="15" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{ventas.porcvis}"/>
+			    <p:watermark for="porcvis" value="#{msg.ventasporcvis}" />
+			    <p:spacer height="1"/>
+			    <p:message for="porcvis"/>  
+			    <p:inputText id="anocal" styleClass="spacing" maxlength="15" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{ventas.anocal}"/>
+			    <p:watermark for="anocal" value="#{msg.autos02Anio}" />
+			    <p:spacer height="1"/>
+			    <p:message for="anocal"/>  	
+			    <p:inputText id="mescal" styleClass="spacing" maxlength="15" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{ventas.mescal}"/>
+			    <p:watermark for="mescal" value="#{msg.autos02Mes}" />
+			    <p:spacer height="1"/>
+			    <p:message for="mescal"/> 		      
+	    </div>
+	    </div>
+	    <h:inputHidden id="vop" value="#{ventas.validarOperacion}"/>
+	   </p:panel> 
+     </div>
+     </div>
+     
+     <!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	        <h4 class="modal-title" id="myModalLabel">#{msg.bvt001Det}</h4>
+	      </div>
+	      <div class="modal-body">
+	  <div class="list-group">
+	  <div class="panel panel-info modalInfo" >
+	        <div class="panel-body">    
+	        <p:panel id="panelDetalle" >
+	        <h:panelGrid columns="2" columnClasses="col1,colmsg">
+	        <h:outputText value="#{msg.bvt001TbCod}:"/>
+	        <span id="txt_det_1" class="detalleTarea"></span>
+	        <h:outputText value="#{msg.bvt001TbDes}:"/>
+	        <span id="txt_det_2" class="detalleTarea"></span>
+	        <h:outputText value="#{msg.bvt001TbCom}:"/>
+	        <span id="txt_det_3" class="detalleTarea"></span>
+	        <h:outputText value="#{msg.bvt001tbGrp}:"/>
+	        <span id="txt_det_4" class="detalleTarea"></span>  
+			</h:panelGrid>
+	        </p:panel>
+	        </div>
+	        </div>    	   
+	  </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-info" data-dismiss="modal" >#{msg.html48}</button>
+	       </div>
+	    </div>
+	  </div>
+	</div>
+        
+
+     <p:dataTable id="tbResult" styleClass="table table-striped" emptyMessage="#{msg.result}" var="tb"  value="#{ventas.lazyModel}"  lazy="true" sortBy="#{tb.zCODIGO_VENDEDOR}"
+			paginator="true" paginatorAlwaysVisible="false" rows="15" rowsPerPageTemplate="5,10,15,20,50,100,500" paginatorPosition="top"
+			paginatorTemplate="{FirstPageLink} {PreviousPageLink} &#160;&#160; {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}"
+			currentPageReportTemplate=" {currentPage} - {totalPages} #{msg.html28} #{ventas.rows}"  
+			widgetVar="global" reflow="true">
+			
+			<f:facet name="header"> 			
+            <p:outputPanel>  
+                <h:outputText value="#{msg.htmlb}" />&#160;&#160;  
+                <p:inputText id="globalFilter" onkeyup="PF('global').filter()" style="width:150px;height:35px;" /> 
+                <p:tooltip for="globalFilter" value="#{msg.html36}" showEffect="fade" hideEffect="fade" />  
+                <p:watermark for="globalFilter" value="#{msg.html29}" /> 
+            </p:outputPanel>         
+            </f:facet> 
+                      
+            <p:column width="40" >  
+            <f:facet  name="header">
+            <p:commandLink onclick="fm_check('toDelete',true)"><i class="fa fa-trash fa-2x" title="#{msg.borrar}"></i></p:commandLink>
+            </f:facet>            
+            <input type="checkbox" name="toDelete" class="chk" value="#{tb.zcodven}"/>
+            </p:column>  
+            
+			<p:column sortBy="#{tb.zcoddesc}" styleClass="wrap" style="width:200px">  
+            <f:facet name="header">#{msg.VentastbVen}</f:facet>  
+            <h:outputLabel value="#{tb.zcoddesc}" />
+            </p:column> 
+                     
+            <p:column sortBy="#{tb.zporcvis}" styleClass="wrap" >  
+            <f:facet name="header">#{msg.VentasTbporc}</f:facet>  
+            <h:outputLabel value="#{tb.zporcvis}" />
+            </p:column> 
+                  
+            <p:column sortBy="#{tb.zanocal}" styleClass="wrap" >  
+            <f:facet name="header">#{msg.VentasTbanio}</f:facet> 
+            <h:outputLabel value="#{tb.zanocal}" />  
+            </p:column> 
+            
+            <p:column sortBy="#{tb.zmescal}" styleClass="wrap" >  
+            <f:facet name="header">#{msg.VentasTbmes}</f:facet> 
+            <h:outputLabel value="#{tb.zmescal}" />  
+            </p:column>          
+   
+            <p:column width="60" >  
+            <f:facet name="header">#{msg.bvt001TbEnviar}</f:facet>   
+             <p:commandLink styleClass="edit" onclick="enviar('#{tb.zcoddesc}','#{tb.zporcvis}','#{tb.zanocal}','#{tb.zmescal}','1')" 
+            title="Enviar"><i class="fa fa-pencil-square-o fa-2x text-info"></i></p:commandLink>
+            </p:column> 
+			
+
+            </p:dataTable>   
+
+       </h:form>
+   </div>
+    
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+	
+
+</f:view>	
+</h:body>
+</html>

@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- 
+     Copyright (C) 2011 - 2016  DVCONSULTORES
+
+    Este programa es software libre: usted puede redistribuirlo y/o modificarlo 
+    bajo los términos de la Licencia Pública General GNU publicada 
+    por la Fundación para el Software Libre, ya sea la versión 3 
+    de la Licencia, o (a su elección) cualquier versión posterior.
+
+    Este programa se distribuye con la esperanza de que sea útil, pero 
+    SIN GARANTÍA ALGUNA; ni siquiera la garantía implícita 
+    MERCANTIL o de APTITUD PARA UN PROPÓSITO DETERMINADO. 
+    Consulte los detalles de la Licencia Pública General GNU para obtener 
+    una información más detallada. 
+
+    Debería haber recibido una copia de la Licencia Pública General GNU 
+    junto a este programa. 
+    En caso contrario, consulte <http://www.gnu.org/licenses/>.
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:include src="common/cabeceras.xhtml" />
+<ui:include src="common/timeout.xhtml" />
+<h:body >
+		<f:view>
+<!-- Top-->
+<ui:include src="common/top.xhtml" />
+<div id="wrapper">
+        <!-- Sidebar -->
+        <ui:include src="common/menu.xhtml" />
+                <!-- Menu Toggle Script -->
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content --> 
+             
+     <div class="container-fluid" id="containerF">
+	<h:form id="formChgpwd"  >
+		<f:view>
+          <!-- Ajax loader --> 		
+		      <div class="pull-right" style="margin-top: -50px">   			  
+			  <ui:include src="common/loader.xhtml"/>
+			  </div>
+              
+		 
+		 	<!-- Panel -->     
+		     <div class="panel panel-info" style="margin-top: 120px">
+		     <div class="panel-body">
+		         <p:panel id="panel"  header="#{msg.bvt002tita}" >	  	
+		         <div class="pull-right"><a HREF="http://www.openbizview.com/wiki/doku.php?id=cambiarclave" target="_new" title="Wiki"><i class="fa fa-file-text text-info"></i></a></div>         
+                  <div class="row">
+				 <div class="col-lg-4 col-md-4 col-sm-4"> 
+	             <p:password id="clave" feedback="true" promptLabel="#{msg.html52}" weakLabel="#{msg.html53}"
+                    goodLabel="#{msg.html54}" strongLabel="#{msg.html55}" validatorMessage="#{msg.html56}"  maxlength="15" styleClass="form-control input"  value="#{bvt002.cluser}" required="true" requiredMessage="#{bd.getMessage('bvt002IngCl')}"/>
+	             <p:spacer height="1"/>
+	             <p:message for="clave"/>
+	             <p:watermark for="clave" value="#{msg.bvt002Cl}" />
+	             <p:password id="clave1" feedback="true" promptLabel="#{msg.html52}" weakLabel="#{msg.html53}"
+                    goodLabel="#{msg.html54}" strongLabel="#{msg.html55}" validatorMessage="#{msg.html56}" maxlength="15"  styleClass="form-control input"  value="#{bvt002.cluser1}" required="true" requiredMessage="#{bd.getMessage('bvt002IngCl')}"/>
+	             <p:watermark for="clave1" value="#{msg.bvt002Cl1}" >	             
+	             </p:watermark>
+	             <p:spacer height="1"/>
+	             <p:message for="clave1"/>
+	             </div>
+	             </div>
+	             </p:panel>
+              </div>
+              </div>
+				
+				
+            <p:commandButton value="#{msg.chgpwdButtonCL}" action="#{bvt002.updatea()}" 
+            update="growl, panel"  icon="fa fa-floppy-o text-info" styleClass="botonera"/>&#160;&#160;
+            <p:commandButton value="#{msg.chgpwdButtonL}"  process="@this"  icon="fa fa-refresh text-info" styleClass="botonera">
+            <p:resetInput target="panel" /> 
+            </p:commandButton>
+            <!-- Mensaje -->
+              <p:messages globalOnly="true" id="growl" closable="true" showIcon="true"/>
+		</f:view>
+	</h:form>
+   </div>
+   
+   <p:dialog header="#{msg.logClave}" resizable="false" closable="false"
+		widgetVar="idleDialog" modal="true" width="400" responsive="true">
+		<h:outputText value="#{msg.bvt002up}" />
+		<br />
+		<br />
+		<h:form>
+			<center>
+				<p:commandButton value="OPEN-BIZVIEW - LOGIN" icon=""
+					action="#{loginBean.logout}" />
+			</center>
+		</h:form>
+	</p:dialog>
+    
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+	
+
+</f:view>	
+</h:body>
+</html>

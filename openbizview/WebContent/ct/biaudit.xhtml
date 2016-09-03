@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- 
+     Copyright (C) 2011 - 2016  DVCONSULTORES
+
+    Este programa es software libre: usted puede redistribuirlo y/o modificarlo 
+    bajo los términos de la Licencia Pública General GNU publicada 
+    por la Fundación para el Software Libre, ya sea la versión 3 
+    de la Licencia, o (a su elección) cualquier versión posterior.
+
+    Este programa se distribuye con la esperanza de que sea útil, pero 
+    SIN GARANTÍA ALGUNA; ni siquiera la garantía implícita 
+    MERCANTIL o de APTITUD PARA UN PROPÓSITO DETERMINADO. 
+    Consulte los detalles de la Licencia Pública General GNU para obtener 
+    una información más detallada. 
+
+    Debería haber recibido una copia de la Licencia Pública General GNU 
+    junto a este programa. 
+    En caso contrario, consulte <http://www.gnu.org/licenses/>.
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<script src="../resources/js/biaudit.js" type="text/javascript"></script>
+<ui:include src="common/cabeceras.xhtml" />
+<ui:include src="common/timeout.xhtml" />
+<h:body onload="mnuAdmin()">
+	<f:view>
+		<!-- Top-->
+<ui:include src="common/top.xhtml" />
+<div id="wrapper">
+        <!-- Sidebar -->
+        <ui:include src="common/menu.xhtml" />
+                <!-- Menu Toggle Script -->
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content --> 
+             
+     <div class="container-fluid" id="containerF" >
+			
+		<h:form id="formbiAudit" >
+			
+				<!-- Div para colocar botones -->
+				<div id="botones">                    
+				</div>
+				
+				<!-- Ajax loader --> 		
+				 <div class="pull-right" >   			  
+				 <ui:include src="common/loader.xhtml"/>
+				 </div>
+				
+					
+				<!-- Panel -->
+			 <div class="panel panel-info">
+	        <div class="panel-body">
+		         <p:panel id="panel"  header="#{msg.biaudittit}">
+		         <div class="pull-right"><a HREF="http://www.openbizview.com/wiki/doku.php?id=logs" target="_new" title="Wiki"><i class="fa fa-file-text text-info"></i></a></div>
+		         <h:panelGrid  columns="5" cellspacing="4" columnClasses="col1">	
+		         <p:inputMask id="fecha" placeholder="#{msg.biauditFecD}" styleClass="form-control input" mask="99/99/9999" required="true"  requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{biAudit.fechadia}"/>        
+		         <p:commandButton value="#{msg.biauditir}" style="margin-left:10px" action="#{bd.setFecha(biAudit.fechadia)}" update="tbResult, panel"/>
+		         <p:commandButton icon="fa fa-refresh text-info" style="margin-left:10px" update="panel, tbResult" process="@this" 
+                 title="#{msg.htmlr}"   accesskey="l" actionListener="#{biAudit.reset()}">  
+                 <p:resetInput target="panel" /> 
+                 <f:actionListener binding="#{bd.setFecha('0')}"/>
+                 </p:commandButton> 
+                 <p:message for="fecha"/>
+		         </h:panelGrid>
+	             </p:panel>
+			</div>
+			</div>
+		
+			
+
+			<!-- Tabla con el resultado -->
+			<p:dataTable id="tbResult" styleClass="table table-striped" emptyMessage="#{msg.result}" var="tb"  value="#{biAudit.lazyModel}"   lazy="true"
+			paginator="true" paginatorAlwaysVisible="false" rows="15" rowsPerPageTemplate="5,10,15,20,50,100,500" paginatorPosition="top"
+			paginatorTemplate="{FirstPageLink} {PreviousPageLink} &#160;&#160; {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}"
+			currentPageReportTemplate=" {currentPage} - {totalPages} #{msg.html28} #{biAudit.rows}"  
+			widgetVar="global" reflow="true">
+			
+			<f:facet name="header"> 			
+            <p:outputPanel>  
+                <h:outputText value="#{msg.htmlb}" />&#160;&#160;  
+                <p:inputText id="globalFilter" onkeyup="PF('global').filter()" style="width:150px;height:35px;" /> 
+                <p:tooltip for="globalFilter" value="#{msg.html36}" showEffect="fade" hideEffect="fade" />  
+                <p:watermark for="globalFilter" value="#{msg.html29}" /> 
+            </p:outputPanel>         
+            </f:facet> 
+                        
+            <p:column styleClass="wrap" width="150">  
+            <f:facet  name="header">#{msg.biauditTbFec}</f:facet>  
+            <h:outputLabel  value="#{tb.fechadia}"/>
+            </p:column> 
+            
+            <p:column  styleClass="wrap" width="150">  
+            <f:facet name="header">#{msg.biauditTbFecH}</f:facet>  
+            <h:outputLabel value="#{tb.vfecaacc}"/>
+            </p:column> 
+            
+            <p:column styleClass="wrap">  
+            <f:facet name="header">#{msg.biauditTbDesc}</f:facet>  
+            <h:outputLabel value="#{tb.detfaz}"/>
+            </p:column> 
+            
+            <p:column styleClass="wrap" width="100">  
+            <f:facet name="header">#{msg.bvt007TbResult}</f:facet>  
+            <h:outputLabel value="#{tb.estatus}"/>
+            </p:column> 
+            
+            <p:column  styleClass="wrap" width="200">  
+            <f:facet name="header">#{msg.biauditNegocio}</f:facet>  
+            <h:outputLabel value="#{tb.negocio}"/>
+            </p:column> 
+           
+
+          </p:dataTable>   
+       </h:form>
+   </div>
+    
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+	
+
+</f:view>	
+</h:body>
+</html>
+

@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- 
+     Copyright (C) 2011 - 2016  DVCONSULTORES
+
+    Este programa es software libre: usted puede redistribuirlo y/o modificarlo 
+    bajo los términos de la Licencia Pública General GNU publicada 
+    por la Fundación para el Software Libre, ya sea la versión 3 
+    de la Licencia, o (a su elección) cualquier versión posterior.
+
+    Este programa se distribuye con la esperanza de que sea útil, pero 
+    SIN GARANTÍA ALGUNA; ni siquiera la garantía implícita 
+    MERCANTIL o de APTITUD PARA UN PROPÓSITO DETERMINADO. 
+    Consulte los detalles de la Licencia Pública General GNU para obtener 
+    una información más detallada. 
+
+    Debería haber recibido una copia de la Licencia Pública General GNU 
+    junto a este programa. 
+    En caso contrario, consulte <http://www.gnu.org/licenses/>.
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<script src="../resources/js/bvt002.js" type="text/javascript"></script>
+<ui:include src="common/cabeceras.xhtml" />
+<ui:include src="common/timeout.xhtml" />
+<h:body onload="mnuSeg()">
+		<f:view>
+<!-- Top-->
+<ui:include src="common/top.xhtml" />
+<div id="wrapper">
+        <!-- Sidebar -->
+        <ui:include src="common/menu.xhtml" />
+                <!-- Menu Toggle Script -->
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content --> 
+             
+     <div class="container-fluid" id="containerF">
+	  <h:form id="formBvt002"  >
+				
+				<div id="botones">              
+                 <p:commandButton update="tbResult, panel, growl" accesskey="i" id="btnIn" action="#{bvt002.guardar}" 
+                 rendered="#{smnubean.opcbot('1')}" value="#{msg.htmlguardar}" title="#{msg.htmlg}" icon="fa fa-floppy-o text-info" styleClass="botonera"/>
+                 <p:commandButton onclick="modalDelete();"  
+                 rendered="#{smnubean.opcbot('2')}" value="#{msg.htmlborrar}" icon="fa fa-trash text-info" title="#{msg.htmle}" styleClass="botonera" /> 
+                 <p:commandButton icon="fa fa-plus-circle text-info" styleClass="botonera" 
+		         value="#{msg.bvt002RolAdd}"  
+		         update=":formBvt002:panelRoles"
+		         oncomplete="PF('dlg1').show();"/>
+                 <p:commandButton icon="fa fa-refresh text-info" update="tbResult, panel, growl" process="@this"  onclick="PF('dlg1').hide()"
+                 title="#{msg.htmlr}"  styleClass="botonera" accesskey="l">  
+                 <p:resetInput target="panel" /> 
+                 </p:commandButton>                           
+                </div>
+     
+		     <!-- Ajax loader --> 		
+	 <div class="pull-right" style="margin-top: -40px">   			  
+	 <ui:include src="common/loader.xhtml"/>
+	 </div>
+     <!-- Mensaje -->
+     <p:messages globalOnly="true" id="growl" closable="true" showIcon="true"/>
+     
+      <!-- Modal -->
+			<div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header bg-warning">
+			        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			        <h4 class="modal-title" id="myModalLabel"><b>#{msg.html32}</b></h4>
+			      </div>
+			      <div class="modal-body">
+			       <center style="font-size: 14px">#{msg.html31}</center>
+			      </div>
+			      <div class="modal-footer">
+			        <p:commandLink  action="#{bvt002.delete}"  styleClass="btn btn-md btn-info" value="#{msg.htmlborrar}" immediate="true" update="tbResult, growl" accesskey="r" onclick="modalHide()"/>
+			        <p:spacer height="5"/>
+			        <p:commandLink  styleClass="btn btn-md btn-info" value="#{msg.html48}" immediate="true" update="tbResult, growl" onclick="modalHide()"/>
+			       </div>
+			    </div>
+			  </div>
+			</div>	
+	
+				<!-- Panel -->
+			<div class="panel panel-info">
+           <div class="panel-body">
+           <p:panel id="panel"  header="#{msg.bvt002tit}" toggleable="true">
+             <p:tabView id="tabView" style="height:auto;" >            
+             <p:tab id="Bas" title="#{msg.bvt002Tab1}">
+             <div class="pull-right"><a HREF="http://www.openbizview.com/wiki/doku.php?id=usuarios" target="_new" title="Wiki"><i class="fa fa-file-text text-info"></i></a></div>	         
+               <div class="row">
+		           <div class="col-lg-4 col-md-4 col-sm-4">  	         
+			     <p:inputText id="coduser" maxlength="10" styleClass="form-control input" value="#{bvt002.coduser}"  required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}"/>
+			     <p:watermark for="coduser" value="#{msg.bvt002Cod}" />
+			     <p:spacer height="1"/>
+			     <p:message for="coduser"/>
+			     <p:inputText id="desuser"  maxlength="50" styleClass="form-control input" value="#{bvt002.desuser}" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}"/> 
+                 <p:watermark for="desuser" value="#{msg.bvt002Desc}" />
+                 <p:spacer height="1"/>
+                 <p:message for="desuser"/>
+			     <p:password id="cluser" maxlength="150" feedback="true" promptLabel="#{msg.html52}" weakLabel="#{msg.html53}"
+                    goodLabel="#{msg.html54}" strongLabel="#{msg.html55}" validatorMessage="#{msg.html56}" styleClass="form-control input" value="#{bvt002.cluser}" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}"/>
+			     <p:watermark for="cluser" value="#{msg.bvt002Cl}" />
+			     <p:spacer height="1"/>
+			     <p:message for="cluser"/>
+               </div>
+                </div>
+             </p:tab>
+             <p:tab id="Ubic" title="#{msg.bvt002Tab2}">  
+             <div class="pull-right"><a HREF="http://www.openbizview.com/wiki/doku.php?id=usuarios" target="_new" title="Wiki"><i class="fa fa-file-text text-info"></i></a></div>	                      
+               <div class="row">
+		         <div class="col-lg-4 col-md-4 col-sm-4">  	
+			     <p:inputText id="mail" maxlength="150" styleClass="form-control input" value="#{bvt002.mail}" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" validatorMessage="#{bd.getMessage('confmailIngMail')}">  
+			     <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+			     </p:inputText>
+			     <p:watermark for="mail" value="#{msg.bvt002mail}" />
+			     <p:spacer height="1"/>
+			     <p:message for="mail"/>
+			     <p:autoComplete id="rol" value="#{bvt002.b_codrol}" completeMethod="#{autocomplete.completeRol}"  dropdown="true" scrollHeight="250" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}"/>
+		         <p:watermark for="rol" value="&nbsp;&nbsp;#{msg.bvt002Rol}" />
+		         <p:spacer height="1"/>
+		         <p:message for="rol"/>		         
+		         <p:autoComplete id="instancia" placeholder="&nbsp;&nbsp;#{msg.bvt002Instancia}" value="#{bvt002.instancia}"  completeMethod="#{autocomplete.completeInstancias}" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" dropdown="true" scrollHeight="250" />
+		        </div>
+		        </div>
+		       </p:tab>           
+             </p:tabView>
+	         <h:inputHidden id="vop" value="#{bvt002.validarOperacion}"/> 
+	         </p:panel> 
+				</div>
+			</div>	
+			
+			
+			<!-- Panel roles adicionales-->
+	        <p:dialog header="#{msg.bvt002RolAdicionales}" position="top" style="font-family: 'Ubuntu', serif;font-size: 11px; margin-top:40px"   widgetVar="dlg1" responsive="true">	        	
+			
+			<p:dataGrid value="#{bvt002.listRolesSession}" id="panelRoles" var="rol"  columns="1" layout="grid" style="font-family: 'Ubuntu', serif;font-size: 11px;" 
+			paginator="true" paginatorAlwaysVisible="false" rows="3" rowsPerPageTemplate="3,5,10,15,20,50,100,500" paginatorPosition="top"
+			paginatorTemplate="{FirstPageLink} {PreviousPageLink} &#160;&#160; {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}"
+			currentPageReportTemplate=" {currentPage} - {totalPages} #{msg.html28} {totalRecords}" >			
+            <f:facet name="header"> 
+            <div style="text-align: left;">
+            <p:autoComplete  placeholder="&nbsp;&nbsp;#{msg.bvt006User}*" value="#{bvt002.vusuario}"  completeMethod="#{autocomplete.completeUserCod}" dropdown="true" scrollHeight="250" >
+            <p:ajax event="itemSelect" update=":formBvt002:panelRoles" listener="#{bd.setBcoduser(bvt002.vusuario)}" />	
+            </p:autoComplete>
+            </div>   
+            </f:facet>
+            <p:panel header="#{rol.vcodrol} - #{rol.vdesrol}" style="text-align:left; font-family: 'Ubuntu', serif;font-size: 11px;">        	
+            <h:panelGrid columns="3"  style="width:100%" >
+            <i class="#{bvt002.isRol(rol.vcodrol)}" ></i>
+            <p:commandButton icon="fa fa-plus-circle text-info" immediate="true" update=":formBvt002:growl, panelRoles" value="#{msg.html50}" action="#{bvt002.insert(rol.vcodrol)}"/>
+            <p:commandButton icon="fa fa-minus-circle text-info" immediate="true" update=":formBvt002:growl, panelRoles" value="#{msg.html51}" action="#{bvt002.delete(rol.vcodrol)}"/>
+            </h:panelGrid>
+            </p:panel>
+			</p:dataGrid>
+			</p:dialog>
+				
+
+			<!-- Tabla con el resultado -->
+			<p:dataTable id="tbResult" styleClass="table table-striped" emptyMessage="#{msg.result}" var="tb"  value="#{bvt002.lazyModel}"   lazy="true" sortBy="#{tb.coduser}" 
+			paginator="true" paginatorAlwaysVisible="false" rows="15" rowsPerPageTemplate="5,10,15,20,50,100,500" paginatorPosition="top"
+			paginatorTemplate="{FirstPageLink} {PreviousPageLink} &#160;&#160; {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}"
+			currentPageReportTemplate=" {currentPage} - {totalPages} #{msg.html28} #{bvt002.rows}"  
+			 widgetVar="global" reflow="true">
+			
+			<f:facet name="header"> 			
+            <p:outputPanel>  
+                <h:outputText value="#{msg.htmlb}" />&#160;&#160;  
+                <p:inputText id="globalFilter" onkeyup="PF('global').filter()" style="width:150px;height:35px;" /> 
+                <p:tooltip for="globalFilter" value="#{msg.html36}" showEffect="fade" hideEffect="fade" />  
+                <p:watermark for="globalFilter" value="#{msg.html29}" />
+            </p:outputPanel>         
+            </f:facet> 
+            
+            <p:column width="40" >  
+            <f:facet  name="header">
+            <p:commandLink onclick="fm_check('toDelete',true)"><i class="fa fa-trash fa-2x" title="#{msg.borrar}"></i></p:commandLink>
+            </f:facet>
+            <input type="checkbox" name="toDelete" class="chk" value="#{tb.coduser}"/>
+            </p:column>  
+            
+            <p:column sortBy="#{tb.coduser}"  styleClass="wrap">  
+            <f:facet name="header">#{msg.bvt002TbCod}</f:facet> 
+            <h:outputLabel value="#{tb.coduser}"  />  
+            </p:column>  
+            
+            <p:column sortBy="#{tb.desuser}" styleClass="wrap">  
+            <f:facet name="header">#{msg.bvt002TbDes}</f:facet>  
+            <h:outputLabel value="#{tb.desuser}"  />
+            </p:column> 
+            
+            <p:column sortBy="#{tb.desrol}"  styleClass="wrap">  
+            <f:facet name="header">#{msg.bvt002TbDesrol}</f:facet>  
+            <h:outputLabel value="#{tb.desrol}"  />
+            </p:column> 
+            
+            <p:column sortBy="#{tb.mail}"  styleClass="wrap">  
+            <f:facet name="header">#{msg.bvt002TbMail}</f:facet>  
+            <h:outputLabel value="#{tb.mail}"  />
+            </p:column> 
+                        
+            <p:column width="60" >  
+            <f:facet name="header">#{msg.enviar}</f:facet>   
+            <p:commandLink  styleClass="edit" onclick="enviar('#{tb.coduser}','#{tb.desuser}','#{tb.cluser}','#{tb.b_codrol}','1', '#{tb.mail}', '#{tb.instancia}')" 
+            title="Enviar"><i class="fa fa-pencil-square-o fa-2x text-info"></i></p:commandLink>
+            </p:column> 
+            
+             </p:dataTable>   
+       </h:form>
+   </div>
+    
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+	
+
+</f:view>	
+</h:body>
+</html>
+

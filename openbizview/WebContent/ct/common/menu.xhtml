@@ -1,0 +1,287 @@
+
+<!-- 
+     Copyright (C) 2011 - 2016  DVCONSULTORES
+
+    Este programa es software libre: usted puede redistribuirlo y/o modificarlo 
+    bajo los tÃ©rminos de la Licencia PÃºblica General GNU publicada 
+    por la FundaciÃ³n para el Software Libre, ya sea la versiÃ³n 3 
+    de la Licencia, o (a su elecciÃ³n) cualquier versiÃ³n posterior.
+
+    Este programa se distribuye con la esperanza de que sea Ãºtil, pero 
+    SIN GARANTÃ�A ALGUNA; ni siquiera la garantÃ­a implÃ­cita 
+    MERCANTIL o de APTITUD PARA UN PROPÃ“SITO DETERMINADO. 
+    Consulte los detalles de la Licencia PÃºblica General GNU para obtener 
+    una informaciÃ³n mÃ¡s detallada. 
+
+    DeberÃ­a haber recibido una copia de la Licencia PÃºblica General GNU 
+    junto a este programa. 
+    En caso contrario, consulte <http://www.gnu.org/licenses/>.
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<div id="sidebar-wrapper">
+	<ul class="sidebar-nav">
+		<!-- Home -->
+		<li  id="current" class="active">
+         <h:outputLink value="openbizview.xhtml" onclick="mnuRep()"><i class="fa fa-home fa-2x"></i><span class="mnuLeftBasicos">OPEN-BIZVIEW - Home</span></h:outputLink>
+        </li>
+       
+        <!-- MenÃº configuraciones -->
+        <li>
+           <h:outputLink styleClass="mnuBas" style="display:none;" rendered="#{smnubean.opcmnu('M02')}" value="bvtcat1"><i class="fa fa-list-alt fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.bas1}" /></span></h:outputLink>
+        </li>
+        <li>
+           <h:outputLink styleClass="mnuBas" style="display:none;" rendered="#{smnubean.opcmnu('M03')}" value="bvtcat2"><i class="fa fa-list-ul fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.bas2}" /></span></h:outputLink>
+        </li>
+        <li>
+           <h:outputLink styleClass="mnuBas" style="display:none;" rendered="#{smnubean.opcmnu('M04')}" value="bvtcat3"><i class="fa fa-sort-amount-asc fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.bas3}" /></span></h:outputLink>
+        </li>
+        <li>
+           <h:outputLink styleClass="mnuBas" style="display:none;" rendered="#{smnubean.opcmnu('M05')}" value="bvtcat4"><i class="fa fa-sitemap fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.bas4}" /></span></h:outputLink>
+        </li>
+        
+        <!-- AdministraciÃ³n -->
+        <li>
+            <h:outputLink styleClass="mnuAdmin" style="display:none;" rendered="#{smnubean.opcmnu('M07')}" value="uploadreport"><i class="fa fa-cloud-upload fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.adm1}" /></span></h:outputLink>
+        </li>
+        <li>
+            <h:outputLink styleClass="mnuAdmin" style="display:none;" rendered="#{smnubean.opcmnu('M08')}" value="bvt006"><i class="fa fa-archive fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.adm2}" /></span></h:outputLink>
+        </li>
+        <li>
+            <h:outputLink styleClass="mnuAdmin" style="display:none;" rendered="#{smnubean.opcmnu('M09')}" value="biaudit"><i class="fa fa-pencil fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.adm3}" /></span></h:outputLink>
+        </li>
+       
+        <!-- Seguridad -->
+        <li>
+            <h:outputLink styleClass="mnuSeg" style="display:none;" rendered="#{smnubean.opcmnu('M11')}" value="instancias"><i class="fa fa-database fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.instancias}" /></span></h:outputLink>
+        </li>
+        <li>
+            <h:outputLink styleClass="mnuSeg" style="display:none;" rendered="#{smnubean.opcmnu('M12')}" value="bvt003"><i class="fa fa-cog fa-fw fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.seg01}" /></span></h:outputLink>
+        </li>
+        <li>
+            <h:outputLink styleClass="mnuSeg" style="display:none;" rendered="#{smnubean.opcmnu('M13')}" value="bvtmenu"><i class="fa fa-pencil fa-fw fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.seg02}" /></span></h:outputLink>
+        </li>
+        <li>
+            <h:outputLink styleClass="mnuSeg" style="display:none;" rendered="#{smnubean.opcmnu('M14')}" value="bvt002"><i class="fa fa-user fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.seg03}" /></span></h:outputLink>
+        </li>
+        <li>
+            <h:outputLink styleClass="mnuSeg" style="display:none;" rendered="#{smnubean.opcmnu('M15')}" value="bvt007"><i class="fa fa-bar-chart-o fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.seg08}" /></span></h:outputLink>
+        </li>
+        <li>
+            <h:outputLink styleClass="mnuSeg" style="display:none;" rendered="#{smnubean.opcmnu('M16')}" value="bvt005"><i class="fa fa-floppy-o fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.seg09}" /></span></h:outputLink>
+        </li>
+        
+        <li>
+            <h:outputLink styleClass="mnuSeg" style="display:none;" rendered="#{smnubean.opcmnu('M17')}" value="acccat1"><i class="fa fa-folder-open fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.seg04}" /></span></h:outputLink>
+        </li>
+        <li>
+            <h:outputLink styleClass="mnuSeg" style="display:none;" rendered="#{smnubean.opcmnu('M18')}" value="acccat2"><i class="fa fa-folder-open fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.seg05}" /></span></h:outputLink>
+        </li>
+        <li>
+            <h:outputLink styleClass="mnuSeg" style="display:none;" rendered="#{smnubean.opcmnu('M19')}" value="acccat3"><i class="fa fa-folder-open fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.seg06}" /></span></h:outputLink>
+        </li>
+        <li>
+            <h:outputLink styleClass="mnuSeg" style="display:none;" rendered="#{smnubean.opcmnu('M20')}" value="acccat4"><i class="fa fa-folder-open fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.seg07}" /></span></h:outputLink>
+        </li>
+        
+        <!-- Tareas -->
+        <li>
+            <h:outputLink styleClass="mnuTask" style="display:none;" rendered="#{smnubean.opcmnu('M22')}" value="mailgrupos"><i class="fa fa-list-ol fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.mail02}" /></span></h:outputLink>
+        </li>
+        <li>
+            <h:outputLink styleClass="mnuTask" style="display:none;" rendered="#{smnubean.opcmnu('M23')}" value="maillista"><i class="fa fa-users fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.mail03}" /></span></h:outputLink>
+        </li>
+        <li>
+            <h:outputLink styleClass="mnuTask" style="display:none;" rendered="#{smnubean.opcmnu('M24')}" value="mailtarea"><i class="fa fa-envelope-o fa-fw fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.mail04}" /></span></h:outputLink>
+        </li>
+      
+         <!-- Reportes -->
+        <li>
+            <h:outputLink styleClass="mnuRep"  rendered="#{smnubean.opcmnu('R01')}" value="bvt001a"><i class="fa fa-file-text-o fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.rep01}" /></span></h:outputLink>
+        </li>
+        <li>
+            <h:outputLink styleClass="mnuRep" rendered="#{smnubean.opcmnu('R01')}" value="bvt001"><i class="fa fa-bar-chart-o fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.rep}" /></span></h:outputLink>
+        </li>
+        
+          <!-- Ventas -->
+        <li>
+            <h:outputLink styleClass="mnuVta"  rendered="#{smnubean.opcmnu('V01')}" value="ventas"><i class="fa fa-usd fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.vent}" /></span></h:outputLink>
+       <!-- <h:outputLink styleClass="mnuVta"  rendered="#{smnubean.opcmnu('XX')}" value="foto"><i class="fa fa-archive fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="PRUEBA BLOB" /></span></h:outputLink> -->
+        </li>
+        
+          <!-- SGC -->
+       <li class="dropdown mnuSgc" >
+	    <h:outputLink rendered="#{smnubean.opcmnu('S01')}"><a data-toggle="collapse" data-target="#demo1" styleClass="mnuSgc" ><i class="fa fa-users fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.sgc001}" /><i class="fa fa-fw fa-caret-down"></i></span></a></h:outputLink>
+	    <ul id="demo1" class="collapse" >
+	    <li>
+	        <h:outputLink styleClass="mnuSgc"  rendered="#{smnubean.opcmnu('S11')}" value="sgc001"><i class="fa fa-database fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.Master}" /></span></h:outputLink>
+  			<h:outputLink styleClass="mnuSgc"  rendered="#{smnubean.opcmnu('S08')}" value="sgc001a"><i class="fa fa-line-chart fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.Hmeta}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuSgc"  rendered="#{smnubean.opcmnu('S09')}" value="sgc001b"><i class="fa fa-area-chart fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.Htolinf}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuSgc"  rendered="#{smnubean.opcmnu('S10')}" value="sgc001c"><i class="fa fa-bar-chart fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.Htolsup}" /></span></h:outputLink>         
+        </li>
+	    </ul>
+	   </li>     
+
+        <li>
+            <h:outputLink onclick="PF('dlg1').show();" value="#" styleClass="mnuSgc"  rendered="#{smnubean.opcmnu('S03')}" ><i class="fa fa-database fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.sgc003}" /></span></h:outputLink>
+            <!--<h:outputLink styleClass="mnuSgc"  rendered="#{smnubean.opcmnu('S03')}" value="sgc003"><i class="fa fa-database fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.sgc003}" /></span></h:outputLink>-->
+            <h:outputLink onclick="PF('dlg3').show();" value="#" styleClass="mnuSgc"  rendered="#{smnubean.opcmnu('S04')}" ><i class="fa fa-print fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.sgc004}" /></span></h:outputLink>
+         </li>    
+         
+       <li class="dropdown mnuSgc" >
+	    <h:outputLink rendered="#{smnubean.opcmnu('S05')}"><a data-toggle="collapse" data-target="#demo2" styleClass="mnuSgc" ><i class="fa fa-gears fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.par001}" /><i class="fa fa-fw fa-caret-down"></i></span></a></h:outputLink>
+	    <ul id="demo2" class="collapse" >
+	    <li>
+	        <h:outputLink styleClass="mnuSgc"  rendered="#{smnubean.opcmnu('S12')}" value="sgc005"><i class="fa fa-building-o fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.Company}" /></span></h:outputLink>
+  			<h:outputLink styleClass="mnuSgc"  rendered="#{smnubean.opcmnu('S13')}" value="sgc006"><i class="fa fa-briefcase fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.Area}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuSgc"  rendered="#{smnubean.opcmnu('S14')}" value="tubder11"><i class="fa fa-list-ol fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.Tipvalor}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuSgc"  rendered="#{smnubean.opcmnu('S15')}" value="tubder09"><i class="fa fa-bar-chart fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.Periodicidad}" /></span></h:outputLink>         
+        </li>
+	    </ul>
+	   </li>     
+	   
+	   <li class="dropdown mnuSgc" >
+	    <h:outputLink rendered="#{smnubean.opcmnu('S07')}"><a data-toggle="collapse" data-target="#demo3" styleClass="mnuSgc" ><i class="fa fa-lock fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.globalSeguridad}" /><i class="fa fa-fw fa-caret-down"></i></span></a></h:outputLink>
+	    <ul id="demo3" class="collapse" >
+	    <li>
+	        <h:outputLink styleClass="mnuSgc"  rendered="#{smnubean.opcmnu('S16')}" value="sgc007"><i class="fa fa-building-o fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.sgc007}" /></span></h:outputLink>
+  			<h:outputLink styleClass="mnuSgc"  rendered="#{smnubean.opcmnu('S17')}" value="sgc008"><i class="fa fa-briefcase fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.sgc008}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuSgc"  rendered="#{smnubean.opcmnu('S18')}" value="sgc009"><i class="fa fa-line-chart fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.sgc009}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuSgc"  rendered="#{smnubean.opcmnu('S19')}" value="sgc010"><i class="fa fa-users fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.sgc010}" /></span></h:outputLink>         
+        </li>
+	    </ul>
+	   </li>      
+         
+          <!-- Parametros para reportes -->
+        <li>
+            <h:outputLink styleClass="mnuPre"  rendered="#{smnubean.opcmnu('W01')}" value="pre001"><i class="fa fa-gears fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.pre001}" /></span></h:outputLink>
+        </li>     
+        
+          <!-- Prueba graficos -->
+        <li>
+            <h:outputLink styleClass="mnuCha"  rendered="#{smnubean.opcmnu('X01')}" value="chart"><i class="fa fa-line-chart fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.chart}" /></span></h:outputLink>
+        </li>     
+        
+          <!-- Contabilidad y Costos -->
+          
+      <li class="dropdown mnuCst" >
+	    <h:outputLink rendered="#{smnubean.opcmnu('C01')}"><a data-toggle="collapse" data-target="#demo11" styleClass="mnuCst" ><i class="fa fa-gears fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.par001}" /><i class="fa fa-fw fa-caret-down"></i></span></a></h:outputLink>
+	    <ul id="demo11" class="collapse" >
+	    <li>
+  			<h:outputLink styleClass="mnuCst"  rendered="#{smnubean.opcmnu('C04')}" value="cst002"><i class="fa fa-file-text fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.Fabrica}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuCst"  rendered="#{smnubean.opcmnu('C05')}" value="cst003"><i class="fa fa-calendar fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.CalendarM}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuCst"  rendered="#{smnubean.opcmnu('C06')}" value="cst004"><i class="fa fa-calendar fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.CalendarS}" /></span></h:outputLink>         
+        </li>
+	    </ul>
+	   </li>
+          
+        <li>
+            <h:outputLink styleClass="mnuCst"  rendered="#{smnubean.opcmnu('C02')}" value="cst005"><i class="fa fa-file-text fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.orf001}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuCst"  rendered="#{smnubean.opcmnu('C03')}" value="cst006"><i class="fa fa-folder-open fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.coo001}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuCst"  rendered="#{smnubean.opcmnu('C07')}" value="cst007"><i class="fa fa-cog fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.coo002}" /></span></h:outputLink>
+        </li>   
+        
+         <!-- Indicadores Directivos -->
+        
+       <li class="dropdown mnuInd" >
+	    <h:outputLink rendered="#{smnubean.opcmnu('I01')}"><a data-toggle="collapse" data-target="#demo8" styleClass="mnuInd" ><i class="fa fa-cogs fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indt}" /><i class="fa fa-fw fa-caret-down"></i></span></a></h:outputLink>
+	    <ul id="demo8" class="collapse" >
+	    <li>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I02')}" value="indt01"><i class="fa fa-briefcase fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indt01}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I03')}" value="indt02"><i class="fa fa-globe fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indt02}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I04')}" value="indt03"><i class="fa fa-building fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indt03}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I05')}" value="indt04"><i class="fa fa-map-marker fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indt04}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I06')}" value="indt05"><i class="fa fa-key fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indt05}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I07')}" value="indt06"><i class="fa fa-location-arrow fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indt06}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I08')}" value="indt07"><i class="fa fa-link fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indt07}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I09')}" value="indt08"><i class="fa fa-tasks fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indt08}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I10')}" value="indt09"><i class="fa fa-shopping-bag fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indt09}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I11')}" value="indt10"><i class="fa fa-archive fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indt10}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I12')}" value="indt11"><i class="fa fa-file-text-o fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indt11}" /></span></h:outputLink>
+        </li>
+	    </ul>
+	   </li>
+	   
+	     <li class="dropdown mnuInd" >
+	    <h:outputLink rendered="#{smnubean.opcmnu('I13')}"><a data-toggle="collapse" data-target="#demo9" styleClass="mnuInd" ><i class="fa fa-industry fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh}" /><i class="fa fa-fw fa-caret-down"></i></span></a></h:outputLink>
+	    <ul id="demo9" class="collapse" >
+	    <li>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I14')}" value="indh01"><i class="fa fa-newspaper-o fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh01}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I15')}" value="indh02"><i class="fa fa-link fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh02}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I16')}" value="indh03"><i class="fa fa-clock-o fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh03}" /></span></h:outputLink>
+        </li>
+	    </ul>
+	   </li>
+	   
+	   	<li class="dropdown mnuInd" >
+	    <h:outputLink rendered="#{smnubean.opcmnu('I17')}"><a data-toggle="collapse" data-target="#demo10" styleClass="mnuInd" ><i class="fa fa-usd fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh0}" /><i class="fa fa-fw fa-caret-down"></i></span></a></h:outputLink>
+	    <ul id="demo10" class="collapse" >
+	    <li>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I18')}" value="indh04"><i class="fa fa-cubes fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh04}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I19')}" value="indh05"><i class="fa fa-pie-chart fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh05}" /></span></h:outputLink>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I20')}" value="indh06"><i class="fa fa-file-text-o fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh06}" /></span></h:outputLink>
+       		<h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I21')}" value="indh07"><i class="fa fa-truck fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh07}" /></span></h:outputLink>
+        </li>
+	    </ul>
+	   </li>
+	   
+	   	<li class="dropdown mnuInd" >
+	    <h:outputLink rendered="#{smnubean.opcmnu('I22')}"><a data-toggle="collapse" data-target="#demo4" styleClass="mnuInd" ><i class="fa fa-list-ol fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh00}" /><i class="fa fa-fw fa-caret-down"></i></span></a></h:outputLink>
+	    <ul id="demo4" class="collapse" >
+	    <li>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I23')}" value="indh08"><i class="fa fa-line-chart fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh08}" /></span></h:outputLink>
+        </li>
+	    </ul>
+	   </li>
+	   
+	   	   <li class="dropdown mnuInd" >
+	    <h:outputLink rendered="#{smnubean.opcmnu('I24')}"><a data-toggle="collapse" data-target="#demo5" styleClass="mnuInd" ><i class="fa fa-money fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh000}" /><i class="fa fa-fw fa-caret-down"></i></span></a></h:outputLink>
+	    <ul id="demo5" class="collapse" >
+	    <li>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I25')}" value="indh09"><i class="fa fa-briefcase fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh09}" /></span></h:outputLink>
+       	   	  
+       	   	  <li class="dropdown mnuInd" >
+			    <h:outputLink rendered="#{smnubean.opcmnu('I26')}"><a data-toggle="collapse" data-target="#demo6" styleClass="mnuInd" ><i class="fa fa-balance-scale fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh0000}" /><i class="fa fa-fw fa-caret-down"></i></span></a></h:outputLink>
+			    <ul id="demo6" class="collapse" >
+			    <li>
+		            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I27')}" value="indh10"><i class="fa fa-usd fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh10}" /></span></h:outputLink>
+		            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I28')}" value="indh11"><i class="fa fa-credit-card-alt fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh11}" /></span></h:outputLink>
+		            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I29')}" value="indh12"><i class="fa fa-users fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh12}" /></span></h:outputLink>
+		            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I30')}" value="indh13"><i class="fa fa-list-alt fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh13}" /></span></h:outputLink>
+		            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I31')}" value="indh14"><i class="fa fa-bar-chart fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh14}" /></span></h:outputLink>
+		            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I32')}" value="indh15"><i class="fa fa-area-chart fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh15}" /></span></h:outputLink>
+		            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I33')}" value="indh16"><i class="fa fa-line-chart fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh16}" /></span></h:outputLink>
+		        </li>
+			    </ul>
+			   </li>
+			   
+			 <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I34')}" value="indh17"><i class="fa fa-credit-card fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh17}" /></span></h:outputLink>
+			 <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I35')}" value="indh18"><i class="fa fa-tint fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh18}" /></span></h:outputLink>  
+        </li>
+	    </ul>
+	   </li>
+	   
+	   	   	    <li class="dropdown mnuInd" >
+	    <h:outputLink rendered="#{smnubean.opcmnu('I36')}"><a data-toggle="collapse" data-target="#demo7" styleClass="mnuInd" ><i class="fa fa-percent fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh00000}" /><i class="fa fa-fw fa-caret-down"></i></span></a></h:outputLink>
+	    <ul id="demo7" class="collapse" >
+	    <li>
+            <h:outputLink styleClass="mnuInd"  rendered="#{smnubean.opcmnu('I37')}" value="indh19"><i class="fa fa-usd fa-2x"></i><span class="mnuLeftBasicos"><h:outputText value="#{msg.indh0}" /></span></h:outputLink>
+        </li>
+	    </ul>
+	   </li>
+	   
+        
+	</ul>
+</div>
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+</html>
