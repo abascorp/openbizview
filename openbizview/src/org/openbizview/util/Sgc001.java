@@ -2165,6 +2165,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 	    query += " AND TRIM(A.COMP) LIKE TRIM('%" + veccomp[0] + "%')";
 	    query += " AND TRIM(A.AREA) LIKE TRIM('%" + vecarea[0] + "%')";
 	    query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET";
+	    query += " ORDER BY A.COMP, A.AREA, A.CODIGO ";
 	    query += ")query ) " ;
 	    query += " WHERE ROWNUM <="+pageSize;
 	    query += " AND rn > ("+ first +")";
@@ -2248,6 +2249,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
  	    query += " AND TRIM(A.AREA) LIKE TRIM('%" + vecarea[0] + "%')";
  	    query += " AND TRIM(M.CODUSER) LIKE ('%" + login.toUpperCase() + "%')";
  	    query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET";
+ 	    query += " ORDER BY A.COMP, A.AREA, A.CODIGO ";
  	    query += ")query ) " ;
  	    query += " WHERE ROWNUM <="+pageSize;
  	    query += " AND rn > ("+ first +")";
