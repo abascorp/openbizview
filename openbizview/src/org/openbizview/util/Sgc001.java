@@ -2171,7 +2171,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 	    query += " ORDER BY  " + sortField.replace("z", "");
 
     pstmt = con.prepareStatement(query);
-    System.out.println(query);
+    //System.out.println(query);
     //System.out.println("Usuario ADMINISTRADOR...");
 		
     r =  pstmt.executeQuery();
