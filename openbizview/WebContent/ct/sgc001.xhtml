@@ -328,18 +328,25 @@
             <input type="checkbox" name="toDelete" class="chk" value="#{tb.zdelete}"/>
             </p:column>  
 			
-			<p:column sortBy="#{tb.zcomp}" styleClass="wrap" style="width:200px">  
-            <f:facet name="header">#{msg.Sgc006tbcom}</f:facet>  
+			<p:column sortBy="#{tb.zcomp}" styleClass="wrap" style="width:130px">  
+            <f:facet name="header">#{msg.Sgc001aTbcomp}</f:facet>  
             <h:outputLabel value="#{tb.zcomp}" />
             </p:column> 
+
+			<p:column sortBy="#{tb.zarea}" styleClass="wrap" style="width:200px">  
+            <f:facet name="header">#{msg.Sgc001aTbarea}</f:facet>  
+            <h:outputLabel value="#{tb.zarea}" />
+            </p:column>
 			
+			<!-- 
 			<p:column sortBy="#{tb.zcodigo}" styleClass="wrap" style="width:200px">  
             <f:facet name="header">#{msg.Sgc001tbcod}</f:facet>  
             <h:outputLabel value="#{tb.zcodigo}" />
             </p:column> 
+             -->     
                      
             <p:column sortBy="#{tb.zdesc}" styleClass="wrap" >  
-            <f:facet name="header">#{msg.Sgc001tbnin}</f:facet>  
+            <f:facet name="header">#{msg.sgc013Codind}</f:facet>  
             <h:outputLabel value="#{tb.zdesc}" />
             </p:column> 
                              

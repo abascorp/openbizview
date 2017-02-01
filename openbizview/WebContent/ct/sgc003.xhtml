@@ -115,6 +115,7 @@
      <div class="pull-right"><a HREF="http://www.openbizview.com/wiki/doku.php?id=reportes" target="_new" title="Wiki"><i class="fa fa-file-text text-info"></i></a></div>	         
 	     <div class="row">
 		 <div class="col-lg-4 col-md-4 col-sm-4">  
+	     
 	     <p:autoComplete id="comp" value="#{sgc003.comp}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeComp}"  valueChangeListener="#{bd.setComp(sgc003.comp)}" dropdown="true" scrollHeight="250">
 		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setComp(sgc003.comp)}" />  
 		 </p:autoComplete> 
@@ -125,30 +126,32 @@
 		 <p:autoComplete id="area" value="#{sgc003.area}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeArea}"  valueChangeListener="#{bd.setArea(sgc003.area)}" dropdown="true" scrollHeight="550">
 		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setArea(sgc003.area)}" />	     
 		 </p:autoComplete> 
-		 
-
-		 
 		 <p:watermark for="area" value="#{msg.sgc001are}"  />
 		 <p:spacer height="1"/>
 		 <p:message for="area"/>     
+		 
 		 <p:autoComplete id="codigo" value="#{sgc003.codigo}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeInd}"  valueChangeListener="#{bd.setCodigo(sgc003.codigo)}" dropdown="true" scrollHeight="250">
 		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setCodigo(sgc003.codigo)}" />	     
 		 </p:autoComplete> 
 		 <p:watermark for="codigo" value="#{msg.sgc003ind}"  />
 		 <p:spacer height="1"/>
 		 <p:message for="codigo"/> 
+		 
 		 <p:inputText id="anocal" styleClass="spacing" maxlength="4" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc003.anocal}" converter="javax.faces.BigDecimal" converterMessage="#{bd.getMessage('htmlvalidatea')}"/>
 		 <p:watermark for="anocal" value="#{msg.autos02Anio}" />
 		 <p:spacer height="1"/>
 		 <p:message for="anocal"/>  	
+	     
 	     <p:inputText id="mescal" styleClass="spacing" maxlength="2" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc003.mescal}" converter="javax.faces.BigDecimal" converterMessage="#{bd.getMessage('htmlvalidatem')}"/>
 		 <p:watermark for="mescal" value="#{msg.autos02Mes}" />
 		 <p:spacer height="1"/>
 		 <p:message for="mescal"/>   
+		 
 		 <p:inputText id="valor" styleClass="spacing" maxlength="15" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc003.valor}"/>
 		 <p:watermark for="valor" value="#{msg.sgc003val}" />
 		 <p:spacer height="1"/>
 		 <p:message for="valor"/>    
+	    
 	    </div>
 	    </div>
 	    <h:inputHidden id="vop" value="#{sgc003.validarOperacion}"/>
