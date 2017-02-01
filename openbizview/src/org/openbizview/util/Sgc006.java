@@ -137,11 +137,11 @@ public void init() {
 	private String codigo = "";
 	private String desc = "";
 	private String ccosto = "";
-	private String mail1 = "";
-	private String mail2 = "";
-	private String mail3 = "";
-	private String mail4 = "";
-	private String mail5 = "";
+	//private String mail1 = "";
+	//private String mail2 = "";
+	//private String mail3 = "";
+	//private String mail4 = "";
+	//private String mail5 = "";
 	private Object filterValue = "";
 	private List<Sgc006> list = new ArrayList<Sgc006>();
 	private int validarOperacion = 0;
@@ -152,11 +152,11 @@ public void init() {
 	private String zccosto = "";
 	private String zdesc1 = "";
 	private String zcompa = "";
-	private String zmail1 = "";
-	private String zmail2 = "";
-	private String zmail3 = "";
-	private String zmail4 = "";
-	private String zmail5 = "";
+	//private String zmail1 = "";
+	//private String zmail2 = "";
+	//private String zmail3 = "";
+	//private String zmail4 = "";
+	//private String zmail5 = "";
 
 	public String getCcosto() {
 		return ccosto;
@@ -174,7 +174,7 @@ public void init() {
 		this.zccosto = zccosto;
 	}
 
-	public String getMail1() {
+/*	public String getMail1() {
 		return mail1;
 	}
 
@@ -254,6 +254,7 @@ public void init() {
 		this.zmail5 = zmail5;
 	}
 
+*/
 	public String getZcompa() {
 		return zcompa;
 	}
@@ -376,20 +377,20 @@ public void insert() throws  NamingException {
  		}        
         String[] veccomp = comp.split("\\ - ", -1);
         
-        String query = "INSERT INTO SGC006 VALUES (?,?,?,?,?,?,?,?,?,?,'" + getFecha() + "',?,'" + getFecha() + "',?)";
+        String query = "INSERT INTO SGC006 VALUES (?,?,?,?,NULL,NULL,NULL,NULL,NULL,?,'" + getFecha() + "',?,'" + getFecha() + "',?)";
         pstmt = con.prepareStatement(query);
         pstmt.setString(1, veccomp[0].toUpperCase());
         pstmt.setString(2, codigo.toUpperCase());
         pstmt.setString(3, desc.toUpperCase());
         pstmt.setString(4, ccosto.toUpperCase());
-        pstmt.setString(5, mail1.toUpperCase());
-        pstmt.setString(6, mail2.toUpperCase());
-        pstmt.setString(7, mail3.toUpperCase());
-        pstmt.setString(8, mail4.toUpperCase());
-        pstmt.setString(9, mail5.toUpperCase());
-        pstmt.setString(10, login);
-        pstmt.setString(11, login);            
-        pstmt.setInt(12, Integer.parseInt(instancia));
+        //pstmt.setString(5, mail1.toUpperCase());
+        //pstmt.setString(6, mail2.toUpperCase());
+        //pstmt.setString(7, mail3.toUpperCase());
+        //pstmt.setString(8, mail4.toUpperCase());
+        //pstmt.setString(9, mail5.toUpperCase());
+        pstmt.setString(5, login);
+        pstmt.setString(6, login);            
+        pstmt.setInt(7, Integer.parseInt(instancia));
         
         //System.out.println(query);
         //System.out.println(veccomp[0]);
@@ -412,6 +413,7 @@ public void insert() throws  NamingException {
     }	
     FacesContext.getCurrentInstance().addMessage(null, msj);
 }
+
 public void delete() throws NamingException  {  
 	HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
 	String[] chkbox = request.getParameterValues("toDelete");
@@ -447,67 +449,67 @@ public void delete() throws NamingException  {
                 	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc001dfk1"), "");
                 }
                 
-              if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001_FK2) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001_FK2) violated - child record found")){
                    	
                    	//System.out.println("se cumple la condicion y muestro el msg");
                    	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc001fk3"), "");
                    }
                    
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001A_FK2) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001A_FK2) violated - child record found")){
                       	
                       	//System.out.println("se cumple la condicion y muestro el msg");
                       	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc001afk4"), "");
                    }
                    
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001B_FK2) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001B_FK2) violated - child record found")){
                       	
                       	//System.out.println("se cumple la condicion y muestro el msg");
                       	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc001bfk4"), "");
                    }
                       
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001C_FK2) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001C_FK2) violated - child record found")){
                          	
                          //System.out.println("se cumple la condicion y muestro el msg");
                         msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc001cfk4"), "");
                    }
                    
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012_FK2) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012_FK2) violated - child record found")){
                       	
                       	//System.out.println("se cumple la condicion y muestro el msg");
                       	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc012fk3"), "");
                    }
                       
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012A_FK2) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012A_FK2) violated - child record found")){
                          	
                          //System.out.println("se cumple la condicion y muestro el msg");
                         msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc012afk3"), "");
                    }
                       
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012B_FK2) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012B_FK2) violated - child record found")){
                          	
                         //System.out.println("se cumple la condicion y muestro el msg");
                        	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc012bfk3"), "");
                    }
                          
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012C_FK2) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012C_FK2) violated - child record found")){
                             	
                      	//System.out.println("se cumple la condicion y muestro el msg");
                         msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc012cfk3"), "");
                    }
                    
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC003_FK2) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC003_FK2) violated - child record found")){
                     	
                        //System.out.println("se cumple la condicion y muestro el msg");
                       	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc003fk3"), "");
                   }
                                           
-                  if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC008_FK3) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC008_FK3) violated - child record found")){
                     	
                     	//System.out.println("se cumple la condicion y muestro el msg");
                     	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc008fk2"), "");
                  }
                     
-                 if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC009_FK3) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC009_FK3) violated - child record found")){
                        	
                        //System.out.println("se cumple la condicion y muestro el msg");
                       msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc009fk2"), "");
@@ -554,11 +556,11 @@ public void update() throws  NamingException {
         String query = "UPDATE SGC006";
          query += " SET DESCR = ?, ";
          query += " CCOSTO = ?, ";
-         query += " MAIL1 = ?, ";
-         query += " MAIL2 = ?, ";
-         query += " MAIL3 = ?, ";
-         query += " MAIL4 = ?, ";
-         query += " MAIL5 = ?, ";
+         //query += " MAIL1 = ?, ";
+         //query += " MAIL2 = ?, ";
+         //query += " MAIL3 = ?, ";
+         //query += " MAIL4 = ?, ";
+         //query += " MAIL5 = ?, ";
          query += " USRACT = ?,";
          query += " FECACT = '" + getFecha() + "'";
          query += " WHERE CODIGO = ? ";
@@ -568,14 +570,14 @@ public void update() throws  NamingException {
         pstmt = con.prepareStatement(query);
         pstmt.setString(1, desc.toUpperCase());
         pstmt.setString(2, ccosto.toUpperCase());
-        pstmt.setString(3, mail1.toUpperCase());
-        pstmt.setString(4, mail2.toUpperCase());
-        pstmt.setString(5, mail3.toUpperCase());
-        pstmt.setString(6, mail4.toUpperCase());
-        pstmt.setString(7, mail5.toUpperCase());
-        pstmt.setString(8, login);
-        pstmt.setString(9, codigo.toUpperCase());   
-        pstmt.setString(10, veccomp[0].toUpperCase()); 
+        //pstmt.setString(3, mail1.toUpperCase());
+        //pstmt.setString(4, mail2.toUpperCase());
+        //pstmt.setString(5, mail3.toUpperCase());
+        //pstmt.setString(6, mail4.toUpperCase());
+        //pstmt.setString(7, mail5.toUpperCase());
+        pstmt.setString(3, login);
+        pstmt.setString(4, codigo.toUpperCase());   
+        pstmt.setString(5, veccomp[0].toUpperCase()); 
 
         //System.out.println(query);
         //System.out.println(codigo);
@@ -645,7 +647,7 @@ public void guardar() throws NamingException, SQLException{
 	    query += ")query ) " ;
 	    query += " WHERE ROWNUM <="+pageSize;
 	    query += " AND rn > ("+ first +")";
-	    query += " ORDER BY  " + sortField.replace("z", "");
+	    query += " ORDER BY 2";
 
     pstmt = con.prepareStatement(query);
     //System.out.println(query);
@@ -659,11 +661,11 @@ public void guardar() throws NamingException, SQLException{
  	select.setZdesc(r.getString(3));
  	select.setZdesc1(r.getString(4));
  	select.setZcompa(r.getString(1));
- 	select.setZmail1(r.getString(5));
- 	select.setZmail2(r.getString(6));
- 	select.setZmail3(r.getString(7));
- 	select.setZmail4(r.getString(8));
- 	select.setZmail5(r.getString(9));
+ 	//select.setZmail1(r.getString(5));
+ 	//select.setZmail2(r.getString(6));
+ 	//select.setZmail3(r.getString(7));
+ 	//select.setZmail4(r.getString(8));
+ 	//select.setZmail5(r.getString(9));
  	select.setZccosto(r.getString(10));
    	
     	//Agrega la lista
@@ -735,11 +737,11 @@ public void guardar() throws NamingException, SQLException{
   		codigo = "";
   		desc = "";
   		ccosto = "";
-  		mail1 = "";
-  		mail2 = "";
-  		mail3 = "";
-  		mail4 = "";
-  		mail5 = "";
+  		//mail1 = "";
+  		//mail2 = "";
+  		//mail3 = "";
+  		//mail4 = "";
+  		//mail5 = "";
   		validarOperacion = 0;
 	}
   	

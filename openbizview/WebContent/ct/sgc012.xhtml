@@ -41,7 +41,7 @@
         <!-- Page Content --> 
              
      <div class="container-fluid" id="containerF">
-     <h:form id="formsgc012"  >
+     <h:form id="formsgc012" onkeypress="return event.keyCode != 13" >
      
                 <!-- Dialog Panel DISPLAY DE FORMAS FAG016 Y FAG017-->
 		   	<p:dialog header="#{msg.sgc003}" widgetVar="dlg1" modal="true" showEffect="fade" hideEffect="fade" height="185">
@@ -150,33 +150,33 @@
 		 <p:watermark for="invana" value="#{msg.sgc012iya}" />
 		 <p:spacer height="1"/>
 		 <p:message for="invana"/>	  
-		 <p:inputTextarea id="rrhh" styleClass="spacing" autoResize="false" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.rrhh}"/>
+		 <p:inputTextarea id="rrhh" styleClass="spacing" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.rrhh}"/>
 		 <p:watermark for="rrhh" value="#{msg.sgc012rrh}" />
 		 <p:spacer height="1"/>
 		 <p:message for="rrhh"/>
 		 </div>
 		 <div class="col-lg-4 col-md-4 col-sm-4">  	
-		 <p:inputTextarea id="superv" styleClass="spacing" autoResize="false" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.superv}"/>
+		 <p:inputTextarea id="superv" styleClass="spacing" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.superv}"/>
 		 <p:watermark for="superv" value="#{msg.sgc012sup}" />
 		 <p:spacer height="1"/>
 		 <p:message for="superv"/>	
-		 <p:inputTextarea id="medamb" styleClass="spacing" autoResize="false" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.medamb}"/>
+		 <p:inputTextarea id="medamb" styleClass="spacing" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.medamb}"/>
 		 <p:watermark for="medamb" value="#{msg.sgc012med}" />
 		 <p:spacer height="1"/>
 		 <p:message for="medamb"/>	
-		 <p:inputTextarea id="equipo" styleClass="spacing" autoResize="false" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.equipo}"/>
+		 <p:inputTextarea id="equipo" styleClass="spacing" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.equipo}"/>
 		 <p:watermark for="equipo" value="#{msg.sgc012equ}" />
 		 <p:spacer height="1"/>
 		 <p:message for="equipo"/>	
-		 <p:inputTextarea id="infstr" styleClass="spacing" autoResize="false" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.infstr}"/>
+		 <p:inputTextarea id="infstr" styleClass="spacing" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.infstr}"/>
 		 <p:watermark for="infstr" value="#{msg.sgc012ist}" />
 		 <p:spacer height="1"/>
 		 <p:message for="infstr"/>	
-		 <p:inputTextarea id="proced" styleClass="spacing" autoResize="false" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.proced}"/>
+		 <p:inputTextarea id="proced" styleClass="spacing" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.proced}"/>
 		 <p:watermark for="proced" value="#{msg.sgc012pro}" />
 		 <p:spacer height="1"/>
 		 <p:message for="proced"/>	
- 		 <p:inputTextarea id="otros" styleClass="spacing" autoResize="false" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.otros}"/>
+ 		 <p:inputTextarea id="otros" styleClass="spacing" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.otros}"/>
 		 <p:watermark for="otros" value="#{msg.sgc012otr}" />
 		 <p:spacer height="1"/>
 		 <p:message for="otros"/>

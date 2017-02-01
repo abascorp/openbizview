@@ -242,7 +242,7 @@ public void insert() throws  NamingException {
 
         String[] veccodu = coduser.split("\\ - ", -1);
         
-        String query = "INSERT INTO SGC010 VALUES (?,?,?,'" + getFecha() + "',?,'" + getFecha() + "',?)";
+        String query = "INSERT INTO SGC010 VALUES (?,?,?,SYSDATE,?,SYSDATE,?)";
         pstmt = con.prepareStatement(query);
         pstmt.setString(1, veccodu[0].toUpperCase());
         pstmt.setString(2, desc.toUpperCase());

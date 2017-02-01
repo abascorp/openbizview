@@ -274,7 +274,7 @@ public void insert() throws  NamingException {
         String[] veccomp = comp.split("\\ - ", -1);
         String[] vecarea = area.split("\\ - ", -1);
         
-        String query = "INSERT INTO SGC008 VALUES (?,?,?,?,'" + getFecha() + "',?,'" + getFecha() + "',?)";
+        String query = "INSERT INTO SGC008 VALUES (?,?,?,?,SYSDATE,?,SYSDATE,?)";
         pstmt = con.prepareStatement(query);
         pstmt.setString(1, veccodu[0].toUpperCase());
         pstmt.setString(2, veccomp[0].toUpperCase());

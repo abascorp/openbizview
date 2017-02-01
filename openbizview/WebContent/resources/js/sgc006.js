@@ -23,16 +23,11 @@
 	    clearUpdateInput('formsgc006:codigo', 'white');
 	}
 	
-	function enviar(vT0,vT1,vT2,vT3,vT4,vT5,vT6,vT7,vT8,vT9){
+	function enviar(vT0,vT1,vT2,vT3,vT4){
 		  document.getElementById("formsgc006:comp_input").value= rTrim(vT0);
 		  document.getElementById("formsgc006:codigo").value= rTrim(vT1);
 		  document.getElementById("formsgc006:desc").value= rTrim(vT2);
 		  document.getElementById("formsgc006:ccosto").value= rTrim(vT3);
-		  document.getElementById("formsgc006:mail1").value= rTrim(vT4);
-		  document.getElementById("formsgc006:mail2").value= rTrim(vT5);
-		  document.getElementById("formsgc006:mail3").value= rTrim(vT6);
-		  document.getElementById("formsgc006:mail4").value= rTrim(vT7);
-		  document.getElementById("formsgc006:mail5").value= rTrim(vT8);
-		  document.getElementById("formsgc006:vop").value= rTrim(vT9);
+		  document.getElementById("formsgc006:vop").value= rTrim(vT4);
 		  updateInput('formsgc006:codigo', '#F2F2F2');
 		}

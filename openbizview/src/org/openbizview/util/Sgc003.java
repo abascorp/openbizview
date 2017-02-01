@@ -39,12 +39,10 @@ import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openbizview.util.PntGenerica;
-import org.openbizview.util.PntGenericasb;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -133,8 +131,10 @@ public void init() {
 	/**
 	 * 
 	 */
-    private String comp = "";
-    private String area = "";
+    //private String comp = "";
+    //private String area = "";
+    private String comp = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("comp"); 
+    private String area = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("area"); 
 	private String codigo = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("codigo"); //Usuario logeado
 	private String anocal = "";
 	private String mescal = "";
@@ -156,6 +156,7 @@ public void init() {
 	private String zorderby = "";
 	private String zusrcre = "";
 	private String zfeccre = "";
+	String[][] tabla;
 
 	public String getZusrcre() {
 		return zusrcre;
@@ -330,8 +331,7 @@ public void init() {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Variables seran utilizadas para capturar mensajes de errores de Oracle y parametros de metodos
 	FacesMessage msj = null;
-	PntGenericasb consulta = new PntGenericasb();
-	PntGenerica consulta1 = new PntGenerica();
+	PntGenerica consulta = new PntGenerica();
 	boolean vGacc; //Validador de opciones del menú
 	private int rows; //Registros de tabla Sybase
 	//private int rows1; //Registros de tabla oracle
@@ -381,7 +381,7 @@ public void insert() throws  NamingException {
         String[] vecarea = area.split("\\ - ", -1);
         String[] veccod = codigo.split("\\ - ", -1);
         
-        String query = "INSERT INTO SGC003 VALUES (?,?,?,?,?,?,?,'" + getFecha() + "',?,'" + getFecha() + "',?)";
+        String query = "INSERT INTO SGC003 VALUES (?,?,?,?,?,?,?,SYSDATE,?,SYSDATE,?)";
         pstmt = con.prepareStatement(query);
         pstmt.setString(1, veccomp[0].toUpperCase());
         pstmt.setString(2, vecarea[0].toUpperCase());
@@ -559,24 +559,49 @@ public void guardar() throws NamingException, SQLException{
  **/ 	
 	public void select(int first, int pageSize, String sortField, Object filterValue) throws SQLException, ClassNotFoundException, NamingException {
   		
-		//System.out.println("entre al metodo SELECT");	
 		Context initContext = new InitialContext();     
 		DataSource ds = (DataSource) initContext.lookup(JNDI);
-		con = ds.getConnection();		
-		//Reconoce la base de datos de conección para ejecutar el query correspondiente a cada uno
-		DatabaseMetaData databaseMetaData = con.getMetaData();
-		productName    = databaseMetaData.getDatabaseProductName();//Identifica la base de datos de conección
+		con = ds.getConnection();		 
+        
+ 		String validar = "1";
+		String querycon = "SELECT BI_SGC014('" + login.toUpperCase() + "') AS VALIDAR FROM DUAL";
 		
-		if(codigo==null){
- 			codigo= " - ";
- 		}
- 		if(codigo==""){
- 			codigo = " - ";
- 		}        
-        String[] veccod = codigo.split("\\ - ", -1);
+		//System.out.println(querycon);
+		//System.out.println(JNDI);
 		
+		consulta.selectPntGenerica(querycon, JNDI);
+		
+		rows = consulta.getRows();
+		tabla = consulta.getArray();
+		//System.out.println(tabla[0][0]);
+
+		if (tabla[0][0].equals(validar)) {
+
+			
+            if(comp==null){
+     			comp= " - ";
+     		}
+     		if(comp==""){
+     			comp = " - ";
+     		}        
+            if(area==null){
+     			area= " - ";
+     		}
+     		if(area==""){
+     			area = " - ";
+     		}    
+            if(codigo==null){
+     			codigo= " - ";
+     		}
+     		if(codigo==""){
+     			codigo = " - ";
+     		}  
+            String[] veccomp = comp.split("\\ - ", -1);
+            String[] vecarea = area.split("\\ - ", -1);
+            String[] veccod = codigo.split("\\ - ", -1);		
+			
 		//Consulta paginada
-     String query = "SELECT * FROM"; 
+        String query = "SELECT * FROM"; 
 	    query += "(select query.*, rownum as rn from";
 		query += "(SELECT A.COMP, A.AREA, A.CODIGO, A.ANOCAL, A.MESCAL, A.VALOR, B.NOMIND AS DESC1, C.DESCR AS DESC2, D.DESCR AS DESC3, A.USRCRE, TO_CHAR(A.FECCRE,'DD/MM/YYYY') AS FECCRE ";
 	    query += " FROM SGC003 A, SGC001 B, SGC005 C, SGC006 D ";
@@ -584,15 +609,19 @@ public void guardar() throws NamingException, SQLException{
 	    query += " AND A.COMP = C.CODIGO ";
 	    query += " AND A.AREA = D.CODIGO ";
 	    query += " AND C.CODIGO = D.COMP ";
-	    query += " AND TRIM(A.CODIGO) LIKE TRIM('%" + veccod[0] + "%')";
+	    query += " AND A.COMP like '%" + veccomp[0] + "%'";
+	    query += " AND A.AREA like '%" + vecarea[0] + "%'";
+	    query += " AND A.CODIGO like '%" + veccod[0] + "%'";
+	    query += " AND A.ANOCAL || A.MESCAL || A.VALOR || B.NOMIND || C.DESCR || D.DESCR || A.USRCRE LIKE trim('%" + ((String) filterValue).toUpperCase() +  "%') ";
 	    query += " GROUP BY A.COMP, A.AREA, A.CODIGO, A.ANOCAL, A.MESCAL, A.VALOR, B.NOMIND, C.DESCR, D.DESCR, A.USRCRE, A.FECCRE";
 	    query += ")query ) " ;
 	    query += " WHERE ROWNUM <="+pageSize;
 	    query += " AND rn > ("+ first +")";
-	    query += " ORDER BY COMP, AREA, CODIGO, ANOCAL, MESCAL" + sortField.replace("z", "");
+	    query += " ORDER BY COMP, AREA, CODIGO, ANOCAL, MESCAL";
 
     pstmt = con.prepareStatement(query);
     //System.out.println(query);
+    //System.out.println("Usuario ADMINISTRADOR...");
 		
     r =  pstmt.executeQuery();
     
@@ -616,7 +645,91 @@ public void guardar() throws NamingException, SQLException{
     pstmt.close();
     con.close();
 
+	} else {
+		
+        if(comp==null){
+ 			comp= " - ";
+ 		}
+ 		if(comp==""){
+ 			comp = " - ";
+ 		}        
+        if(area==null){
+ 			area= " - ";
+ 		}
+ 		if(area==""){
+ 			area = " - ";
+ 		}    
+        if(codigo==null){
+ 			codigo= " - ";
+ 		}
+ 		if(codigo==""){
+ 			codigo = " - ";
+ 		}  
+        String[] veccomp = comp.split("\\ - ", -1);
+        String[] vecarea = area.split("\\ - ", -1);
+        String[] veccod = codigo.split("\\ - ", -1);		
+		
+	    String query = " SELECT  * "; 
+	    query += " FROM (select  ";
+	    query += "      query.*,  ";
+	    query += "      rownum as rn  ";
+	    query += "      from (SELECT  ";
+	    query += "            A.COMP, A.AREA, A.CODIGO, A.ANOCAL, A.MESCAL, A.VALOR, B.NOMIND AS DESC1, C.DESCR AS DESC2, D.DESCR AS DESC3, A.USRCRE, TO_CHAR(A.FECCRE,'DD/MM/YYYY') AS FECCRE   ";
+	    query += "            FROM  ";
+	    query += "            SGC003 A, ";
+	    query += "            SGC001 B, ";
+	    query += "            SGC005 C, ";
+	    query += "            SGC006 D, ";
+	    query += "            SGC009 E  ";
+	    query += "            WHERE  ";
+	    query += "            A.COMP = B.COMP  ";
+	    query += "            AND A.AREA = B.AREA ";
+	    query += "            AND A.CODIGO = B.CODIGO ";
+	    query += "            AND A.COMP = C.CODIGO   ";
+	    query += "            AND A.COMP = D.COMP ";
+	    query += "            AND A.AREA = D.CODIGO   ";
+	    query += "            AND A.COMP = E.COMP  ";
+	    query += "            AND A.AREA = E.AREA ";
+	    query += "            AND A.CODIGO = E.INDICA ";
+	    query += "            AND A.COMP like '%" + veccomp[0] + "%'";
+	    query += "            AND A.AREA like '%" + vecarea[0] + "%'";
+	    query += "            AND A.CODIGO like '%" + veccod[0] + "%'";
+	    query += "            AND E.CODUSER LIKE TRIM('%" + login.toUpperCase() + "%')";
+	    query += "            AND A.ANOCAL || A.MESCAL || A.VALOR || B.NOMIND || C.DESCR || D.DESCR || A.USRCRE LIKE trim('%" + ((String) filterValue).toUpperCase() +  "%') ";
+	    query += "            GROUP BY A.COMP, A.AREA, A.CODIGO, A.ANOCAL, A.MESCAL, A.VALOR, B.NOMIND, C.DESCR, D.DESCR, A.USRCRE, A.FECCRE) query)   ";
+	    query += " WHERE  ";
+	    query += " ROWNUM <="+pageSize;
+	    query += " AND rn > ("+ first +")";
+	    query += " ORDER BY COMP, AREA, CODIGO, ANOCAL, MESCAL";
+	    
+
+    pstmt = con.prepareStatement(query);
+    //System.out.println(query);
+    //System.out.println("Usuario *** NO *** ADMINISTRADOR...");
+		
+    r =  pstmt.executeQuery();
+    
+    while (r.next()){
+ 	Sgc003 select = new Sgc003();
+ 	select.setZcomp(r.getString(1) + " - " + r.getString(8));
+ 	select.setZarea(r.getString(2) + " - " + r.getString(9));
+ 	select.setZcodigo(r.getString(3) + " - " + r.getString(7));
+ 	select.setZanocal(r.getString(4));
+ 	select.setZmescal(r.getString(5));
+ 	select.setZvalor(r.getString(6));
+ 	select.setZcoddel(r.getString(3));
+ 	select.setZorderby(r.getString(1) + ", " + r.getString(2) + ", " + r.getString(3) + ", " + r.getString(4) + ", " + r.getString(5));
+ 	select.setZusrcre(r.getString(10));
+ 	select.setZfeccre(r.getString(11));
+   	
+    	//Agrega la lista
+    	list.add(select);
+    }
+    //Cierra las conecciones
+    pstmt.close();
+    con.close();		
 	}
+}		
  	
  	/**
      * Leer registros en la tabla
@@ -633,16 +746,36 @@ public void guardar() throws NamingException, SQLException{
 
       		con = ds.getConnection();
       		
-      		if(codigo==null){
+            if(comp==null){
+     			comp= " - ";
+     		}
+     		if(comp==""){
+     			comp = " - ";
+     		}        
+            if(area==null){
+     			area= " - ";
+     		}
+     		if(area==""){
+     			area = " - ";
+     		}    
+            if(codigo==null){
      			codigo= " - ";
      		}
      		if(codigo==""){
      			codigo = " - ";
-     		}        
+     		}  
+            String[] veccomp = comp.split("\\ - ", -1);
+            String[] vecarea = area.split("\\ - ", -1);
             String[] veccod = codigo.split("\\ - ", -1);
+            
 
      		//Consulta paginada
-     		String query = "SELECT COUNT_SGC003('" + ((String) filterValue).toUpperCase() + "','" + veccod[0] + "', '" + instancia + "') FROM DUAL";
+     		String query = "SELECT COUNT_SGC003('" + veccomp[0] + "','" 
+     		                                       + vecarea[0] + "','" 
+     		                                       + veccod[0] + "','" 
+    				                               + ((String) filterValue).toUpperCase() + "','"
+    				                               + login.toUpperCase() 
+    				                               + "') FROM DUAL";
 
            
            pstmt = con.prepareStatement(query);

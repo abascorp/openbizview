@@ -36,7 +36,7 @@
       <Resource name="jdbc/orabiz" auth="Container"
               type="javax.sql.DataSource" driverClassName="oracle.jdbc.OracleDriver"
               url="jdbc:oracle:thin:@localhost:1521:xe"
-              username="OPENBIZVIEW" password="OPENBIZVIEW" maxActive="20" maxIdle="10"
+              username="openbizview" password="openbizview" maxActive="20" maxIdle="10"
               maxWait="-1"/>  
    
        
@@ -78,7 +78,7 @@
 		    mail.smtp.port="465"
 		    mail.smtp.auth="true"
 		    mail.smtp.user="info@dvconsultores.com"
-		    password="v12959363"
+		    password=""
 		    mail.smtp.starttls.enable="true"
 		    mail.smtp.socketFactory.class="javax.net.ssl.SSLSocketFactory"
 		  />

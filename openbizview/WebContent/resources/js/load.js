@@ -320,6 +320,23 @@ function mnuInd(){
 	jQuery('.mnuCst').hide();
 	jQuery('.mnuInd').show();
 }
+
+function mnuChg(){
+	jQuery('.mnuBas').hide();
+	jQuery('.mnuAdmin').hide();
+	jQuery('.mnuTask').hide();
+	jQuery('.mnuSeg').hide();
+	jQuery('.mnuRep').hide();
+	//Protinal
+	jQuery('.mnuGto').hide();
+	jQuery('.mnuBudget').hide();
+	jQuery('.mnuVta').hide();
+	jQuery('.mnuSgc').hide();
+	jQuery('.mnuPre').hide();
+	jQuery('.mnuCha').hide();
+	jQuery('.mnuCst').hide();
+	jQuery('.mnuInd').hide();
+}
 	//Modal delete
 	function modalDelete(){
 		$("#myModalDelete").modal();

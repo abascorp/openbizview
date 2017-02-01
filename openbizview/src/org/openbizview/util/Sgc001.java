@@ -40,7 +40,6 @@ import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openbizview.util.PntGenerica;
-import org.openbizview.util.PntGenericasb;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -134,9 +133,9 @@ public void init() {
 	/**
 	 * 
 	 */
-    private String comp = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("comp"); //Usuario logeado
-    private String area = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("area"); //Usuario logeado
-	private String codigo = "";
+    private String comp = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("comp"); 
+    private String area = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("area"); 
+    private String codigo = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("codigo"); 
 	private String desc = "";
 	private String meta = "";
 	private String tolsup = "";
@@ -191,6 +190,7 @@ public void init() {
 	private String zusername = "";
 	private String zcompor = "";
 	private String zresmet = "";
+	String[][] tabla;
 	
 	public String getCompor() {
 		return compor;
@@ -629,8 +629,7 @@ public void init() {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Variables seran utilizadas para capturar mensajes de errores de Oracle y parametros de metodos
 	FacesMessage msj = null;
-	PntGenericasb consulta = new PntGenericasb();
-	PntGenerica consulta1 = new PntGenerica();
+	PntGenerica consulta = new PntGenerica();
 	boolean vGacc; //Validador de opciones del menú
 	private int rows; //Registros de tabla Sybase
 	//private int rows1; //Registros de tabla oracle
@@ -645,12 +644,6 @@ public void init() {
 		ResultSet r;
 
 
-/**
- * Inserta Sgc001.
- * <p>
- * <b>Parametros del Metodo:<b> String codcat1, String descat1 unidos como un solo string.<br>
- * String pool, String login.<br><br>
- **/
 public void insert() throws  NamingException {   	
 	//System.out.println("entre al metodo INSERT");	
     try {
@@ -715,7 +708,36 @@ public void insert() throws  NamingException {
         String[] vectvalm = tvalm.split("\\ - ", -1);
         //String[] vecrespon = respon.split("\\ - ", -1);
                     
-        String query = "INSERT INTO SGC001 VALUES (?,?,?,?,?,?,?,to_date('" + sdfecha.format(feccam) + "','dd/mm/yyyy'),?,?,to_date('" + sdfecha.format(feccai) + "','dd/mm/yyyy'),?,?,to_date('" + sdfecha.format(feccas) + "','dd/mm/yyyy'),?,?,?,?,?,?,?,to_date('" + sdfecha.format(vigenc) + "','dd/mm/yyyy'),?,?,'" + getFecha() + "',?,'" + getFecha() + "',?)";
+        //String query = "INSERT INTO SGC001 VALUES (?,?,?,?,?,?,?,to_date('" + sdfecha.format(feccam) + "','dd/mm/yyyy'),?,?,to_date('" + sdfecha.format(feccai) + "','dd/mm/yyyy'),?,?,to_date('" + sdfecha.format(feccas) + "','dd/mm/yyyy'),?,?,?,?,?,?,?,to_date('" + sdfecha.format(vigenc) + "','dd/mm/yyyy'),?,?,'" + getFecha() + "',?,'" + getFecha() + "',?)";
+        String query = "INSERT INTO SGC001 VALUES  (?, " +
+				" ?, " +
+				" ?, " +
+				" ?, " +
+				" ?, " +
+				" ?, " +
+				" ?, " +
+				" to_date('" + sdfecha.format(feccam) + "','dd/mm/yyyy'), " +
+				" ?, " +
+				" ?, " +
+				" to_date('" + sdfecha.format(feccai) + "','dd/mm/yyyy'), " +
+				" ?, " +
+				" ?, " +
+				" to_date('" + sdfecha.format(feccas) + "','dd/mm/yyyy'), " +
+				" TRIM(?), " +
+				" TRIM(?), " +
+				" TRIM(?), " +
+				" TRIM(?), " +
+				" TRIM(?), " +
+				" TRIM(?), " +
+				" TRIM(?), " +
+				" to_date('" + sdfecha.format(vigenc) + "','dd/mm/yyyy'), " +
+				" TRIM(?), " +
+				" TRIM(?), " +
+				" '" + getFecha() + "', " +
+				" TRIM(?), " +
+				" '" + getFecha() + "', " +
+				" TRIM(?))";
+        
         pstmt = con.prepareStatement(query);
         pstmt.setString(1, veccomp[0].toUpperCase());
         pstmt.setString(2, vecarea[0].toUpperCase());
@@ -777,6 +799,7 @@ public void insert() throws  NamingException {
     } catch (Exception e) {
     	e.printStackTrace();
     }	       
+    limpiarValores(); 
 }
 
 /**
@@ -1109,10 +1132,14 @@ public void delete() throws NamingException  {
         	
         	String param = "'" + StringUtils.join(chkbox, "','") + "'";
 
+        	String query2 = "DELETE from SGC001d WHERE COMP || AREA || CODIGO in (" + param + ") and INSTANCIA = " + instancia + "";	
         	String query = "DELETE from SGC001 WHERE COMP || AREA || CODIGO in (" + param + ") and INSTANCIA = " + instancia + "";	        	
             
+        	pstmt = con.prepareStatement(query2);
         	pstmt = con.prepareStatement(query);
-            //System.out.println(query);
+            
+        	System.out.println(query2);
+        	System.out.println(query);
 
         	  try {
                   //Avisando
@@ -1126,59 +1153,64 @@ public void delete() throws NamingException  {
                    	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc001dfk1"), "");
                    }
                    
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC009_FK4) violated - child record found")){
+                   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC009_FK4) violated - child record found")){
                       	
                       	//System.out.println("se cumple la condicion y muestro el msg");
                       	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc009fk4"), "");
                    }
                    
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001A_FK4) violated - child record found")){
+                   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001A_FK4) violated - child record found")){
                       	
                       	//System.out.println("se cumple la condicion y muestro el msg");
                       	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc001afk4"), "");
                    }
                       
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001B_FK4) violated - child record found")){
+                   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001B_FK4) violated - child record found")){
                          	
                          //System.out.println("se cumple la condicion y muestro el msg");
                         msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc001bfk4"), "");
                    }
                       
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001C_FK4) violated - child record found")){
+                   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001C_FK4) violated - child record found")){
                          	
                         //System.out.println("se cumple la condicion y muestro el msg");
                        	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc001cfk4"), "");
                    }
                          
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC003_FK3) violated - child record found")){
+                   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC003_FK3) violated - child record found")){
                             	
                      	//System.out.println("se cumple la condicion y muestro el msg");
                         msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc003fk3"), "");
                    }
                    
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012_FK3) violated - child record found")){
+                   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012_FK3) violated - child record found")){
                      	
                      	//System.out.println("se cumple la condicion y muestro el msg");
                      	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc012fk3"), "");
                   }
                      
-                  if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012A_FK3) violated - child record found")){
+                   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012A_FK3) violated - child record found")){
                         	
                         //System.out.println("se cumple la condicion y muestro el msg");
                        msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc012afk3"), "");
                   }
                      
-                  if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012B_FK3) violated - child record found")){
+                   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012B_FK3) violated - child record found")){
                         	
                        //System.out.println("se cumple la condicion y muestro el msg");
                       	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc012bfk3"), "");
                   }
                         
-                  if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012C_FK3) violated - child record found")){
+                   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012C_FK3) violated - child record found")){
                            	
                     	//System.out.println("se cumple la condicion y muestro el msg");
                        msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc012cfk3"), "");
                   }
+                   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012C_FK2) violated - child record found")){
+                     	
+                  	//System.out.println("se cumple la condicion y muestro el msg");
+                     msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc012cfk3"), "");
+                }                  
                    
                    else {
                    	
@@ -1398,16 +1430,16 @@ public void update() throws  NamingException {
          query += " TIPVALTS = ?, ";
          query += " TOLSUP = ?, ";
          query += " FECCATS = to_date('" + sdfecha.format(feccas) + "','dd/mm/yyyy'),";
-         query += " CALCULO = ?, ";  
-         query += " DATOS = ?,";
-         query += " PROCES = ?,";
-         query += " PERIOD = ?,";
-         query += " NIVAPP = ?,";
-         query += " DESCRI = ?,";
-         query += " ESTATU = ?,";
+         query += " CALCULO = TRIM(?), ";  
+         query += " DATOS = TRIM(?),";
+         query += " PROCES = TRIM(?),";
+         query += " PERIOD = TRIM(?),";
+         query += " NIVAPP = TRIM(?),";
+         query += " DESCRI = TRIM(?),";
+         query += " ESTATU = TRIM(?),";
          query += " VIGENC = to_date('" + sdfecha.format(vigenc) + "','dd/mm/yyyy'),";
-         query += " COMPOR = ?,";
-         query += " USRACT = ?,";
+         query += " COMPOR = TRIM(?),";
+         query += " USRACT = TRIM(?),";
          query += " FECACT = '" + getFecha() + "'";
          query += " WHERE CODIGO = ? AND COMP = ? AND AREA = ? AND INSTANCIA = " + instancia + "";
 
@@ -1701,10 +1733,11 @@ public void updatets() throws  NamingException {
  }	       
 }
 
-public void guardar() throws NamingException, SQLException{   	
+public void guardar() throws NamingException, SQLException{ 
+	
 	if(validarOperacion==0){
 		insert();
-		inserth();
+		//inserth();
 		insertm();
 		insertti();
 		insertts();
@@ -2079,29 +2112,8 @@ public void borrar() throws NamingException, SQLException{
  * @throws NamingException 
 * @throws IOException 
  **/ 	
-	public void select(int first, int pageSize, String sortField, Object filterValue) throws SQLException, ClassNotFoundException, NamingException {
-  		if(period==null){
-  			period = " - ";
-  		}
-  		if(period==""){
-  			period = " - ";
-  		}        
-         if(nivapp==null){
-  			nivapp = " - ";
-  		}
-  		if(nivapp==""){
-  			nivapp = " - ";
-  		}        
-         if(estatu==null){
-  			estatu = " - ";
-  		}
-  		if(estatu==""){
-  			estatu = " - ";
-  		}        
-         String[] vecperiod = period.split("\\ - ", -1);
-         String[] vecnivapp = nivapp.split("\\ - ", -1);
-         String[] vecestatu = estatu.split("\\ - ", -1);
-		//System.out.println("entre al metodo SELECT");	
+public void select(int first, int pageSize, String sortField, Object filterValue) throws SQLException, ClassNotFoundException, NamingException {
+
 		Context initContext = new InitialContext();     
 		DataSource ds = (DataSource) initContext.lookup(JNDI);
 		con = ds.getConnection();		
@@ -2109,11 +2121,39 @@ public void borrar() throws NamingException, SQLException{
 		DatabaseMetaData databaseMetaData = con.getMetaData();
 		productName    = databaseMetaData.getDatabaseProductName();//Identifica la base de datos de conección
 		
+ 		String validar = "1";
+		String querycon = "SELECT BI_SGC014('" + login.toUpperCase() + "') AS VALIDAR FROM DUAL";
+		
+		//System.out.println(querycon);
+		//System.out.println(JNDI);
+		
+		consulta.selectPntGenerica(querycon, JNDI);
+		
+		rows = consulta.getRows();
+		tabla = consulta.getArray();
+		//System.out.println(tabla[0][0]);
+
+		if (tabla[0][0].equals(validar)) {		
+		
+		
+		if(comp==null){
+  			comp = " - ";
+  		}
+  		if(comp==""){
+  			comp = " - ";
+  		}        
+         if(area==null){
+  			area = " - ";
+  		}
+         
+         String[] veccomp = comp.split("\\ - ", -1);
+         String[] vecarea= area.split("\\ - ", -1);
+         
 		//Consulta paginada	
-     String query = "SELECT * FROM"; 
+        String query = "SELECT * FROM"; 
 	    query += "(select query.*, rownum as rn from";
 		query += "(SELECT A.CODIGO, A.NOMIND, A.TIPVALM, A.META, TO_CHAR(A.FECCAM,'DD/MM/YYYY') AS FECCAM, A.TIPVALTI, A.TOLINF, TO_CHAR(A.FECCATI,'DD/MM/YYYY') AS FECCATI, A.TIPVALTS, A.TOLSUP, TO_CHAR(A.FECCATS,'DD/MM/YYYY') AS FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, TO_CHAR(A.VIGENC,'DD/MM/YYYY') AS VIGENC, B.DESCR AS DESC1, C.DESCR AS DESC2, D.DESCR AS DESC3, A.COMP, A.AREA, E.DESCR AS DESC4, F.DESCR AS DESC5, J.DESCR AS DESC6, A.COMPOR, A.RESMET ";
-	    query += " FROM SGC001 A, TUBDER08 B, TUBDER10 C, TUBDER09 D, SGC005 E, SGC006 F, TUBDER11 J, TUBDER11 K, TUBDER11 L  ";
+	    query += " FROM SGC001 A, TUBDER08 B, TUBDER10 C, TUBDER09 D, SGC005 E, SGC006 F, TUBDER11 J, TUBDER11 K, TUBDER11 L ";
 	    query += " WHERE A.PERIOD = D.CODIGO";
 	    query += " AND A.NIVAPP = B.CODIGO";
 	    query += " AND A.ESTATU = C.CODIGO";
@@ -2121,10 +2161,9 @@ public void borrar() throws NamingException, SQLException{
 	    query += " AND A.AREA = F.CODIGO";
 	    query += " AND A.TIPVALM = J.CODIGO";
 	    query += " AND A.TIPVALTI = K.CODIGO";
-	    query += " AND A.TIPVALTS = L.CODIGO";
-	    query += " AND TRIM(A.PERIOD) LIKE TRIM('%" + vecperiod[0] + "%')";
-	    query += " AND TRIM(A.NIVAPP) LIKE TRIM('%" + vecnivapp[0] + "%')";
-	    query += " AND TRIM(A.ESTATU) LIKE TRIM('%" + vecestatu[0] + "%')";
+	    query += " AND A.TIPVALTS = L.CODIGO";	    
+	    query += " AND TRIM(A.COMP) LIKE TRIM('%" + veccomp[0] + "%')";
+	    query += " AND TRIM(A.AREA) LIKE TRIM('%" + vecarea[0] + "%')";
 	    query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET";
 	    query += ")query ) " ;
 	    query += " WHERE ROWNUM <="+pageSize;
@@ -2133,6 +2172,7 @@ public void borrar() throws NamingException, SQLException{
 
     pstmt = con.prepareStatement(query);
     //System.out.println(query);
+    //System.out.println("Usuario ADMINISTRADOR...");
 		
     r =  pstmt.executeQuery();
     while (r.next()){
@@ -2173,7 +2213,92 @@ public void borrar() throws NamingException, SQLException{
     pstmt.close();
     con.close();
 
+	} else {
+		
+		if(comp==null){
+  			comp = " - ";
+  		}
+  		if(comp==""){
+  			comp = " - ";
+  		}        
+         if(area==null){
+  			area = " - ";
+  		}
+         
+         String[] veccomp = comp.split("\\ - ", -1);
+         String[] vecarea= area.split("\\ - ", -1);
+         
+		//Consulta paginada	
+         String query = "SELECT * FROM"; 
+ 	    query += "(select query.*, rownum as rn from";
+ 		query += "(SELECT A.CODIGO, A.NOMIND, A.TIPVALM, A.META, TO_CHAR(A.FECCAM,'DD/MM/YYYY') AS FECCAM, A.TIPVALTI, A.TOLINF, TO_CHAR(A.FECCATI,'DD/MM/YYYY') AS FECCATI, A.TIPVALTS, A.TOLSUP, TO_CHAR(A.FECCATS,'DD/MM/YYYY') AS FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, TO_CHAR(A.VIGENC,'DD/MM/YYYY') AS VIGENC, B.DESCR AS DESC1, C.DESCR AS DESC2, D.DESCR AS DESC3, A.COMP, A.AREA, E.DESCR AS DESC4, F.DESCR AS DESC5, J.DESCR AS DESC6, A.COMPOR, A.RESMET ";
+ 	    query += " FROM SGC001 A, TUBDER08 B, TUBDER10 C, TUBDER09 D, SGC005 E, SGC006 F, TUBDER11 J, TUBDER11 K, TUBDER11 L, SGC009 M  ";
+ 	    query += " WHERE A.PERIOD = D.CODIGO";
+ 	    query += " AND A.NIVAPP = B.CODIGO";
+ 	    query += " AND A.ESTATU = C.CODIGO";
+ 	    query += " AND A.COMP = E.CODIGO";
+ 	    query += " AND A.AREA = F.CODIGO";
+ 	    query += " AND A.TIPVALM = J.CODIGO";
+ 	    query += " AND A.TIPVALTI = K.CODIGO";
+ 	    query += " AND A.TIPVALTS = L.CODIGO";
+ 		query += " AND A.COMP = M.COMP";
+ 		query += " AND A.AREA = M.AREA";
+ 		query += " AND A.CODIGO = M.INDICA";	    
+ 	    query += " AND TRIM(A.COMP) LIKE TRIM('%" + veccomp[0] + "%')";
+ 	    query += " AND TRIM(A.AREA) LIKE TRIM('%" + vecarea[0] + "%')";
+ 	    query += " AND TRIM(M.CODUSER) LIKE ('%" + login.toUpperCase() + "%')";
+ 	    query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET";
+ 	    query += ")query ) " ;
+ 	    query += " WHERE ROWNUM <="+pageSize;
+ 	    query += " AND rn > ("+ first +")";
+ 	    query += " ORDER BY  " + sortField.replace("z", "");
+
+    pstmt = con.prepareStatement(query);
+    //System.out.println(query);
+    //System.out.println("Usuario **** NO ****  ADMINISTRADOR...");
+		
+    r =  pstmt.executeQuery();
+    while (r.next()){
+ 	Sgc001 select = new Sgc001();
+ 	select.setZcodigo(r.getString(1));
+ 	select.setZdesc(r.getString(2));
+ 	select.setZtvalm(r.getString(3)+ " - " + r.getString(27));
+ 	select.setZmeta(r.getString(4));
+ 	select.setZfeccam(r.getString(5));
+ 	select.setZtvalti(r.getString(6)+ " - " + r.getString(27));
+ 	select.setZtolinf(r.getString(7));
+ 	select.setZfeccai(r.getString(8));
+ 	select.setZtvalts(r.getString(9)+ " - " + r.getString(27));
+ 	select.setZtolsup(r.getString(10));
+ 	select.setZfeccas(r.getString(11));
+ 	select.setZcalcul(r.getString(12));
+ 	select.setZfuente(r.getString(13));
+ 	select.setZproces(r.getString(14));
+ 	select.setZperiod(r.getString(15) + " - " + r.getString(22));
+ 	select.setZnivapp(r.getString(16) + " - " + r.getString(20));
+ 	select.setZrespon(r.getString(17));
+ 	select.setZestatu(r.getString(18) + " - " + r.getString(21));
+ 	select.setZvigenc(r.getString(19));
+ 	select.setZdesc1(r.getString(20));
+ 	select.setZdesc2(r.getString(21));
+ 	select.setZdesc3(r.getString(22));
+ 	select.setZcomp(r.getString(23)+ " - " + r.getString(25));
+ 	select.setZarea(r.getString(24)+ " - " + r.getString(26));
+ 	select.setZdesc4(r.getString(27));
+ 	select.setZdelete(r.getString(23)+ "" + r.getString(24)+ "" + r.getString(1));
+ 	select.setZcompor(r.getString(28));
+ 	select.setZresmet(r.getString(29));
+    	
+    	//Agrega la lista
+    	list.add(select);
+    }
+    //Cierra las conecciones
+    pstmt.close();
+    con.close();
+		
 	}
+		
+}
 	
  	/**
      * Leer registros en la tabla

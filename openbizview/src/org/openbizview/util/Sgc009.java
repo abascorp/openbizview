@@ -299,7 +299,7 @@ public void insert() throws  NamingException {
         String[] vecarea = area.split("\\ - ", -1);
         String[] veccod = codigo.split("\\ - ", -1);
         
-        String query = "INSERT INTO SGC009 VALUES (?,?,?,?,?,'" + getFecha() + "',?,'" + getFecha() + "',?)";
+        String query = "INSERT INTO SGC009 VALUES (?,?,?,?,?,SYSDATE,?,SYSDATE,?)";
         pstmt = con.prepareStatement(query);
         pstmt.setString(1, veccodu[0].toUpperCase());
         pstmt.setString(2, veccomp[0].toUpperCase());

@@ -526,7 +526,7 @@ public void insert() throws  NamingException {
         String[] vecarea = area.split("\\ - ", -1);
         String[] veccod = codigo.split("\\ - ", -1);
 
-        String query = "INSERT INTO SGC012 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,'" + getFecha() + "',?,'" + getFecha() + "',?)";
+        String query = "INSERT INTO SGC012 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,SYSDATE,?,SYSDATE,?)";
         pstmt = con.prepareStatement(query);
         pstmt.setString(1, veccomp[0].toUpperCase());
         pstmt.setString(2, vecarea[0].toUpperCase());
@@ -548,6 +548,28 @@ public void insert() throws  NamingException {
         pstmt.setInt(16, Integer.parseInt(instancia));
         
         //System.out.println(query);
+        
+        /*System.out.println("INSERT INTO SGC012 VALUES ('" + veccomp[0] + "','" + 
+        													vecarea[0] + "','" + 
+        													veccod[0] + "'," + 
+        													anocal + "," + 
+        													mescal + ",'" + 
+        													invana + "','" + 
+        													rrhh + "','" + 
+        													superv + "','" + 
+        													medamb + "','" + 
+        													equipo + "','" + 
+        													infstr + "','" + 
+        													proced + "','" + 
+        													otros + "','" + 
+        													login + "','" + 
+        													getFecha() + "','" + 
+        													login + "','" + 
+        													getFecha() + "'," + 
+        													instancia + ")");
+        													
+        													*/
+        
         //System.out.println(veccomp[0]);
         //System.out.println(vecarea[0]);
         //System.out.println(veccod[0]);

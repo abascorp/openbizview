@@ -839,10 +839,11 @@ public class Autocomplete extends Bd {
 	 **/
 	public List<String> completeComp(String query) throws NamingException,IOException {
 		//System.out.println("entre al metodo nivapp");
-		String validar = "1";
-		String querycon = "SELECT BI_SGC014('" + login.toUpperCase() + "') AS VALIDAR FROM DUAL";
 		
-			System.out.println(querycon);
+			String validar = "1";
+			String querycon = "SELECT BI_SGC014('" + login.toUpperCase() + "') AS VALIDAR FROM DUAL";
+		
+			//System.out.println(querycon);
 			//System.out.println(JNDI);
 			
 			consulta.selectPntGenerica(querycon, JNDI);
@@ -991,7 +992,7 @@ public class Autocomplete extends Bd {
 	    		
 	    		String querysb = "SELECT A.CODIGO || ' - ' || A.DESCR " 
 				        + " FROM SGC006 A, SGC008 B "
-	    				+ " WHERE A.COMP = B.COMP "
+	    				+ " WHERE A.COMP = B.COMP AND A.CODIGO = B.AREA"
 				        + " AND TRIM(B.CODUSER) like '%" + login.toUpperCase() + "%'"
 				        + " AND TRIM(B.COMP) like '%" + veccomp[0].toUpperCase() + "%'"
 				        + " GROUP BY A.CODIGO, A.DESCR "
@@ -1042,6 +1043,7 @@ public class Autocomplete extends Bd {
 		String querycon = "SELECT BI_SGC014('" + login.toUpperCase() + "') AS VALIDAR FROM DUAL";
 		
 			//System.out.println(querycon);
+			
 			//System.out.println(JNDISB);
 			
 			consulta.selectPntGenerica(querycon, JNDI);
@@ -1062,7 +1064,7 @@ public class Autocomplete extends Bd {
 						+ " GROUP BY CODIGO, NOMIND "
 						+ " ORDER BY 1";
 				//System.out.println(querysb);
-				//System.out.println(JNDISB);
+				//System.out.println("Usuario Administrador");
 				List<String> results = new ArrayList<String>();
 
 				consulta.selectPntGenerica(querysb, JNDI);
@@ -1080,18 +1082,24 @@ public class Autocomplete extends Bd {
 	    		//System.out.println(validar);
 	    		//System.out.println("EL USUARIO NO ES IGUAL");
 	    		
-	    		String querysb = "SELECT A.CODIGO + ' - ' + A.NOMIND " 
-				        + " FROM SGC001 A, SGC009 B "
-	    				+ " WHERE A.COMP = B.COMP "
-	    				+ " AND A.AREA = B.AREA "
-				        + " AND TRIM(B.CODUSER) like '%" + login.toUpperCase() + "%'"
-				        + " AND TRIM(B.COMP) like '%" + veccomp[0].toUpperCase() + "%'"
-				        + " AND TRIM(B.AREA) like '%" + vecarea[0].toUpperCase() + "%'"
-				        + " GROUP BY A.CODIGO, A.NOMIND "
-						+ " ORDER BY 1";
-				//System.out.println(querysb);
-				//System.out.println(JNDISB);
-				List<String> results = new ArrayList<String>();
+	    		
+	    		String querysb = " SELECT "
+	    				+ " TRIM(B.CODIGO) || ' - ' || TRIM(B.NOMIND)  INDICADOR "
+	    				+ " FROM  "
+	    				+ " SGC009 A, SGC001 B   "
+	    				+ " WHERE  "
+	    				+ " TRIM(A.COMP) = TRIM(B.COMP) "
+	    				+ " AND TRIM(A.AREA) = TRIM(B.AREA) "
+	    				+ " AND TRIM(A.INDICA) = TRIM(B.CODIGO) "
+	    				+ " AND TRIM(A.CODUSER) = '" + login.toUpperCase() + "'"
+	    				+ " AND TRIM(A.COMP) = '" + veccomp[0].toUpperCase() + "'"
+	    				+ " AND TRIM(A.AREA) = '" + vecarea[0].toUpperCase() + "'"
+	    				+ " GROUP BY B.CODIGO, B.NOMIND   "
+	    				+ " ORDER BY 1 ";
+	    				
+	    		//System.out.println(querysb);
+	    		//System.out.println("Usuario *** NO *** Administrador");
+	    		List<String> results = new ArrayList<String>();
 
 				consulta.selectPntGenerica(querysb, JNDI);
 

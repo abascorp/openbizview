@@ -252,6 +252,7 @@ public void insert() throws  NamingException {
     }	
     FacesContext.getCurrentInstance().addMessage(null, msj);
 }
+
 public void delete() throws NamingException  {  
 	HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
 	String[] chkbox = request.getParameterValues("toDelete");
@@ -278,7 +279,7 @@ public void delete() throws NamingException  {
                 pstmt.executeUpdate();
                 msj = new FacesMessage(FacesMessage.SEVERITY_INFO, getMessage("msnDelete"), "");
                 limpiarValores();	
-            } catch (SQLException e) {
+            } catch (SQLException e) { 
                 e.printStackTrace();
                 
                 if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001D_FK1) violated - child record found")){
@@ -287,79 +288,79 @@ public void delete() throws NamingException  {
                 	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc001dfk1"), "");
                 }
                 
-                if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001_FK1) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001_FK1) violated - child record found")){
                    	
                    	//System.out.println("se cumple la condicion y muestro el msg");
                    	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc001fk3"), "");
                    }
                    
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001A_FK1) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001A_FK1) violated - child record found")){
                       	
                       	//System.out.println("se cumple la condicion y muestro el msg");
                       	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc001afk4"), "");
                    }
                    
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001B_FK1) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001B_FK1) violated - child record found")){
                       	
                       	//System.out.println("se cumple la condicion y muestro el msg");
                       	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc001bfk4"), "");
                    }
                       
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001C_FK1) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001C_FK1) violated - child record found")){
                          	
                          //System.out.println("se cumple la condicion y muestro el msg");
                         msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc001cfk4"), "");
                    }
                       
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC003_FK1) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC003_FK1) violated - child record found")){
                          	
                         //System.out.println("se cumple la condicion y muestro el msg");
                        	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc003fk3"), "");
                    }
                          
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC007_FK1) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC007_FK1) violated - child record found")){
                             	
                      	//System.out.println("se cumple la condicion y muestro el msg");
                         msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc007fk1"), "");
                    }
                    
-                   if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC008_FK2) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC008_FK2) violated - child record found")){
                      	
                      	//System.out.println("se cumple la condicion y muestro el msg");
                      	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc008fk2"), "");
                   }
                      
-                  if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC009_FK2) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC009_FK2) violated - child record found")){
                         	
                         //System.out.println("se cumple la condicion y muestro el msg");
                        msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc009fk2"), "");
                   }
                      
-                  if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012_FK1) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012_FK1) violated - child record found")){
                    	
                    	//System.out.println("se cumple la condicion y muestro el msg");
                    	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc012fk3"), "");
                 }
                    
-                if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012A_FK1) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012A_FK1) violated - child record found")){
                       	
                       //System.out.println("se cumple la condicion y muestro el msg");
                      msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc012afk3"), "");
                 }
                    
-                if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012B_FK1) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012B_FK1) violated - child record found")){
                       	
                      //System.out.println("se cumple la condicion y muestro el msg");
                     	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc012bfk3"), "");
                 }
                       
-                if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012C_FK1) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012C_FK1) violated - child record found")){
                          	
                   	//System.out.println("se cumple la condicion y muestro el msg");
                      msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc012cfk3"), "");
                 }
                 
-                if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.FK_SGC005) violated - child record found")){
+                else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.FK_SGC005) violated - child record found")){
                  	
                   	//System.out.println("se cumple la condicion y muestro el msg");
                      msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("sgc005fk"), "");
