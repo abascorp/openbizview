@@ -31,7 +31,7 @@
 		  document.getElementById("formsgc001:tabView:comp_input").value= rTrim(vT0);
 		  document.getElementById("formsgc001:tabView:area_input").value= rTrim(vT1);
 		  document.getElementById("formsgc001:tabView:codigo").value= rTrim(vT2);
-		  document.getElementById("formsgc001:tabView:desc").value= rTrim(vT3);
+		  document.getElementById("formsgc001:tabView:desc").value = rTrim(vT3);
 		  document.getElementById("formsgc001:tabView:respon").value= rTrim(vT4);
 		  document.getElementById("formsgc001:tabView:calcul").value= rTrim(vT5);
 		  document.getElementById("formsgc001:tabView:fuente").value= rTrim(vT6);

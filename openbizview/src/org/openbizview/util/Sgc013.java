@@ -361,16 +361,17 @@ import org.primefaces.model.SortOrder;
 		
   		pstmt = con.prepareStatement(query);
         //System.out.println(query);
-  		
+        //System.out.println("ADMINISTRADOR");
+        
         r =  pstmt.executeQuery();
         		
         while (r.next()){
         Sgc013 select = new Sgc013();
-     	select.setZcodcia(r.getString(1));
+     	select.setZcodcia(r.getString(1) + " - " + r.getString(2));
      	select.setZdescia(r.getString(2));
-     	select.setZcodarea(r.getString(3));
+     	select.setZcodarea(r.getString(3) + " - " + r.getString(4));
      	select.setZdesarea(r.getString(4));
-     	select.setZcodind(r.getString(5));
+     	select.setZcodind(r.getString(5) + " - " + r.getString(6));
      	select.setZdesind(r.getString(6));
      	select.setZinstancia(r.getString(7));
 
@@ -407,16 +408,17 @@ import org.primefaces.model.SortOrder;
 	
   		pstmt = con.prepareStatement(query);
         //System.out.println(query);
-  		
+        //System.out.println("*****NO ADMINISTRADOR ****");
+        
         r =  pstmt.executeQuery();
         		
         while (r.next()){
         Sgc013 select = new Sgc013();
-     	select.setZcodcia(r.getString(1));
+     	select.setZcodcia(r.getString(1) + " - " + r.getString(2));
      	select.setZdescia(r.getString(2));
-     	select.setZcodarea(r.getString(3));
+     	select.setZcodarea(r.getString(3) + " - " + r.getString(4));
      	select.setZdesarea(r.getString(4));
-     	select.setZcodind(r.getString(5));
+     	select.setZcodind(r.getString(5) + " - " + r.getString(6));
      	select.setZdesind(r.getString(6));
      	select.setZinstancia(r.getString(7));
 

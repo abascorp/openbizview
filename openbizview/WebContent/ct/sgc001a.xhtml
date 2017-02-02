@@ -42,7 +42,7 @@
              
      <div class="container-fluid" id="containerF">
      <h:form id="formsgc001a"  >
-     
+
                 <!-- Dialog Panel DISPLAY DE FORMAS FAG016 Y FAG017-->
 		   	<p:dialog header="#{msg.sgc003}" widgetVar="dlg1" modal="true" showEffect="fade" hideEffect="fade" height="185">
 		   	  <p:panel id="paneldlg1"  header="#{msg.Sgc012tit}" style="white-space: normal;">	
@@ -65,7 +65,22 @@
 			</p:dialog>  
      
       <!-- Botonera --> 
+
+
      <div id="botones">         
+
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header" style="margin-top: 3px; margin-bottom: 3px">
+			<small>#{msg.titulosgc001a}</small>
+			</h1>
+		</div>
+	</div>
+
+	     <div class="pull-right" style="margin-top: 2px"><a HREF="http://inverpacacloudservice2.cloudapp.net:8060/dokuwiki/doku.php?id=wiki:welcome" target="_new" title="Wiki - Manual de Usuario SGC"><i class="fa fa-info-circle text-info fa-3x"></i></a></div>
+	
+
+
        <p:commandButton update="tbResult, panel, growl" accesskey="i" id="btnIn" action="#{sgc001a.guardar}" 
         rendered="#{smnubean.opcbot('1')}" value="#{msg.htmlguardar}" title="#{msg.htmlg}" icon="fa fa-floppy-o text-info" styleClass="botonera"/>
        <p:commandButton accesskey="r" id="btnEl" onclick="modalDelete();" 
@@ -112,7 +127,7 @@
 	   <!-- Panel -->      
      <div class="panel panel-info">
      <div class="panel-body">
-     <p:panel id="panel"  header="#{msg.Sgc001atit}" toggleable="true" style="white-space: normal;">	  
+     <p:panel id="panel"  header="#{msg.Sgc001tit}" toggleable="true" collapsed="true" style="white-space: normal;">	  
      <div class="pull-right"><a HREF="http://www.openbizview.com/wiki/doku.php?id=reportes" target="_new" title="Wiki"><i class="fa fa-file-text text-info"></i></a></div>	         
 	     <div class="row">
 		 <div class="col-lg-4 col-md-4 col-sm-4">  
@@ -218,32 +233,37 @@
             <input type="checkbox" name="toDelete" class="chk" value="#{tb.zdelete}"/>
             </p:column>  
 			
-			<p:column sortBy="#{tb.zarea}" styleClass="wrap" style="width:200px">  
-            <f:facet name="header">#{msg.Sgc001aTbarea}</f:facet>  
+			<p:column  styleClass="wrap" width="100">   
+            <f:facet name="header">#{msg.sgc013Codcia}</f:facet>  
+            <h:outputLabel value="#{tb.zcomp}" />
+            </p:column> 
+            
+            <p:column styleClass="wrap" width="150">  
+            <f:facet name="header">#{msg.sgc013Codarea}</f:facet>  
             <h:outputLabel value="#{tb.zarea}" />
             </p:column> 
             
-            <p:column sortBy="#{tb.zcodigo}" styleClass="wrap" style="width:200px">  
-            <f:facet name="header">#{msg.Sgc001tbcod}</f:facet>  
+            <p:column  styleClass="wrap" width="250">  
+            <f:facet name="header">#{msg.sgc013Codind}</f:facet>  
             <h:outputLabel value="#{tb.zcodigo}" />
             </p:column> 
                      
-            <p:column sortBy="#{tb.ztvalm}" styleClass="wrap" >  
+            <p:column  styleClass="wrap" width="80">  
             <f:facet name="header">#{msg.Sgc001aTbval}</f:facet>  
             <h:outputLabel value="#{tb.ztvalm}" />
             </p:column> 
                   
-            <p:column sortBy="#{tb.zfeccam}" styleClass="wrap" >  
+            <p:column  styleClass="wrap" width="80" >  
             <f:facet name="header">#{msg.Sgc001aTbfec}</f:facet> 
             <h:outputLabel value="#{tb.zfeccam}" />  
             </p:column> 
             
-            <p:column sortBy="#{tb.zmeta}" styleClass="wrap" >  
+            <p:column styleClass="wrap" width="60">  
             <f:facet name="header">#{msg.Sgc001aTbmeta}</f:facet> 
             <h:outputLabel value="#{tb.zmeta}" />  
             </p:column>    
             
-            <p:column width="60" >  
+            <p:column width="30" >  
             <f:facet name="header">#{msg.bvt001TbEnviar}</f:facet>   
              <p:commandLink styleClass="edit" onclick="enviar('#{tb.zcomp}','#{tb.zarea}','#{tb.zcodigo}','#{tb.ztvalm}','#{tb.zfeccam}','#{tb.zmeta}','#{tb.zresmet}','#{tb.zregist}','1')" 
             title="Enviar"><i class="fa fa-pencil-square-o fa-2x text-info"></i></p:commandLink>

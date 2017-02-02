@@ -530,7 +530,7 @@ public void guardar() throws NamingException, SQLException{
 	    query += " ORDER BY  " + sortField.replace("z", "");
 
     pstmt = con.prepareStatement(query);
-    //System.out.println(query);
+    System.out.println(query);
 		
     r =  pstmt.executeQuery();
     

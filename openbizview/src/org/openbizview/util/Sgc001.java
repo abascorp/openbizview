@@ -799,7 +799,6 @@ public void insert() throws  NamingException {
     } catch (Exception e) {
     	e.printStackTrace();
     }	       
-    limpiarValores(); 
 }
 
 /**
@@ -948,14 +947,14 @@ public void insertm() throws  NamingException {
         pstmt.setString(8, login);            
         pstmt.setInt(9, Integer.parseInt(instancia));
    
-       // System.out.println(query);
-       // System.out.println(veccomp[0]);
-       // System.out.println(vecarea[0]);
-       // System.out.println(codigo);
-       // System.out.println(vectvalm[0]);
-       // System.out.println(sdfecha.format(feccam));
-       // System.out.println(meta);
-       // System.out.println(resmet);
+        System.out.println(query);
+        System.out.println(veccomp[0]);
+        System.out.println(vecarea[0]);
+        System.out.println(codigo);
+        System.out.println(vectvalm[0]);
+        System.out.println(sdfecha.format(feccam));
+        System.out.println(meta);
+        System.out.println(resmet);
      
         try {
             //Avisando
@@ -2179,7 +2178,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
     while (r.next()){
  	Sgc001 select = new Sgc001();
  	select.setZcodigo(r.getString(1));
- 	select.setZdesc(r.getString(1)+ " - " +  r.getString(2)) ;
+ 	select.setZdesc(r.getString(2)) ;
  	select.setZtvalm(r.getString(3)+ " - " + r.getString(27));
  	select.setZmeta(r.getString(4));
  	select.setZfeccam(r.getString(5));

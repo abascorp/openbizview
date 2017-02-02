@@ -655,11 +655,12 @@ public void borrar() throws NamingException, SQLException{
 	    query += "AND TRIM(A.COMP) LIKE TRIM('%" + veccomp[0] + "%') ";
 	    query += "AND TRIM(A.AREA) LIKE TRIM('%" + vecarea[0] + "%') ";
 	    query += "AND TRIM(A.CODIGO) LIKE TRIM('%" + veccodigo[0] + "%') ";
-	    query += "GROUP BY A.COMP, A.AREA, A.CODIGO, A.TIPVAL, A.FECCAM, A.META, B.DESCR, C.DESCR, D.NOMIND, E.DESCR, A.REGIST, A.RESMET";
+	    query += "GROUP BY A.COMP, A.AREA, A.CODIGO, A.TIPVAL, A.FECCAM, A.META, B.DESCR, C.DESCR, D.NOMIND, E.DESCR, A.REGIST, A.RESMET ";
+	    query += "ORDER BY A.COMP, A.AREA, A.CODIGO, A.FECCAM, A.REGIST ";
 	    query += ")query ) " ;
 	    query += " WHERE ROWNUM <="+pageSize;
 	    query += " AND rn > ("+ first +")";
-	    query += " ORDER BY  " + sortField.replace("z", "");
+	    //query += " ORDER BY  " + sortField.replace("z", "");
 
     pstmt = con.prepareStatement(query);
     //System.out.println(query);

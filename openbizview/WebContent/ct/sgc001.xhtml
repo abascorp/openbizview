@@ -65,10 +65,20 @@
 			</p:dialog>  
      
       <!-- Botonera --> 
-     <div class="pull-right"><a HREF="http://inverpacacloudservice2.cloudapp.net:8060/dokuwiki/doku.php?id=wiki:welcome" target="_new" title="Wiki - Manual de Usuario SGC"><i class="fa fa-file-text text-info fa-3x"></i></a></div>
      
      
      <div id="botones">   
+ 
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header" style="margin-top: 3px; margin-bottom: 3px">
+			<small>Maestro de Indicadores</small>
+			</h1>
+		</div>
+	</div>
+
+     <div class="pull-right" style="margin-top: 2px"><a HREF="http://inverpacacloudservice2.cloudapp.net:8060/dokuwiki/doku.php?id=wiki:welcome" target="_new" title="Wiki - Manual de Usuario SGC"><i class="fa fa-info-circle text-info fa-3x"></i></a></div>
+
             
        <p:commandButton update="tbResult, panel, growl" accesskey="i" id="btnIn" action="#{sgc001.guardar}" 
         rendered="#{smnubean.opcbot('1')}" value="#{msg.htmlguardar}" title="#{msg.htmlg}" icon="fa fa-floppy-o text-info" styleClass="botonera"/>
@@ -93,8 +103,9 @@
      
      <!-- Ajax loader --> 		
 	 <div class="pull-right" style="margin-top: -40px">   			  
-	 <ui:include src="common/loader.xhtml"/>
+	 	<ui:include src="common/loader.xhtml"/>
 	 </div>
+     
      <!-- Mensaje -->
      <p:messages globalOnly="true" id="growl" closable="true" showIcon="true"/>
      
@@ -121,9 +132,12 @@
 			 
 	  	  
 	   <!-- Panel -->      
-     <div class="panel panel-info">
+     <div class="panel panel-info" >
+     
      <div class="panel-body">
+     
      <p:panel id="panel"  header="#{msg.Sgc001tit}" toggleable="true" collapsed="true" style="white-space: normal;">
+     
      <p:tabView id="tabView" style="height:auto;" >   	 
      	 <p:tab id="Mas" title="#{msg.sgc001Tab1}"> 
 		 	 <div class="row">
@@ -328,29 +342,28 @@
             <input type="checkbox" name="toDelete" class="chk" value="#{tb.zdelete}"/>
             </p:column>  
 			
-			<p:column sortBy="#{tb.zcomp}" styleClass="wrap" style="width:130px">  
-            <f:facet name="header">#{msg.Sgc001aTbcomp}</f:facet>  
+			<p:column >  
+            <f:facet name="header">#{msg.sgc013Codcia}</f:facet>  
             <h:outputLabel value="#{tb.zcomp}" />
             </p:column> 
-
-			<p:column sortBy="#{tb.zarea}" styleClass="wrap" style="width:200px">  
-            <f:facet name="header">#{msg.Sgc001aTbarea}</f:facet>  
-            <h:outputLabel value="#{tb.zarea}" />
-            </p:column>
 			
-			<!-- 
-			<p:column sortBy="#{tb.zcodigo}" styleClass="wrap" style="width:200px">  
+			<p:column  styleClass="wrap"  >  
+            <f:facet name="header">#{msg.sgc013Codarea}</f:facet>  
+            <h:outputLabel value="#{tb.zarea}" />
+            </p:column> 
+
+            
+			<p:column  styleClass="wrap"  >  
             <f:facet name="header">#{msg.Sgc001tbcod}</f:facet>  
             <h:outputLabel value="#{tb.zcodigo}" />
             </p:column> 
-             -->     
-                     
-            <p:column sortBy="#{tb.zdesc}" styleClass="wrap" >  
-            <f:facet name="header">#{msg.sgc013Codind}</f:facet>  
+            
+			<p:column  styleClass="wrap"  >  
+            <f:facet name="header">#{msg.Sgc001tbnin}</f:facet>  
             <h:outputLabel value="#{tb.zdesc}" />
             </p:column> 
                              
-            <p:column sortBy="#{tb.zrespon}" styleClass="wrap" >  
+            <p:column  styleClass="wrap" width="600">  
             <f:facet name="header">#{msg.Sgc001tbdes}</f:facet> 
             <h:outputLabel value="#{tb.zrespon}" />  
             </p:column>     

@@ -108,8 +108,7 @@
 	   <!-- Panel -->      
      <div class="panel panel-info">
      <div class="panel-body">
-     <p:panel id="panel"  header="#{msg.Sgc010tit}" toggleable="true" collapsed="true" style="white-space: normal;">	  
-     <div class="pull-right"><a HREF="http://www.openbizview.com/wiki/doku.php?id=reportes" target="_new" title="Wiki"><i class="fa fa-file-text text-info"></i></a></div>	         
+     <p:panel id="panel"  header="#{msg.Sgc010tit}"  style="white-space: normal;">	  
 	     <div class="row">
 		 <div class="col-lg-4 col-md-4 col-sm-4">  
 			    <p:autoComplete id="coduser" value="#{sgc010.coduser}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeUser}"  valueChangeListener="#{bd.setCoduser(sgc010.coduser)}" dropdown="true" scrollHeight="250">
