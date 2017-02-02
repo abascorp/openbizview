@@ -414,11 +414,11 @@ import org.primefaces.model.SortOrder;
         		
         while (r.next()){
         Sgc013 select = new Sgc013();
-     	select.setZcodcia(r.getString(1) + " - " + r.getString(2));
+     	select.setZcodcia(r.getString(1));
      	select.setZdescia(r.getString(2));
-     	select.setZcodarea(r.getString(3) + " - " + r.getString(4));
+     	select.setZcodarea(r.getString(3));
      	select.setZdesarea(r.getString(4));
-     	select.setZcodind(r.getString(5) + " - " + r.getString(6));
+     	select.setZcodind(r.getString(5));
      	select.setZdesind(r.getString(6));
      	select.setZinstancia(r.getString(7));
 
