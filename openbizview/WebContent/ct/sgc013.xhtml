@@ -138,20 +138,35 @@
             </p:outputPanel>         
             </f:facet> 
             
-			<p:column sortBy="#{tb.zcodcia}"  styleClass="wrap" style="width:230px" >  
+			<p:column  styleClass="wrap" style="width:130px" >  
             <f:facet name="header">#{msg.sgc013Codcia}</f:facet> 
             <h:outputLabel value="#{tb.zcodcia}"  />  
             </p:column>  
-            
-            <p:column sortBy="#{tb.zcodarea}"  styleClass="wrap" style="width:230px">  
+
+			<p:column  styleClass="wrap" style="width:130px" >  
+            <f:facet name="header">#{msg.sgc013Codcia}</f:facet> 
+            <h:outputLabel value="#{tb.zdescia}"  />  
+            </p:column>  
+                        
+            <p:column styleClass="wrap" style="width:130px">  
             <f:facet name="header">#{msg.sgc013Codarea}</f:facet>  
             <h:outputLabel value="#{tb.zcodarea}"  />  
             </p:column> 
+ 
+            <p:column styleClass="wrap" style="width:130px">  
+            <f:facet name="header">#{msg.sgc013Codarea}</f:facet>  
+            <h:outputLabel value="#{tb.zdesarea}"  />  
+            </p:column>  
             
-             <p:column sortBy="#{tb.zcodind}"  styleClass="wrap" style="width:230px">  
+             <p:column styleClass="wrap" style="width:130px">  
             <f:facet name="header">#{msg.sgc013Codind}</f:facet>  
             <h:outputLabel value="#{tb.zcodind}"  />  
             </p:column> 
+
+             <p:column  styleClass="wrap" style="width:130px">  
+            <f:facet name="header">#{msg.sgc013Codind}</f:facet>  
+            <h:outputLabel value="#{tb.zdesind}"  />  
+            </p:column>            
         	
             <p:column width="30" >  
             <f:facet name="header">#{msg.bvt001TbPrint}</f:facet>  
