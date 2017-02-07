@@ -260,32 +260,19 @@ import org.primefaces.model.SortOrder;
  		DataSource ds = (DataSource) initContext.lookup(JNDI);
  		con = ds.getConnection();
 
- 		String validar = "1";
-		String querycon = "SELECT BI_SGC014('" + login.toUpperCase() + "') AS VALIDAR FROM DUAL";
-		
-		//System.out.println(querycon);
-		//System.out.println(JNDI);
-		
-		consulta.selectPntGenerica(querycon, JNDI);
-		
-		rows = consulta.getRows();
-		tabla = consulta.getArray();
-		//System.out.println(tabla[0][0]);
-		
-		if (tabla[0][0].equals(validar)) { 		
-	
 		//Consulta paginada
-	  	     String query = "SELECT * FROM"; 
-	  		    query += "(select query.*, rownum as rn from";
-	  			query += " (SELECT A.COMP, A.CODIGO AS AREA, A.DESCR, A.USRCRE AS CODUSER, A.INSTANCIA ";
-	  		    query += " FROM SGC006 A ";
-	  		    query += " WHERE A.CODIGO||A.DESCR LIKE trim('%" + ((String) filterValue).toUpperCase() +  "%') ";
-	  		    query += " GROUP BY A.COMP, A.CODIGO, A.DESCR, A.USRCRE, A.INSTANCIA";
-	  		    query += " ORDER BY A.COMP, A.CODIGO";
-	  		    query += ")query ) " ;
-	  		    query += " WHERE ROWNUM <="+pageSize;
-	  		    query += " AND rn > ("+ first +")";
-	  		    query += " ORDER BY  " + sortField.replace("z", "");
+		String query = "SELECT * FROM"; 
+		query += "(select query.*, rownum as rn from";
+		query += " (SELECT A.COMP, A.CODIGO AS AREA, A.DESCR, A.USRCRE AS CODUSER, A.INSTANCIA ";
+		query += " FROM SGC006 A ";
+		query += " WHERE A.CODIGO||A.DESCR LIKE trim('%" + ((String) filterValue).toUpperCase() +  "%') ";
+		query += " AND A.COMP IN (SELECT DISTINCT COMP FROM SGC007 WHERE CODUSER = '" + login.toUpperCase() + "')";
+		query += " GROUP BY A.COMP, A.CODIGO, A.DESCR, A.USRCRE, A.INSTANCIA";
+		query += " ORDER BY A.COMP, A.CODIGO";
+		query += ")query ) " ;
+		query += " WHERE ROWNUM <="+pageSize;
+		query += " AND rn > ("+ first +")";
+		query += " ORDER BY  " + sortField.replace("z", "");
 
   		pstmt = con.prepareStatement(query);
         //System.out.println(query);
@@ -306,46 +293,7 @@ import org.primefaces.model.SortOrder;
         pstmt.close();
         con.close();
     }
-		
-		else { 
-			
-			//Consulta paginada
-	  	     String query = "SELECT * FROM"; 
-	  		    query += "(select query.*, rownum as rn from";
-	  			query += " (SELECT A.COMP, A.AREA, B.DESCR, A.CODUSER, A.INSTANCIA ";
-	  		    query += " FROM SGC008 A,  SGC006 B ";
-	  		    query += " WHERE A.AREA = B.CODIGO ";
-	  		    query += " AND A.COMP = B.COMP ";
-	  		    query += " AND TRIM(A.CODUSER) LIKE TRIM('%" + login.toUpperCase() + "%')";
-	  		    query += " GROUP BY A.COMP, A.AREA, B.DESCR, A.CODUSER, A.INSTANCIA";
-	  		    query += " ORDER BY A.COMP, A.AREA";
-	  		    query += ")query ) " ;
-	  		    query += " WHERE ROWNUM <="+pageSize;
-	  		    query += " AND rn > ("+ first +")";
-	  		    query += " ORDER BY  " + sortField.replace("z", "");
 
-	  		pstmt = con.prepareStatement(query);
-	        //System.out.println(query);
-	  		
-	        r =  pstmt.executeQuery();
-	        		
-	        while (r.next()){
-	        Sgc004 select = new Sgc004();
-	     	select.setZcomp(r.getString(1));
-	     	select.setZarea(r.getString(2));
-	     	select.setZdesc(r.getString(3));
-	     	select.setZinstancia(r.getString(5));
-
-	        	//Agrega la lista
-	        	list.add(select);
-	        }
-	        //Cierra las conecciones
-	        pstmt.close();
-	        con.close();			
-			
-		}
-  	
-  	}
   	/**
      * Leer registros en la tabla
      * @throws NamingException 

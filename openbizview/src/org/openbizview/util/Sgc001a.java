@@ -40,7 +40,6 @@ import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openbizview.util.PntGenerica;
-import org.openbizview.util.PntGenericasb;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -161,6 +160,7 @@ public void init() {
 	private String zusername = "";
 	private String zregist = "";
 	private String zresmet = "";
+	String[][] tabla;
 	
 	public String getResmet() {
 		return resmet;
@@ -359,8 +359,7 @@ public void init() {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Variables seran utilizadas para capturar mensajes de errores de Oracle y parametros de metodos
 	FacesMessage msj = null;
-	PntGenericasb consulta = new PntGenericasb();
-	PntGenerica consulta1 = new PntGenerica();
+	PntGenerica consulta = new PntGenerica();
 	boolean vGacc; //Validador de opciones del menú
 	private int rows; //Registros de tabla Sybase
 	//private int rows1; //Registros de tabla oracle
@@ -611,37 +610,53 @@ public void borrar() throws NamingException, SQLException{
 * @throws IOException 
  **/ 	
 	public void select(int first, int pageSize, String sortField, Object filterValue) throws SQLException, ClassNotFoundException, NamingException {
-  		if(comp==null){
-  			comp = " - ";
-  		}
-  		if(comp==""){
-  			comp = " - ";
-  		}        
-         if(area==null){
-  			area = " - ";
-  		}
-  		if(area==""){
-  			area = " - ";
-  		}        
-         if(codigo==null){
-  			codigo = " - ";
-  		}
-  		if(codigo==""){
-  			codigo = " - ";
-  		}        
-         String[] veccomp = comp.split("\\ - ", -1);
-         String[] vecarea = area.split("\\ - ", -1);
-         String[] veccodigo = codigo.split("\\ - ", -1);
-		//System.out.println("entre al metodo SELECT");	
+ 
 		Context initContext = new InitialContext();     
 		DataSource ds = (DataSource) initContext.lookup(JNDI);
 		con = ds.getConnection();		
 		//Reconoce la base de datos de conección para ejecutar el query correspondiente a cada uno
 		DatabaseMetaData databaseMetaData = con.getMetaData();
 		productName    = databaseMetaData.getDatabaseProductName();//Identifica la base de datos de conección
+
+		
+		String validar = "1";
+		String querycon = "SELECT BI_SGC014('" + login.toUpperCase() + "') AS VALIDAR FROM DUAL";
+		
+		//System.out.println(querycon);
+		//System.out.println(JNDI);
+		
+		consulta.selectPntGenerica(querycon, JNDI);
+		
+		rows = consulta.getRows();
+		tabla = consulta.getArray();
+		//System.out.println(tabla[0][0]);	
+		
+		if (tabla[0][0].equals(validar)) {		
+			
+			if(comp==null){
+	  			comp = " - ";
+	  		}
+	  		if(comp==""){
+	  			comp = " - ";
+	  		}        
+	         if(area==null){
+	  			area = " - ";
+	  		}
+	  		if(area==""){
+	  			area = " - ";
+	  		}        
+	         if(codigo==null){
+	  			codigo = " - ";
+	  		}
+	  		if(codigo==""){
+	  			codigo = " - ";
+	  		}        
+	         String[] veccomp = comp.split("\\ - ", -1);
+	         String[] vecarea = area.split("\\ - ", -1);
+	         String[] veccodigo = codigo.split("\\ - ", -1);				
 		
 		//Consulta paginada
-     String query = "SELECT * FROM"; 
+        String query = "SELECT * FROM"; 
 	    query += "(select query.*, rownum as rn from";
 		query += "(SELECT A.COMP, A.AREA, A.CODIGO, A.TIPVAL, TO_CHAR(A.FECCAM,'DD/MM/YYYY') AS FECCAM, A.META, B.DESCR AS DESC1, C.DESCR AS DESC2, D.NOMIND AS DESC3, E.DESCR AS DESC4, A.REGIST, A.RESMET ";
 		query += "FROM SGC001A A, SGC005 B, SGC006 C, SGC001 D, TUBDER11 E ";
@@ -664,6 +679,107 @@ public void borrar() throws NamingException, SQLException{
 
     pstmt = con.prepareStatement(query);
     //System.out.println(query);
+    //System.out.println("***ADMINISTRADOR***");
+		
+    r =  pstmt.executeQuery();
+    
+    while (r.next()){
+ 	Sgc001a select = new Sgc001a();
+ 	select.setZcomp(r.getString(1)+ " - " + r.getString(7));
+ 	select.setZarea(r.getString(2)+ " - " + r.getString(8));
+ 	select.setZcodigo(r.getString(3)+ " - " + r.getString(9));
+ 	select.setZtvalm(r.getString(4)+ " - " + r.getString(10));
+	select.setZfeccam(r.getString(5));
+ 	select.setZmeta(r.getString(6));
+ 	select.setZdesc1(r.getString(7));
+ 	select.setZdesc2(r.getString(8));
+ 	select.setZdesc3(r.getString(9));
+ 	select.setZdesc4(r.getString(10));
+ 	select.setZdelete(r.getString(1)+ "" + r.getString(2)+ "" + r.getString(3)+ "" + r.getString(11));
+ 	select.setZregist(r.getString(11));
+ 	select.setZresmet(r.getString(12));
+    	
+    	//Agrega la lista
+    	list.add(select);
+    }
+    //Cierra las conecciones
+    pstmt.close();
+    con.close();
+
+	} else {			
+
+		if(comp==null){
+  			comp = " - ";
+  		}
+  		if(comp==""){
+  			comp = " - ";
+  		}        
+         if(area==null){
+  			area = " - ";
+  		}
+  		if(area==""){
+  			area = " - ";
+  		}        
+         if(codigo==null){
+  			codigo = " - ";
+  		}
+  		if(codigo==""){
+  			codigo = " - ";
+  		}        
+         String[] veccomp = comp.split("\\ - ", -1);
+         String[] vecarea = area.split("\\ - ", -1);
+         String[] veccodigo = codigo.split("\\ - ", -1);	
+		
+         String query = " SELECT";
+         query += " TOT.*";
+         query += " FROM (select ";
+         query += "       DISTINCT RES.*";
+         query += "       from (SELECT  ";
+         query += "             A.COMP, A.AREA, A.CODIGO, A.TIPVAL, TO_CHAR(A.FECCAM,'DD/MM/YYYY') AS FECCAM, A.META, B.DESCR AS DESC1, C.DESCR AS DESC2, ";
+         query += "             D.NOMIND AS DESC3, E.DESCR AS DESC4, A.REGIST, A.RESMET ";
+         query += "             FROM ";
+         query += "             SGC001A A, SGC005 B, SGC006 C, SGC001 D, TUBDER11 E, SGC009 F";
+         query += "             WHERE ";
+         query += "             A.COMP = B.CODIGO ";
+         query += "             AND A.COMP = C.COMP ";
+         query += "             AND A.AREA = C.CODIGO ";
+         query += "             AND A.COMP = D.COMP ";
+         query += "             AND A.AREA = D.AREA ";
+         query += "             AND A.CODIGO = D.CODIGO ";
+         query += "             AND A.TIPVAL = E.CODIGO ";
+         query += "             AND A.COMP = F.COMP";
+         query += "             AND A.AREA = F.AREA";
+         query += "             AND A.CODIGO = F.INDICA";
+         query += "             AND F.CODUSER = '" + login.toUpperCase() + "'";
+         query += "             UNION ALL";
+         query += "             SELECT  ";
+         query += "             A.COMP, A.AREA, A.CODIGO, A.TIPVAL, TO_CHAR(A.FECCAM,'DD/MM/YYYY') AS FECCAM, A.META, B.DESCR AS DESC1, C.DESCR AS DESC2, ";
+         query += "             D.NOMIND AS DESC3, E.DESCR AS DESC4, A.REGIST, A.RESMET ";
+         query += "             FROM ";
+         query += "             SGC001A A, SGC005 B, SGC006 C, SGC001 D, TUBDER11 E ";
+         query += "             WHERE ";
+         query += "             A.COMP = B.CODIGO ";
+         query += "             AND A.COMP = C.COMP ";
+         query += "             AND A.AREA = C.CODIGO ";
+         query += "             AND A.COMP = D.COMP ";
+         query += "             AND A.AREA = D.AREA ";
+         query += "             AND A.CODIGO = D.CODIGO ";
+         query += "             AND A.TIPVAL = E.CODIGO ";
+         query += "             AND A.COMP||A.AREA IN (SELECT COMP||AREA FROM SGC008 WHERE CODUSER = '" + login.toUpperCase() + "' AND DUEPRO = '1')";
+         query += "             ) RES";
+         query += "       WHERE ";
+         query += "       TRIM(RES.COMP) LIKE TRIM('%" + veccomp[0] + "%') ";
+         query += "       AND TRIM(RES.AREA) LIKE TRIM('%" + vecarea[0] + "%') ";
+         query += "       AND TRIM(RES.CODIGO) LIKE TRIM('%" + veccodigo[0] + "%')) TOT";
+         query += " WHERE      ";
+         query += " ROWNUM <=" +pageSize;  
+         query += " AND ROWNUM > ("+ first +")";
+         query += " ORDER BY";
+         query += " TOT.COMP, TOT.AREA, TOT.CODIGO";
+
+    pstmt = con.prepareStatement(query);
+    //System.out.println(query);
+    //System.out.println("***NO ADMINISTRADOR***");
 		
     r =  pstmt.executeQuery();
     
@@ -691,6 +807,7 @@ public void borrar() throws NamingException, SQLException{
     con.close();
 
 	}
+}
 	
  	/**
      * Leer registros en la tabla

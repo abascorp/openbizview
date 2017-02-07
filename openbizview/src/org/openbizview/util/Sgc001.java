@@ -2118,7 +2118,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 		con = ds.getConnection();		
 		//Reconoce la base de datos de conección para ejecutar el query correspondiente a cada uno
 		DatabaseMetaData databaseMetaData = con.getMetaData();
-		productName    = databaseMetaData.getDatabaseProductName();//Identifica la base de datos de conección
+		productName    = databaseMetaData.getDatabaseProductName();//Identifica la base de datos de conección	
 		
  		String validar = "1";
 		String querycon = "SELECT BI_SGC014('" + login.toUpperCase() + "') AS VALIDAR FROM DUAL";
@@ -2132,21 +2132,24 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 		tabla = consulta.getArray();
 		//System.out.println(tabla[0][0]);
 
-		if (tabla[0][0].equals(validar)) {		
-		
-		
-		if(comp==null){
-  			comp = " - ";
-  		}
-  		if(comp==""){
-  			comp = " - ";
-  		}        
-         if(area==null){
-  			area = " - ";
-  		}
-         
-         String[] veccomp = comp.split("\\ - ", -1);
-         String[] vecarea= area.split("\\ - ", -1);
+		if (tabla[0][0].equals(validar)) {	
+			
+			
+			if(comp==null){
+	  			comp = " - ";
+	  		}
+	  		if(comp==""){
+	  			comp = " - ";
+	  		}        
+	         if(area==null){
+	  			area = " - ";
+	  		}
+	         if(area==""){
+	        	 area = " - ";
+	         }
+	         
+	         String[] veccomp = comp.split("\\ - ", -1);
+	         String[] vecarea= area.split("\\ - ", -1);				
          
 		//Consulta paginada	
         String query = "SELECT * FROM"; 
@@ -2168,9 +2171,9 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 	    query += ")query ) " ;
 	    query += " WHERE ROWNUM <="+pageSize;
 	    query += " AND rn > ("+ first +")";
-	    query += " ORDER BY  " + sortField.replace("z", "");
 
     pstmt = con.prepareStatement(query);
+    
     //System.out.println(query);
     //System.out.println("Usuario ADMINISTRADOR...");
 		
@@ -2214,7 +2217,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
     con.close();
 
 	} else {
-		
+
 		if(comp==null){
   			comp = " - ";
   		}
@@ -2224,37 +2227,68 @@ public void select(int first, int pageSize, String sortField, Object filterValue
          if(area==null){
   			area = " - ";
   		}
+         if(area==""){
+        	 area = " - ";
+         }
          
          String[] veccomp = comp.split("\\ - ", -1);
-         String[] vecarea= area.split("\\ - ", -1);
-         
-		//Consulta paginada	
-         String query = "SELECT * FROM"; 
- 	    query += "(select query.*, rownum as rn from";
- 		query += "(SELECT A.CODIGO, A.NOMIND, A.TIPVALM, A.META, TO_CHAR(A.FECCAM,'DD/MM/YYYY') AS FECCAM, A.TIPVALTI, A.TOLINF, TO_CHAR(A.FECCATI,'DD/MM/YYYY') AS FECCATI, A.TIPVALTS, A.TOLSUP, TO_CHAR(A.FECCATS,'DD/MM/YYYY') AS FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, TO_CHAR(A.VIGENC,'DD/MM/YYYY') AS VIGENC, B.DESCR AS DESC1, C.DESCR AS DESC2, D.DESCR AS DESC3, A.COMP, A.AREA, E.DESCR AS DESC4, F.DESCR AS DESC5, J.DESCR AS DESC6, A.COMPOR, A.RESMET ";
- 	    query += " FROM SGC001 A, TUBDER08 B, TUBDER10 C, TUBDER09 D, SGC005 E, SGC006 F, TUBDER11 J, TUBDER11 K, TUBDER11 L, SGC009 M  ";
- 	    query += " WHERE A.PERIOD = D.CODIGO";
- 	    query += " AND A.NIVAPP = B.CODIGO";
- 	    query += " AND A.ESTATU = C.CODIGO";
- 	    query += " AND A.COMP = E.CODIGO";
- 	    query += " AND A.AREA = F.CODIGO";
- 	    query += " AND A.TIPVALM = J.CODIGO";
- 	    query += " AND A.TIPVALTI = K.CODIGO";
- 	    query += " AND A.TIPVALTS = L.CODIGO";
- 		query += " AND A.COMP = M.COMP";
- 		query += " AND A.AREA = M.AREA";
- 		query += " AND A.CODIGO = M.INDICA";	    
- 	    query += " AND TRIM(A.COMP) LIKE TRIM('%" + veccomp[0] + "%')";
- 	    query += " AND TRIM(A.AREA) LIKE TRIM('%" + vecarea[0] + "%')";
- 	    query += " AND TRIM(M.CODUSER) LIKE ('%" + login.toUpperCase() + "%')";
- 	    query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET";
- 	    query += " ORDER BY A.COMP, A.AREA, A.CODIGO ";
- 	    query += ")query ) " ;
- 	    query += " WHERE ROWNUM <="+pageSize;
- 	    query += " AND rn > ("+ first +")";
- 	    query += " ORDER BY  " + sortField.replace("z", "");
+         String[] vecarea= area.split("\\ - ", -1);				
+		
+
+		 String query = " SELECT"; 
+		 query += " TOT.*, rownum as rn";    
+		 query += " FROM (select"; 
+		 query += " DISTINCT"; 
+		 query += " REV.CODIGO, REV.NOMIND, REV.TIPVALM, REV.META, REV.FECCAM, REV.TIPVALTI, REV.TOLINF, REV.FECCATI, REV.TIPVALTS, REV.TOLSUP, REV.FECCATS, REV.CALCULO, REV.DATOS, REV.PROCES, REV.PERIOD,"; 
+		 query += " REV.NIVAPP, REV.DESCRI, REV.ESTATU, REV.VIGENC, REV.DESC1, REV.DESC2, REV.DESC3, REV.COMP, REV.AREA, REV.DESC4, REV.DESC5, REV.DESC6, REV.COMPOR, REV.RESMET";
+		 query += " from (SELECT"; 
+		 query += " A.COMP, A.AREA, A.CODIGO, A.NOMIND, A.TIPVALM, A.META, TO_CHAR(A.FECCAM,'DD/MM/YYYY') FECCAM, A.TIPVALTI, A.TOLINF, TO_CHAR(A.FECCATI,'DD/MM/YYYY') FECCATI, A.TIPVALTS, A.TOLSUP,"; 
+		 query += " TO_CHAR(A.FECCATS,'DD/MM/YYYY') FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, TO_CHAR(A.VIGENC,'DD/MM/YYYY') VIGENC, B.DESCR DESC1,"; 
+		 query += " C.DESCR DESC2, D.DESCR DESC3, E.DESCR DESC4, F.DESCR DESC5, J.DESCR DESC6, A.COMPOR, A.RESMET";
+		 query += " FROM"; 
+		 query += " SGC001 A, TUBDER08 B, TUBDER10 C, TUBDER09 D, SGC005 E, SGC006 F, TUBDER11 J, TUBDER11 K, TUBDER11 L, SGC009 M";   
+		 query += " WHERE"; 
+		 query += " A.PERIOD = D.CODIGO"; 
+		 query += " AND A.NIVAPP = B.CODIGO"; 
+		 query += " AND A.ESTATU = C.CODIGO ";
+		 query += " AND A.COMP = E.CODIGO"; 
+		 query += " AND A.AREA = F.CODIGO"; 
+		 query += " AND A.TIPVALM = J.CODIGO"; 
+		 query += " AND A.TIPVALTI = K.CODIGO"; 
+		 query += " AND A.TIPVALTS = L.CODIGO"; 
+		 query += " AND A.COMP = M.COMP"; 
+		 query += " AND A.AREA = M.AREA"; 
+		 query += " AND A.CODIGO = M.INDICA"; 
+		 query += " AND TRIM(M.CODUSER) LIKE ('%" + login.toUpperCase() + "%')"; 
+		 query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS,"; 
+		 query += " A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET";         
+		 query += " UNION ALL";
+		 query += " SELECT"; 
+		 query += " A.COMP, A.AREA, A.CODIGO, A.NOMIND, A.TIPVALM, A.META, TO_CHAR(A.FECCAM,'DD/MM/YYYY') FECCAM, A.TIPVALTI, A.TOLINF, TO_CHAR(A.FECCATI,'DD/MM/YYYY') FECCATI, A.TIPVALTS, A.TOLSUP,"; 
+		 query += " TO_CHAR(A.FECCATS,'DD/MM/YYYY') FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, TO_CHAR(A.VIGENC,'DD/MM/YYYY') VIGENC, B.DESCR DESC1,"; 
+		 query += " C.DESCR DESC2, D.DESCR DESC3, E.DESCR DESC4, F.DESCR DESC5, J.DESCR DESC6, A.COMPOR, A.RESMET";
+		 query += " FROM ";
+		 query += " SGC001 A, TUBDER08 B, TUBDER10 C, TUBDER09 D, SGC005 E, SGC006 F, TUBDER11 J, TUBDER11 K, TUBDER11 L"; 
+		 query += " WHERE ";
+		 query += " A.PERIOD = D.CODIGO ";
+		 query += " AND A.NIVAPP = B.CODIGO ";
+		 query += " AND A.ESTATU = C.CODIGO ";
+		 query += " AND A.COMP = E.CODIGO ";
+		 query += " AND A.AREA = F.CODIGO ";
+		 query += " AND A.TIPVALM = J.CODIGO ";
+		 query += " AND A.TIPVALTI = K.CODIGO ";
+		 query += " AND A.TIPVALTS = L.CODIGO  ";
+		 query += " AND A.COMP||A.AREA IN (SELECT COMP||AREA FROM SGC008 WHERE CODUSER = '" + login.toUpperCase() + "' AND DUEPRO = '1')";
+		 query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS, ";
+		 query += " A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET) REV";
+		 query += " WHERE";
+		 query += " TRIM(REV.COMP) LIKE TRIM('%" + veccomp[0] + "%')";
+		 query += " AND TRIM(REV.AREA) LIKE TRIM('%" + vecarea[0] + "%')";
+		 query += " ORDER BY REV.COMP, REV.AREA, REV.CODIGO) TOT";
+		 query += " WHERE ROWNUM <=15 AND ROWNUM > (0) ORDER BY  TOT.COMP, TOT.AREA, TOT.CODIGO ";             
 
     pstmt = con.prepareStatement(query);
+    
     //System.out.println(query);
     //System.out.println("Usuario **** NO ****  ADMINISTRADOR...");
 		
@@ -2297,7 +2331,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
     pstmt.close();
     con.close();
 		
-	}
+	} 
 		
 }
 	
@@ -2327,7 +2361,23 @@ public void select(int first, int pageSize, String sortField, Object filterValue
       		}
       		if(estatu==""){
       			estatu = " - ";
+      		}  
+      		
+    		if(comp==null){
+      			comp = " - ";
+      		}
+      		if(comp==""){
+      			comp = " - ";
       		}        
+             if(area==null){
+      			area = " - ";
+      		}
+             if(area==""){
+            	 area = " - ";
+             }
+             
+             String[] veccomp = comp.split("\\ - ", -1);
+             String[] vecarea= area.split("\\ - ", -1);		
              String[] vecperiod = period.split("\\ - ", -1);
              String[] vecnivapp = nivapp.split("\\ - ", -1);
              String[] vecestatu = estatu.split("\\ - ", -1);
@@ -2337,7 +2387,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
       		con = ds.getConnection();
 
      		//Consulta paginada
-     		String query = "SELECT COUNT_SGC001('" + ((String) filterValue).toUpperCase() + "','" + vecperiod[0] + "','" + vecnivapp[0] + "','" + vecestatu[0] + "', '" + instancia + "') FROM DUAL";
+     		String query = "SELECT COUNT_SGC001('" + veccomp[0] + "','" + vecarea[0] + "','" + ((String) filterValue).toUpperCase() + "','" + vecperiod[0] + "','" + vecnivapp[0] + "','" + vecestatu[0] + "', '" + instancia + "','" + login.toUpperCase() + "') FROM DUAL";
 
            
            pstmt = con.prepareStatement(query);

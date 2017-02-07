@@ -369,6 +369,7 @@ import org.primefaces.model.SortOrder;
        insertBvTMENU(veccodrol[0], "C06|"+getMessage("CalendarS").toUpperCase()+"|0", JNDI, login);
        insertBvTMENU(veccodrol[0], "C07|"+getMessage("coo002").toUpperCase()+"|0", JNDI, login);
        //INDICADORES DIRECTIVOS
+       /*
        insertBvTMENU(veccodrol[0], "I00|"+getMessage("globalInd").toUpperCase()+"|0", JNDI, login);
        insertBvTMENU(veccodrol[0], "I01|"+getMessage("mnuindt").toUpperCase()+"|0", JNDI, login);
        insertBvTMENU(veccodrol[0], "I02|"+getMessage("indt01").toUpperCase()+"|0", JNDI, login);
@@ -407,6 +408,7 @@ import org.primefaces.model.SortOrder;
        insertBvTMENU(veccodrol[0], "I35|"+getMessage("indh18").toUpperCase()+"|0", JNDI, login);
        insertBvTMENU(veccodrol[0], "I36|"+getMessage("indh00000").toUpperCase()+"|0", JNDI, login);
        insertBvTMENU(veccodrol[0], "I37|"+getMessage("indh0").toUpperCase()+"|0", JNDI, login);
+       */
 	   }
 	   if(exito.equals("exito")){
 	   msj = new FacesMessage(FacesMessage.SEVERITY_INFO, getMessage("msnInsert"), "");  

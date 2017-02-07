@@ -517,5 +517,9 @@ public class Bd  {
 	public void setCodinv(String codinv){
 	   	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("codinv", codinv);
 	}
+	
+	public void setDuepro(String duepro){
+	   	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("duepro", duepro);
+	}	
 
 }

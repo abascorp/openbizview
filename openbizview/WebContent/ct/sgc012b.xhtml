@@ -75,7 +75,7 @@
 		</div>
 	</div>
 
-	    <div class="pull-right" style="margin-top: 2px"><a HREF="http://inverpacacloudservice2.cloudapp.net:8060/dokuwiki/doku.php?id=wiki:welcome" target="_new" title="Wiki - Manual de Usuario SGC"><i class="fa fa-info-circle text-info fa-3x"></i></a></div>
+	    <div class="pull-right" style="margin-top: 2px"><a HREF="http://repgestion.cloudapp.net:8060/dokuwiki/doku.php?id=sgc012b" target="_new" title="Wiki - Manual de Usuario SGC"><i class="fa fa-info-circle text-info fa-3x"></i></a></div>
 
 
       <!-- Botonera adicional--> 
@@ -129,9 +129,8 @@
      <div class="panel panel-info">
      <div class="panel-body">
      <p:panel id="panel"  header="#{msg.Sgc012btit}" toggleable="true" collapsed="true" style="white-space: normal;">	  
-     <div class="pull-right"><a HREF="http://www.openbizview.com/wiki/doku.php?id=reportes" target="_new" title="Wiki"><i class="fa fa-file-text text-info"></i></a></div>	         
-	     <div class="row">
-		 <div class="col-lg-4 col-md-4 col-sm-4">  
+         <div class="row">
+		 <div class="col-lg-15 col-md-15 col-sm-15">  
 	     <p:autoComplete id="comp" value="#{sgc012b.comp}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeComp1}"  valueChangeListener="#{bd.setComp(sgc012b.comp)}" dropdown="true" scrollHeight="250">
 		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setComp(sgc012b.comp)}" />	     
 		 </p:autoComplete> 
@@ -144,7 +143,7 @@
 		 <p:watermark for="area" value="#{msg.sgc001are}"  />
 		 <p:spacer height="1"/>
 		 <p:message for="area"/>     
-		 <p:autoComplete id="codigo" value="#{sgc012b.codigo}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeInd1}"  valueChangeListener="#{bd.setCodigo(sgc012b.codigo)}" dropdown="true" scrollHeight="250">
+		 <p:autoComplete id="codigo" value="#{sgc012b.codigo}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeInd}"  valueChangeListener="#{bd.setCodigo(sgc012b.codigo)}" dropdown="true" scrollHeight="250">
 		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setCodigo(sgc012b.codigo)}" />	     
 		 </p:autoComplete> 
 		 <p:watermark for="codigo" value="#{msg.sgc003ind}"  />
@@ -171,7 +170,8 @@
 			allowTypes="/(\.|\/)(jpg|doc|docx|xls|xlsx|ppt|pptx|pdf|txt)$/"
 			invalidFileMessage="#{msg.autos02Rpt}"
 			oncomplete="HideUpload()"
-			id="upload">
+			id="upload"
+			sizeLimit="15000000">
 		 </p:fileUpload>	 
 
 		 <h:inputHidden id="regist" value="#{sgc012b.regist}"/> 

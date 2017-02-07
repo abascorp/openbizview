@@ -66,6 +66,17 @@
      
       <!-- Botonera --> 
      <div id="botones">     
+ 	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header" style="margin-top: 3px; margin-bottom: 3px">
+			<small>#{msg.titulotubder09}</small>
+			</h1>
+		</div>
+	</div>
+
+     <div class="pull-right" style="margin-top: 2px"><a HREF="http://repgestion.cloudapp.net:8060/dokuwiki/doku.php?id=tubder09" target="_new" title="Wiki - Manual de Usuario SGC"><i class="fa fa-info-circle text-info fa-3x"></i></a></div>
+ 
+ 
        <p:commandButton update="tbResult, panel, growl" accesskey="i" id="btnIn" action="#{tubder09.guardar}" 
         rendered="#{smnubean.opcbot('1')}" value="#{msg.htmlguardar}" title="#{msg.htmlg}" icon="fa fa-floppy-o text-info" styleClass="botonera"/>
        <p:commandButton accesskey="r" id="btnEl" onclick="modalDelete();" 
@@ -107,8 +118,7 @@
 	   <!-- Panel -->      
      <div class="panel panel-info">
      <div class="panel-body">
-     <p:panel id="panel"  header="#{msg.Tubder09tit}" toggleable="true" collapsed="true" style="white-space: normal;">	  
-     <div class="pull-right"><a HREF="http://www.openbizview.com/wiki/doku.php?id=reportes" target="_new" title="Wiki"><i class="fa fa-file-text text-info"></i></a></div>	         
+     <p:panel id="panel"  header="#{msg.Sgc001tit}" toggleable="true" collapsed="true" style="white-space: normal;">	  
 	     <div class="row">
 		 <div class="col-lg-4 col-md-4 col-sm-4">  
 			    <p:inputText id="codigo" styleClass="spacing" maxlength="50" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{tubder09.codigo}"/>

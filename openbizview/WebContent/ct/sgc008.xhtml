@@ -66,6 +66,17 @@
      
       <!-- Botonera --> 
      <div id="botones">        
+
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header" style="margin-top: 3px; margin-bottom: 3px">
+			<small>#{msg.titulosgc008}</small>
+			</h1>
+		</div>
+	</div>
+
+     <div class="pull-right" style="margin-top: 2px"><a HREF="http://repgestion.cloudapp.net:8060/dokuwiki/doku.php?id=sgc008" target="_new" title="Wiki - Manual de Usuario SGC"><i class="fa fa-info-circle text-info fa-3x"></i></a></div>
+
        <p:commandButton update="tbResult, panel, growl" accesskey="i" id="btnIn" action="#{sgc008.guardar}" 
         rendered="#{smnubean.opcbot('1')}" value="#{msg.htmlguardar}" title="#{msg.htmlg}" icon="fa fa-floppy-o text-info" styleClass="botonera"/>
        <p:commandButton accesskey="r" id="btnEl" onclick="modalDelete();" 
@@ -110,9 +121,8 @@
 	   <!-- Panel -->      
      <div class="panel panel-info">
      <div class="panel-body">
-     <p:panel id="panel"  header="#{msg.Sgc008tit}" toggleable="true" collapsed="true" style="white-space: normal;">	  
-     <div class="pull-right"><a HREF="http://www.openbizview.com/wiki/doku.php?id=reportes" target="_new" title="Wiki"><i class="fa fa-file-text text-info"></i></a></div>	         
-	     <div class="row">
+     <p:panel id="panel"  header="#{msg.Sgc001tit}" toggleable="true" collapsed="true" style="white-space: normal;">	  
+ 	     <div class="row">
 		 <div class="col-lg-4 col-md-4 col-sm-4">  
 			  <p:autoComplete id="coduser" value="#{sgc008.coduser}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeUser}"  valueChangeListener="#{bd.setCoduser(sgc008.coduser)}" dropdown="true" scrollHeight="250">
 			    <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setCoduser(sgc008.coduser)}" />	     
@@ -126,12 +136,22 @@
 			    <p:watermark for="comp" value="#{msg.sgc001com}"  />
 			    <p:spacer height="1"/>
 			    <p:message for="comp"/>  
+			    
 			    <p:autoComplete id="area" value="#{sgc008.area}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeArea}"  valueChangeListener="#{bd.setArea(sgc008.area)}" dropdown="true" scrollHeight="250">
 			    <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setArea(sgc008.area)}" />	     
 			    </p:autoComplete> 
 			    <p:watermark for="area" value="#{msg.sgc001are}"  />
 			    <p:spacer height="1"/>
 			    <p:message for="area"/>   
+
+			    <p:autoComplete id="duepro" value="#{sgc008.duepro}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeSino}"  valueChangeListener="#{bd.setDuepro(sgc008.duepro)}" dropdown="true" scrollHeight="250">
+			    <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setDuepro(sgc008.duepro)}" />	     
+			    </p:autoComplete> 
+			    <p:watermark for="duepro" value="#{msg.sgc001duepro}"  />
+			    <p:spacer height="1"/>
+			    <p:message for="duepro"/>  
+						    
+
 	    </div>
 	    </div>
 	    <h:inputHidden id="vop" value="#{sgc008.validarOperacion}"/>
@@ -197,25 +217,30 @@
             <input type="checkbox" name="toDelete" class="chk" value="#{tb.zvaldel}"/>
             </p:column>  
             
-			<p:column sortBy="#{tb.zcoduser}" styleClass="wrap" style="width:200px">  
+			<p:column styleClass="wrap" style="width:200px">  
             <f:facet name="header">#{msg.sgc007tbcod}</f:facet>  
             <h:outputLabel value="#{tb.zcoduser}" />
             </p:column> 
                      
-            <p:column sortBy="#{tb.zcomp}" styleClass="wrap" >  
+            <p:column styleClass="wrap" >  
             <f:facet name="header">#{msg.Sgc006tbcom}</f:facet>  
             <h:outputLabel value="#{tb.zcomp}" />
             </p:column> 
             
-            <p:column sortBy="#{tb.zarea}" styleClass="wrap" >  
+            <p:column styleClass="wrap" >  
             <f:facet name="header">#{msg.sgc008tbare}</f:facet>  
             <h:outputLabel value="#{tb.zarea}" />
             </p:column> 
 
+ 
+             <p:column styleClass="wrap" >  
+            <f:facet name="header">#{msg.sgc008tbare}</f:facet>  
+            <h:outputLabel value="#{tb.zduepro}" />
+            </p:column> 
    
             <p:column width="60" >  
             <f:facet name="header">#{msg.bvt001TbEnviar}</f:facet>   
-             <p:commandLink styleClass="edit" onclick="enviar('#{tb.zcoduser}','#{tb.zcomp}','#{tb.zarea}','1')" 
+             <p:commandLink styleClass="edit" onclick="enviar('#{tb.zcoduser}','#{tb.zcomp}','#{tb.zarea}','#{tb.zduepro}','1')" 
             title="Enviar"><i class="fa fa-pencil-square-o fa-2x text-info"></i></p:commandLink>
             </p:column> 
 			

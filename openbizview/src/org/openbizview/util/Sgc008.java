@@ -136,6 +136,7 @@ public void init() {
     private String coduser = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("coduser"); //Usuario logeado
     private String comp = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("comp"); //Usuario logeado
     private String area = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("area"); //Usuario logeado
+    private String duepro = ""; //Usuario logeado
 	private Object filterValue = "";
 	private List<Sgc008> list = new ArrayList<Sgc008>();
 	private int validarOperacion = 0;
@@ -143,6 +144,7 @@ public void init() {
 	private String zcoduser = "";
 	private String zcomp = "";
 	private String zarea = "";
+	private String zduepro = "";
 	private String zvaldel = "";
 
 	public String getArea() {
@@ -200,6 +202,22 @@ public void init() {
 	public void setZcomp(String zcomp) {
 		this.zcomp = zcomp;
 	}
+	
+	public String getZduepro() {
+		return zduepro;
+	}
+
+	public void setZduepro(String zduepro) {
+		this.zduepro = zduepro;
+	}
+       
+	public String getDuepro() {
+		return duepro;
+	}
+
+	public void setDuepro(String duepro) {
+		this.duepro = duepro;
+	}		
 
 	/**
 	 * @return the validarOperacion
@@ -270,11 +288,20 @@ public void insert() throws  NamingException {
  			area = " - ";
  		}    
 
+        if(duepro==null){
+ 			duepro= " - ";
+ 		}
+ 		if(duepro==""){
+ 			duepro = " - ";
+ 		}  
+ 		
+ 		
         String[] veccodu = coduser.split("\\ - ", -1);
         String[] veccomp = comp.split("\\ - ", -1);
         String[] vecarea = area.split("\\ - ", -1);
+        String[] vecduepro = duepro.split("\\ - ", -1);
         
-        String query = "INSERT INTO SGC008 VALUES (?,?,?,?,SYSDATE,?,SYSDATE,?)";
+        String query = "INSERT INTO SGC008 VALUES (?,?,?,?,SYSDATE,?,SYSDATE,?,?)";
         pstmt = con.prepareStatement(query);
         pstmt.setString(1, veccodu[0].toUpperCase());
         pstmt.setString(2, veccomp[0].toUpperCase());
@@ -282,12 +309,15 @@ public void insert() throws  NamingException {
         pstmt.setString(4, login);
         pstmt.setString(5, login);            
         pstmt.setInt(6, Integer.parseInt(instancia));
+        pstmt.setString(7, vecduepro[0].toUpperCase());
+        
         
         //System.out.println(query);
         //System.out.println(veccodu[0]);
         //System.out.println(veccomp[0]);
         //System.out.println(vecarea[0]);
-
+        //System.out.println(login);
+        //System.out.println(vecduepro[0]);
      
         try {
             //Avisando
@@ -377,29 +407,43 @@ public void update() throws  NamingException {
  		if(area==""){
  			area = " - ";
  		}    
-
+        if(duepro==null){
+        	duepro= " - ";
+ 		}
+ 		if(duepro==""){
+ 			duepro = " - ";
+ 		}  
         String[] veccodu = coduser.split("\\ - ", -1);
         String[] veccomp = comp.split("\\ - ", -1);
         String[] vecarea = area.split("\\ - ", -1);
+        String[] vecduepro = duepro.split("\\ - ", -1);
   		
         String query = "UPDATE SGC008";
          query += " SET COMP = ?, ";
          query += " AREA = ?, ";
          query += " USRACT = ?,";
-         query += " FECACT = '" + getFecha() + "'";
+         query += " DUEPRO = ?,";
+         query += " FECACT = SYSDATE" ;
          query += " WHERE CODUSER = ? ";
+         query += " AND COMP = ? ";
+         query += " AND AREA = ? ";
          query += " AND INSTANCIA = " + instancia + "";
 
         pstmt = con.prepareStatement(query);
         pstmt.setString(1, veccomp[0].toUpperCase());
         pstmt.setString(2, vecarea[0].toUpperCase());
         pstmt.setString(3, login);
-        pstmt.setString(4, veccodu[0].toUpperCase());
+        pstmt.setString(4, vecduepro[0].toUpperCase());
+        pstmt.setString(5, veccodu[0].toUpperCase());
+        pstmt.setString(6, veccomp[0].toUpperCase());
+        pstmt.setString(7, vecarea[0].toUpperCase());
+        
         
         //System.out.println(query);
         //System.out.println(veccodu[0]);
         //System.out.println(veccomp[0]);
         //System.out.println(vecarea[0]);
+        //System.out.println(vecduepro[0]);
 
         
         // Antes de ejecutar valida si existe el registro en la base de Datos.
@@ -465,21 +509,29 @@ public void guardar() throws NamingException, SQLException{
 	 			area = " - ";
 	 		}    
 
+	        if(duepro==null){
+	 			duepro= " - ";
+	 		}
+	 		if(duepro==""){
+	 			duepro = " - ";
+	 		} 	 		
 	        String[] veccodu = coduser.split("\\ - ", -1);
 	        String[] veccomp = comp.split("\\ - ", -1);
 	        String[] vecarea = area.split("\\ - ", -1);
+	        String[] vecduepro = duepro.split("\\ - ", -1);
 	        
 		//Consulta paginada
      String query = "SELECT * FROM"; 
 	    query += "(select query.*, rownum as rn from";
-		query += "(SELECT A.CODUSER, A.COMP, B.DESCR AS DESC1, A.AREA, C.DESCR AS DESC2 ";
+		query += "(SELECT A.CODUSER, A.COMP, B.DESCR AS DESC1, A.AREA, C.DESCR AS DESC2, DECODE(A.DUEPRO,'1','1 - SI','0 - NO') DUEPRO ";
 	    query += " FROM SGC008 A, SGC005 B, SGC006 C ";
-	    query += " WHERE A.COMP = B.CODIGO ";
+	    query += " WHERE A.COMP = B.CODIGO AND A.COMP = C.COMP ";
 	    query += " AND A.AREA = C.CODIGO ";
 	    query += " AND TRIM(A.CODUSER) LIKE TRIM('%" + veccodu[0] + "%')";
 	    query += " AND TRIM(A.COMP) LIKE TRIM('%" + veccomp[0] + "%')";
 	    query += " AND TRIM(A.AREA) LIKE TRIM('%" + vecarea[0] + "%')";
-	    query += " GROUP BY A.CODUSER, A.COMP, B.DESCR, A.AREA, C.DESCR";
+	    query += " AND TRIM(A.DUEPRO) LIKE TRIM('%" + vecduepro[0] + "%')";
+	    query += " GROUP BY A.CODUSER, A.COMP, B.DESCR, A.AREA, C.DESCR, A.DUEPRO";
 	    query += ")query ) " ;
 	    query += " WHERE ROWNUM <="+pageSize;
 	    query += " AND rn > ("+ first +")";
@@ -495,12 +547,13 @@ public void guardar() throws NamingException, SQLException{
  	select.setZcomp(r.getString(2) + " - " + r.getString(3));
  	select.setZcoduser(r.getString(1));
  	select.setZarea(r.getString(4) + " - " + r.getString(5));
+ 	select.setZduepro(r.getString(6));
  	select.setZvaldel(r.getString(1) + "" + r.getString(2) + "" + r.getString(4));
    	
     	//Agrega la lista
     	list.add(select);
     }
-    //Cierra las conecciones
+    //Cierra las conexiones
     pstmt.close();
     con.close();
 
@@ -580,6 +633,7 @@ public void guardar() throws NamingException, SQLException{
   		comp = "";
   		coduser = "";
   		area = "";
+  		duepro = "";
   		validarOperacion = 0;
 	}
   	
@@ -588,6 +642,7 @@ public void guardar() throws NamingException, SQLException{
   		comp = null;
   		coduser = null;
   		area = null;
+  		duepro = null;
 	}
-       
+
 }

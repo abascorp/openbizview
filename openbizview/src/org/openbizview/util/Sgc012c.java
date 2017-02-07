@@ -40,7 +40,6 @@ import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openbizview.util.PntGenerica;
-import org.openbizview.util.PntGenericasb;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -166,6 +165,7 @@ public void init() {
 	private String zusrcre = "";
 	private String zfeccre = "";
 	private String zregist = "";
+	String[][] tabla;
 
 
 	public String getComent() {
@@ -405,8 +405,7 @@ public void init() {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Variables seran utilizadas para capturar mensajes de errores de Oracle y parametros de metodos
 	FacesMessage msj = null;
-	PntGenericasb consulta = new PntGenericasb();
-	PntGenerica consulta1 = new PntGenerica();
+	PntGenerica consulta = new PntGenerica();
 	boolean vGacc; //Validador de opciones del menú
 	private int rows; //Registros de tabla Sybase
 	//private int rows1; //Registros de tabla oracle
@@ -685,6 +684,21 @@ public void guardar() throws NamingException, SQLException{
 		//Reconoce la base de datos de conección para ejecutar el query correspondiente a cada uno
 		DatabaseMetaData databaseMetaData = con.getMetaData();
 		productName    = databaseMetaData.getDatabaseProductName();//Identifica la base de datos de conección
+
+ 		String validar = "1";
+		String querycon = "SELECT BI_SGC014('" + login.toUpperCase() + "') AS VALIDAR FROM DUAL";
+		
+		//System.out.println(querycon);
+		//System.out.println(JNDI);
+		
+		consulta.selectPntGenerica(querycon, JNDI);
+		
+		rows = consulta.getRows();
+		tabla = consulta.getArray();
+		//System.out.println(tabla[0][0]);
+
+		if (tabla[0][0].equals(validar)) {
+		
 		
         if(comp==null){
  			comp= " - ";
@@ -743,11 +757,12 @@ public void guardar() throws NamingException, SQLException{
 	    query += ")query ) " ;
 	    query += " WHERE ROWNUM <="+pageSize;
 	    query += " AND rn > ("+ first +")";
-	    query += " ORDER BY COMP, AREA, CODIGO, ANOCAL, MESCAL, ACCION, REGIST" + sortField.replace("z", "");
+	    query += " ORDER BY COMP, AREA, CODIGO, ANOCAL, MESCAL, ACCION, REGIST";
 
     pstmt = con.prepareStatement(query);
     //System.out.println(query);
-		
+    //System.out.println("***ADMINISTRADOR***");
+    
     r =  pstmt.executeQuery();
     
     while (r.next()){
@@ -773,7 +788,129 @@ public void guardar() throws NamingException, SQLException{
     //Cierra las conecciones
     pstmt.close();
     con.close();
+		} else {
+			
+			
+	        if(comp==null){
+	 			comp= " - ";
+	 		}
+	 		if(comp==""){
+	 			comp = " - ";
+	 		}        
+	        if(area==null){
+	 			area= " - ";
+	 		}
+	 		if(area==""){
+	 			area = " - ";
+	 		}    
+	        if(codigo==null){
+	 			codigo= " - ";
+	 		}
+	 		if(codigo==""){
+	 			codigo = " - ";
+	 		}  
+	        if(anocal==null){
+	 			anocal= "";
+	 		}
+	        if(mescal==null){
+	 			mescal= "";
+	 		}
+	        if(accion==null){
+				accion= "";
+			}
 
+	        String[] veccomp = comp.split("\\ - ", -1);
+	        String[] vecarea = area.split("\\ - ", -1);
+	        String[] veccod = codigo.split("\\ - ", -1);
+
+			//Consulta paginada
+	        String query = " SELECT  ";
+	        query += " *  ";
+	        query += " FROM (select  ";
+	        query += "       query.*, rownum as rn  ";
+	        query += "       from (SELECT  ";
+	        query += "             A.COMP, A.AREA, A.CODIGO, A.ANOCAL, A.MESCAL, A.ACCION, A.PORCUM, TO_CHAR(E.FECACC,'DD/MM/YYYY') AS FECACC,  ";
+	        query += "             TO_CHAR(A.FECCOM,'DD/MM/YYYY') AS FECCOM, A.REGIST, A.USRCRE, TO_CHAR(A.FECCRE,'DD/MM/YYYY') AS FECCRE,  ";
+	        query += "             B.NOMIND AS DESC1, C.DESCR AS DESC2, D.DESCR AS DESC3, A.COMENT   ";
+	        query += "             FROM  ";
+	        query += "             SGC012C A, SGC001 B, SGC005 C, SGC006 D, SGC012A E, SGC009 F   ";
+	        query += "             WHERE  ";
+	        query += "             A.CODIGO = B.CODIGO   ";
+	        query += "             AND A.COMP = C.CODIGO   ";
+	        query += "             AND A.AREA = D.CODIGO   ";
+	        query += "             AND C.CODIGO = D.COMP   ";
+	        query += "             AND A.COMP = E.COMP   ";
+	        query += "             AND A.AREA = E.AREA   "; 
+	        query += "             AND A.CODIGO = E.CODIGO   ";
+	        query += "             AND A.ANOCAL = E.ANOCAL   ";
+	        query += "             AND A.MESCAL = E.MESCAL   ";
+	        query += "             AND A.ACCION = E.ACCION  ";
+	        query += "             AND A.COMP = F.COMP  ";
+	        query += "             AND A.AREA = F.AREA ";
+	        query += "             AND A.CODIGO = F.INDICA ";
+	        query += "             AND F.CODUSER = '" + login.toUpperCase() + "' ";
+	        query += "             UNION ALL ";
+	        query += "             SELECT  ";
+	        query += "             A.COMP, A.AREA, A.CODIGO, A.ANOCAL, A.MESCAL, A.ACCION, A.PORCUM, TO_CHAR(E.FECACC,'DD/MM/YYYY') AS FECACC,  ";
+	        query += "             TO_CHAR(A.FECCOM,'DD/MM/YYYY') AS FECCOM, A.REGIST, A.USRCRE, TO_CHAR(A.FECCRE,'DD/MM/YYYY') AS FECCRE,  ";
+	        query += "             B.NOMIND AS DESC1, C.DESCR AS DESC2, D.DESCR AS DESC3, A.COMENT   ";
+	        query += "             FROM  ";
+	        query += "             SGC012C A, SGC001 B, SGC005 C, SGC006 D, SGC012A E   ";
+	        query += "             WHERE  ";
+	        query += "             A.CODIGO = B.CODIGO   ";
+	        query += "             AND A.COMP = C.CODIGO   ";
+	        query += "             AND A.AREA = D.CODIGO   ";
+	        query += "             AND C.CODIGO = D.COMP   ";
+	        query += "             AND A.COMP = E.COMP   ";
+	        query += "             AND A.AREA = E.AREA   ";
+	        query += "             AND A.CODIGO = E.CODIGO   ";
+	        query += "             AND A.ANOCAL = E.ANOCAL   ";
+	        query += "             AND A.MESCAL = E.MESCAL   ";
+	        query += "             AND A.ACCION = E.ACCION       ";
+	        query += "             AND A.COMP||A.AREA IN (SELECT COMP||AREA FROM SGC008 WHERE CODUSER = '" + login.toUpperCase() + "' AND DUEPRO = '1') ";
+	        query += "       ) query  ";
+	        query += "       WHERE ";
+	        query += "       TRIM(query.COMP) LIKE TRIM('%" + veccomp[0] + "%')";
+	        query += "       AND TRIM(query.AREA) LIKE TRIM('%" + vecarea[0] + "%')";
+	        query += "       AND TRIM(query.CODIGO) LIKE TRIM('%" + veccod[0] + "%')";
+	        query += "       AND TO_CHAR(query.ANOCAL) LIKE TRIM('%" + anocal + "%')";
+	        query += "       AND TO_CHAR(query.MESCAL) LIKE TRIM('%" + mescal + "%')";
+	        query += "       AND query.ACCION LIKE TRIM('%" + accion + "%')";
+	        query += "       )   ";
+	        query += " WHERE  ";
+	        query += " ROWNUM <="+pageSize;
+	        query += " AND rn > ("+ first +")";
+
+	    pstmt = con.prepareStatement(query);
+	    //System.out.println(query);
+	    //System.out.println("***NO ADMINISTRADOR***");
+	    
+	    r =  pstmt.executeQuery();
+	    
+	    while (r.next()){
+	 	Sgc012c select = new Sgc012c();
+	 	select.setZcomp(r.getString(1) + " - " + r.getString(14));
+	 	select.setZarea(r.getString(2) + " - " + r.getString(15));
+	 	select.setZcodigo(r.getString(3) + " - " + r.getString(13));
+	 	select.setZanocal(r.getString(4));
+	 	select.setZmescal(r.getString(5));
+	 	select.setZaccion(r.getString(6));
+	 	select.setZporcum(r.getString(7));
+	 	select.setZfecacc(r.getString(8)); //
+	 	select.setZfeccom(r.getString(9));
+	 	select.setZregist(r.getString(10));
+	 	select.setZorderby(r.getString(1) + ", " + r.getString(2) + ", " + r.getString(3) + ", " + r.getString(4) + ", " + r.getString(5)+ ", " + r.getString(9));
+	 	select.setZusrcre(r.getString(11));
+	 	select.setZfeccre(r.getString(12));
+	 	select.setZcoment(r.getString(16));
+	   	
+	    	//Agrega la lista
+	    	list.add(select);
+	    }
+	    //Cierra las conecciones
+	    pstmt.close();
+	    con.close();
+			}
 	}
  	
  	/**

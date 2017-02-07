@@ -1021,6 +1021,7 @@ public class Autocomplete extends Bd {
 	 * @throws IOException
 	 **/
 	public List<String> completeInd(String query) throws NamingException,IOException {
+
 		//System.out.println("entre al metodo nivapp");
 		String comp = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("comp"); // Usuario logeado
 		String area = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("area"); // Usuario logeado
@@ -1040,6 +1041,7 @@ public class Autocomplete extends Bd {
 		String[] veccomp = comp.split("\\ - ", -1);
 		String[] vecarea = area.split("\\ - ", -1);		
 		String validar = "1";
+		
 		String querycon = "SELECT BI_SGC014('" + login.toUpperCase() + "') AS VALIDAR FROM DUAL";
 		
 			//System.out.println(querycon);
@@ -1076,14 +1078,38 @@ public class Autocomplete extends Bd {
 				}
 				return results;
 
-	    }
-	    	else {
-	    		//System.out.println(tabla1[0][0]);
-	    		//System.out.println(validar);
-	    		//System.out.println("EL USUARIO NO ES IGUAL");
-	    		
-	    		
+	    } else {
 	    		String querysb = " SELECT "
+				+ " DISTINCT "
+				+ " TOT.CODIND || ' - ' || TOT.NOMIND INDICADOR "
+				+ " FROM (SELECT "
+				  + " B.COMP, "
+				  + " B.AREA, "
+				  + " TRIM(B.CODIGO) CODIND, "
+				  + " TRIM(B.NOMIND) NOMIND "
+				  + " FROM "
+				  + " SGC009 A, SGC001 B "
+				  + " WHERE " 
+				  + " TRIM(A.COMP) = TRIM(B.COMP) "
+				  + " AND TRIM(A.AREA) = TRIM(B.AREA) "
+				  + " AND TRIM(A.INDICA) = TRIM(B.CODIGO) "
+				  + " AND TRIM(A.CODUSER) = '" + login.toUpperCase() + "'"
+				  + " UNION ALL "
+				  + " SELECT "
+				  + " B.COMP, "
+				  + " B.AREA, "
+				  + " TRIM(B.CODIGO) CODIND, "
+				  + " TRIM(B.NOMIND) NOMIND "
+				  + " FROM " 
+				  + " SGC001 B   "
+				  + " WHERE " 
+				  + " TRIM(B.COMP)||TRIM(B.AREA) IN (SELECT COMP||AREA FROM SGC008 WHERE CODUSER = '" + login.toUpperCase() + "' AND DUEPRO = '1')) TOT "
+				+ " WHERE "
+				+ " TRIM(TOT.COMP) = '" + veccomp[0].toUpperCase() + "'"
+				+ " AND TRIM(TOT.AREA) = '" + vecarea[0].toUpperCase() + "'"
+	    		+ " ORDER BY 1 ";	    	
+	    	
+	    /*		String querysb = " SELECT "
 	    				+ " TRIM(B.CODIGO) || ' - ' || TRIM(B.NOMIND)  INDICADOR "
 	    				+ " FROM  "
 	    				+ " SGC009 A, SGC001 B   "
@@ -1096,6 +1122,7 @@ public class Autocomplete extends Bd {
 	    				+ " AND TRIM(A.AREA) = '" + vecarea[0].toUpperCase() + "'"
 	    				+ " GROUP BY B.CODIGO, B.NOMIND   "
 	    				+ " ORDER BY 1 ";
+	    				*/
 	    				
 	    		//System.out.println(querysb);
 	    		//System.out.println("Usuario *** NO *** Administrador");
@@ -1341,17 +1368,35 @@ public class Autocomplete extends Bd {
 	    		//System.out.println(tabla1[0][0]);
 	    		//System.out.println(validar);
 	    		//System.out.println("EL USUARIO NO ES IGUAL");
-	    		String querysb = "SELECT A.CODIGO || ' - ' || B.NOMIND " 
-	    		        + " FROM SGC012 A, SGC001 B, SGC009 C "
-	    		        + " WHERE A.COMP = B.COMP "
-	    				+ " AND A.AREA = B.AREA "
-	    				+ " AND A.COMP = C.COMP "
-	    				+ " AND A.AREA = C.AREA "
-	    				+ " AND TRIM(C.CODUSER) like '%" + login.toUpperCase() + "%'"
-	    		        + " AND A.COMP = '" + veccomp[0].toUpperCase() + "'"
-	    		        + " AND A.AREA = '" + vecarea[0].toUpperCase() + "'"
-	    				+ " GROUP BY A.CODIGO, B.NOMIND "
-	    				+ " ORDER BY 1";
+	    		String querysb = " SELECT " 
+	    				+ " DISTINCT " 
+	    				+ " RES.INDICADOR " 
+	    				+ " FROM (SELECT  " 
+	    				+ "       A.COMP, A.AREA, A.CODIGO || ' - ' || B.NOMIND INDICADOR  " 
+	    				+ "       FROM  " 
+	    				+ "       SGC012 A, SGC001 B, SGC009 C   " 
+	    				+ "       WHERE  " 
+	    				+ "       A.COMP = B.COMP   " 
+	    				+ "       AND A.AREA = B.AREA   " 
+	    				+ "       AND A.CODIGO = B.CODIGO  " 
+	    				+ "       AND A.COMP = C.COMP   " 
+	    				+ "       AND A.AREA = C.AREA   " 
+	    				+ "       AND TRIM(C.CODUSER) = '%" + login.toUpperCase() + "%'  " 
+	    				+ "       UNION ALL " 
+	    				+ "       SELECT  " 
+	    				+ "       A.COMP, A.AREA, A.CODIGO || ' - ' || B.NOMIND INDICADOR " 
+	    				+ "       FROM  " 
+	    				+ "       SGC012 A, SGC001 B  " 
+	    				+ "       WHERE  " 
+	    				+ "       A.COMP = B.COMP   " 
+	    				+ "       AND A.AREA = B.AREA   " 
+	    				+ "       AND A.CODIGO = B.CODIGO  " 
+	    				+ "       AND A.COMP||A.AREA IN (SELECT COMP||AREA FROM SGC008 WHERE CODUSER = '" + login.toUpperCase() + "' AND DUEPRO = '1')) RES " 
+	    				+ " WHERE " 
+	    				+ " RES.COMP = '" + veccomp[0].toUpperCase() + "'" 
+	    				+ " AND RES.AREA = '" + vecarea[0].toUpperCase() + "'"
+	    				+ " ORDER BY 1 " ;
+
 
 				//System.out.println(querysb);
 				//System.out.println(JNDISB);
@@ -2094,5 +2139,28 @@ public class Autocomplete extends Bd {
 		}
 		return results;
 	}
+	
+	public List<String> completeSino(String query) throws NamingException,
+	IOException {
+
+List<String> results = new ArrayList<String>();
+
+String querysb = " SELECT '1'||' - '||'SI' MOV FROM DUAL "
+			   + " UNION ALL "
+			   + " SELECT '0'||' - '||'NO' MOV FROM DUAL ";
+
+//System.out.println(querysb);
+
+consulta.selectPntGenerica(querysb,JNDI);
+
+rows = consulta.getRows();
+
+tabla = consulta.getArray();
+
+for (int i = 0; i < rows; i++) {
+	results.add(tabla[i][0]);
+}
+return results;
+}	
 	
 }

@@ -62,7 +62,7 @@
 		  var strTime = hours + ':' + minutes + ':' + segundos + ' ' + ampm;
 		  return strTime;
 		}
-	
+/*
 	function log(){	
 		
 		document.getElementById("formsgc013:codcia").value= "1";
@@ -74,7 +74,7 @@
 	   	setTimeout("document.getElementById('formsgc013:codind').value=''",300);  
 	   	
 	}
-	
+*/
 	
 	function detalle(vT0,vT1,vT2,vT3){
 		$("#txt_det_1").text(vT0);

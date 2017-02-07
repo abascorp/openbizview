@@ -39,7 +39,6 @@ import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openbizview.util.PntGenerica;
-import org.openbizview.util.PntGenericasb;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -158,6 +157,7 @@ public void init() {
 	private String zfeccre = "";
 	private String zregist = "";
 	private String zarchiv = "";
+	String[][] tabla;
 
 	public String getArchiv() {
 		return archiv;
@@ -348,8 +348,7 @@ public void init() {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Variables seran utilizadas para capturar mensajes de errores de Oracle y parametros de metodos
 	FacesMessage msj = null;
-	PntGenericasb consulta = new PntGenericasb();
-	PntGenerica consulta1 = new PntGenerica();
+	PntGenerica consulta = new PntGenerica();
 	boolean vGacc; //Validador de opciones del menú
 	private int rows; //Registros de tabla Sybase
 	//private int rows1; //Registros de tabla oracle
@@ -613,7 +612,21 @@ public void guardar() throws NamingException, SQLException{
 		DatabaseMetaData databaseMetaData = con.getMetaData();
 		productName    = databaseMetaData.getDatabaseProductName();//Identifica la base de datos de conección
 		
-        if(comp==null){
+ 		String validar = "1";
+		String querycon = "SELECT BI_SGC014('" + login.toUpperCase() + "') AS VALIDAR FROM DUAL";
+		
+		//System.out.println(querycon);
+		//System.out.println(JNDI);
+		
+		consulta.selectPntGenerica(querycon, JNDI);
+		
+		rows = consulta.getRows();
+		tabla = consulta.getArray();
+		//System.out.println(tabla[0][0]);
+
+		if (tabla[0][0].equals(validar)) {	
+		
+		if(comp==null){
  			comp= " - ";
  		}
  		if(comp==""){
@@ -660,10 +673,11 @@ public void guardar() throws NamingException, SQLException{
 	    query += ")query ) " ;
 	    query += " WHERE ROWNUM <="+pageSize;
 	    query += " AND rn > ("+ first +")";
-	    query += " ORDER BY COMP, AREA, CODIGO, ANOCAL, MESCAL, REGIST" + sortField.replace("z", "");
+	    query += " ORDER BY COMP, AREA, CODIGO, ANOCAL, MESCAL, REGIST";
 
     pstmt = con.prepareStatement(query);
     //System.out.println(query);
+    //System.out.println("***ADMINISTRADOR***");
 		
     r =  pstmt.executeQuery();
     
@@ -685,7 +699,104 @@ public void guardar() throws NamingException, SQLException{
     //Cierra las conecciones
     pstmt.close();
     con.close();
+		} else {	
+			
+			if(comp==null){
+	 			comp= " - ";
+	 		}
+	 		if(comp==""){
+	 			comp = " - ";
+	 		}        
+	        if(area==null){
+	 			area= " - ";
+	 		}
+	 		if(area==""){
+	 			area = " - ";
+	 		}    
+	        if(codigo==null){
+	 			codigo= " - ";
+	 		}
+	 		if(codigo==""){
+	 			codigo = " - ";
+	 		}  
+	        if(anocal==null){
+	 			anocal= "";
+	 		}
+	        if(mescal==null){
+	 			mescal= "";
+	 		}
+	  
+	        String[] veccomp = comp.split("\\ - ", -1);
+	        String[] vecarea = area.split("\\ - ", -1);
+	        String[] veccod = codigo.split("\\ - ", -1);
 
+			//Consulta paginada
+	        String query = " SELECT  ";
+	        query += " *  ";
+	        query += " FROM (select  ";
+	        query += "       query.*, rownum as rn  ";
+	        query += "       from (SELECT  ";
+	        query += "             A.COMP, A.AREA, A.CODIGO, A.ANOCAL, A.MESCAL, A.REGIST, B.NOMIND AS DESC1, C.DESCR AS DESC2, D.DESCR AS DESC3, A.ARCHIV   ";
+	        query += "             FROM  ";
+	        query += "             SGC012B A, SGC001 B, SGC005 C, SGC006 D, SGC009 E ";
+	        query += "             WHERE  ";
+	        query += "             A.CODIGO = B.CODIGO   ";
+	        query += "             AND A.COMP = C.CODIGO   ";
+	        query += "             AND A.AREA = D.CODIGO   ";
+	        query += "             AND C.CODIGO = D.COMP   ";
+	        query += "             AND A.COMP = E.COMP ";
+	        query += "             AND A.AREA = E.AREA ";
+	        query += "             AND A.CODIGO = E.INDICA ";
+	        query += "             AND E.CODUSER = '" + login.toUpperCase() + "'  ";
+	        query += "             UNION ALL ";
+	        query += "             SELECT  ";
+	        query += "             A.COMP, A.AREA, A.CODIGO, A.ANOCAL, A.MESCAL, A.REGIST, B.NOMIND AS DESC1, C.DESCR AS DESC2, D.DESCR AS DESC3, A.ARCHIV   ";
+	        query += "             FROM  ";
+	        query += "             SGC012B A, SGC001 B, SGC005 C, SGC006 D   ";
+	        query += "             WHERE  ";
+	        query += "             A.CODIGO = B.CODIGO   ";
+	        query += "             AND A.COMP = C.CODIGO   ";
+	        query += "             AND A.AREA = D.CODIGO   ";
+	        query += "             AND C.CODIGO = D.COMP   ";
+	        query += "             AND A.COMP||A.AREA IN (SELECT COMP||AREA FROM SGC008 WHERE CODUSER = '" + login.toUpperCase() + "' AND DUEPRO = '1') ";
+	        query += "         ) query  ";
+	        query += "         WHERE ";
+	        query += " 		   TRIM(query.COMP) LIKE TRIM('%" + veccomp[0] + "%')";
+	        query += "         AND TRIM(query.AREA) LIKE TRIM('%" + vecarea[0] + "%')";
+	        query += "         AND TRIM(query.CODIGO) LIKE TRIM('%" + veccod[0] + "%')";
+	        query += "         AND query.ANOCAL LIKE TRIM('%" + anocal + "%')";
+	        query += "         AND query.MESCAL LIKE TRIM('%" + mescal + "%')";
+	        query += "       )   ";
+	        query += " WHERE  ";
+	        query += " ROWNUM <="+pageSize;
+	        query += " AND rn > ("+ first +")";
+	        query += " ORDER BY COMP, AREA, CODIGO, ANOCAL, MESCAL, REGIST ";
+
+
+	    pstmt = con.prepareStatement(query);
+	    //System.out.println(query);
+		//System.out.println("***NO ADMINISTRADOR");	
+	    r =  pstmt.executeQuery();
+	    
+	    while (r.next()){
+	 	Sgc012b select = new Sgc012b();
+	 	select.setZcomp(r.getString(1) + " - " + r.getString(8));
+	 	select.setZarea(r.getString(2) + " - " + r.getString(9));
+	 	select.setZcodigo(r.getString(3) + " - " + r.getString(7));
+	 	select.setZanocal(r.getString(4));
+	 	select.setZmescal(r.getString(5));
+	 	select.setZregist(r.getString(6));
+	 	select.setZarchiv(r.getString(10));
+	 	select.setZorderby(r.getString(1) + ", " + r.getString(2) + ", " + r.getString(3) + ", " + r.getString(4) + ", " + r.getString(5)+ ", " + r.getString(6));
+
+	   	
+	    	//Agrega la lista
+	    	list.add(select);
+	    }
+	    //Cierra las conecciones
+	    pstmt.close();
+	    con.close();
+			}
 	}
  	
  	/**

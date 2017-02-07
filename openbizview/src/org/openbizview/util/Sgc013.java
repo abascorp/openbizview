@@ -322,42 +322,26 @@ import org.primefaces.model.SortOrder;
  		DataSource ds = (DataSource) initContext.lookup(JNDI);
  		con = ds.getConnection();
  		
- 		String validar = "1";
-		String querycon = "SELECT BI_SGC014('" + login.toUpperCase() + "') AS VALIDAR FROM DUAL";
-		
-		//System.out.println(querycon);
-		//System.out.println(JNDI);
-		
-		consulta.selectPntGenerica(querycon, JNDI);
-		
-		rows = consulta.getRows();
-		tabla = consulta.getArray();
-		//System.out.println(tabla[0][0]);
-		
-		if (tabla[0][0].equals(validar)) {
 			
-			String query = " SELECT ";
-			query += " SQ2.*   ";
-			query += " FROM (select "; 
-			query += "       SQ1.*, "; 
-			query += "       SQ1.NUMREG as rn "; 
-			query += "       from (SELECT  ";
-			query += "             A.COMP CODCIA, B.DESCR DESCIA, A.AREA CODAREA, C.DESCR DESAREA, A.CODIGO CODIND, D.NOMIND DESIND, A.USRCRE CODUSER, COUNT(A.CODIGO) NUMREG, A.INSTANCIA ";
-			query += "             FROM SGC012 A LEFT OUTER JOIN SGC005 B ON A.COMP = B.CODIGO ";
-			query += "                           LEFT OUTER JOIN SGC006 C ON A.COMP = C.COMP AND ";                                                                       
-			query += "                                                       A.AREA = C.CODIGO ";
-			query += "                           LEFT OUTER JOIN SGC001 D ON A.COMP = D.COMP AND ";                                                                       
-			query += "                                                       A.AREA   = D.AREA AND ";                                                                       
-			query += "                                                       A.CODIGO = D.CODIGO "; 
-			query += "             GROUP BY ";
-			query += "             A.COMP, B.DESCR, A.AREA, C.DESCR, A.CODIGO, D.NOMIND, A.USRCRE, A.INSTANCIA ";
-			query += "             ) SQ1 ";
-			query += "      ) SQ2 "; 
-			query += " WHERE "; 
-			query += " SQ2.NUMREG <= " + pageSize;
-			query += " AND SQ2.CODCIA||SQ2.DESCIA||SQ2.CODAREA||SQ2.DESAREA||SQ2.CODIND||SQ2.DESIND LIKE trim('%" + ((String) filterValue).toUpperCase() +  "%') ";
-			query += " AND SQ2.NUMREG >( "+ first +")";  
-			query += " ORDER BY  SQ2.CODCIA, SQ2.CODAREA, SQ2.CODIND";
+	    	String query = " SELECT ";
+	    	query += " A.COMP, B.DESCR DESCIA, A.AREA CODAREA, C.DESCR DESAREA, A.CODIGO CODIND, A.NOMIND DESIND, '" + login.toUpperCase() + "' CODUSR, COUNT(A.CODIGO) NUMREG, A.INSTANCIA  ";
+	    	query += " FROM  ";
+	    	query += " SGC001 A, SGC005 B, SGC006 C  ";
+	    	query += " WHERE ";
+	    	query += " A.COMP = B.CODIGO ";
+	    	query += " AND A.COMP = C.COMP ";
+	    	query += " AND A.AREA = C.CODIGO ";
+	    	query += " AND A.COMP||A.AREA||A.CODIGO IN (SELECT  ";
+	    	query += "                                  DISTINCT COMP||AREA||CODIGO ";
+	    	query += "                                  FROM SGC012) ";
+	    	query += " AND A.COMP IN (SELECT ";
+	    	query += "                DISTINCT COMP ";
+	    	query += "                FROM SGC007 ";
+	    	query += "                WHERE ";
+	    	query += "                CODUSER = '" + login.toUpperCase() + "') ";
+	    	query += " AND  A.COMP || B.DESCR || A.AREA || C.DESCR || A.CODIGO || A.NOMIND LIKE trim('%" + ((String) filterValue).toUpperCase() +  "%') ";
+	    	query += " GROUP BY ";
+	    	query += " A.COMP, B.DESCR, A.AREA, C.DESCR, A.CODIGO, A.NOMIND, '" + login.toUpperCase() + "', A.INSTANCIA ";
 		
   		pstmt = con.prepareStatement(query);
         //System.out.println(query);
@@ -380,57 +364,7 @@ import org.primefaces.model.SortOrder;
         }
         //Cierra las conecciones
         pstmt.close();
-        con.close();
-    } else {
-    	
-
-
-		String query = "SELECT SQ2.* ";
-		query += " FROM (select SQ1.*, SQ1.NUMREG as rn"; 
-		query += " from (SELECT"; 
-		query += " A.COMP CODCIA, B.DESCR DESCIA, A.AREA CODAREA, C.DESCR DESAREA, A.INDICA CODIND, D.NOMIND DESIND, A.CODUSER, COUNT(A.INDICA) NUMREG, A.INSTANCIA";                
-		query += " FROM SGC009 A LEFT OUTER JOIN SGC005 B ON A.COMP = B.CODIGO";                             
-		query += "                                      LEFT OUTER JOIN SGC006 C ON A.COMP = C.COMP AND";                                                             
-		query += "                                                                       A.AREA = C.CODIGO"; 
-		query += "                                      LEFT OUTER JOIN SGC001 D ON A.COMP   = D.COMP AND";                                                              
-		query += "                                                                       A.AREA   = D.AREA AND";                                                             
-		query += "                                                                       A.INDICA = D.CODIGO";               
-		query += "                    WHERE";                 
-		query += "                    TRIM(A.CODUSER) LIKE TRIM('%" + login.toUpperCase() + "%')";              
-		query += "                    AND A.COMP||A.AREA||A.INDICA IN (SELECT DISTINCT COMP||AREA||CODIGO"; 
-		query += "                                                    FROM SGC012)";                 
-		query += "                    GROUP BY";                
-		query += "                    A.COMP, B.DESCR, A.AREA, C.DESCR, A.INDICA, D.NOMIND, A.CODUSER, A.INSTANCIA) SQ1) SQ2"; 
-		query += " WHERE SQ2.NUMREG <= " + pageSize;
-		query += " AND SQ2.CODCIA||SQ2.DESCIA||SQ2.CODAREA||SQ2.DESAREA||SQ2.CODIND||SQ2.DESIND LIKE trim('%" + ((String) filterValue).toUpperCase() +  "%') ";
-		query += " AND SQ2.NUMREG >("+ first +")"; 
-		query += " ORDER BY  SQ2.CODCIA, SQ2.CODAREA, SQ2.CODIND";
-	
-  		pstmt = con.prepareStatement(query);
-        //System.out.println(query);
-        //System.out.println("*****NO ADMINISTRADOR ****");
-        
-        r =  pstmt.executeQuery();
-        		
-        while (r.next()){
-        Sgc013 select = new Sgc013();
-     	select.setZcodcia(r.getString(1));
-     	select.setZdescia(r.getString(2));
-     	select.setZcodarea(r.getString(3));
-     	select.setZdesarea(r.getString(4));
-     	select.setZcodind(r.getString(5));
-     	select.setZdesind(r.getString(6));
-     	select.setZinstancia(r.getString(7));
-
-        	//Agrega la lista
-        	list.add(select);
-        }
-        //Cierra las conecciones
-        pstmt.close();
-        con.close();
-    	
-    }
-		
+        con.close();		
   	}		
   	
   	/**

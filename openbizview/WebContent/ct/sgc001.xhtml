@@ -77,7 +77,7 @@
 		</div>
 	</div>
 
-     <div class="pull-right" style="margin-top: 2px"><a HREF="http://inverpacacloudservice2.cloudapp.net:8060/dokuwiki/doku.php?id=wiki:welcome" target="_new" title="Wiki - Manual de Usuario SGC"><i class="fa fa-info-circle text-info fa-3x"></i></a></div>
+     <div class="pull-right" style="margin-top: 2px"><a HREF="http://repgestion.cloudapp.net:8060/dokuwiki/doku.php?id=wiki:welcome" target="_new" title="Wiki - Manual de Usuario SGC"><i class="fa fa-info-circle text-info fa-3x"></i></a></div>
 
             
        <p:commandButton update="tbResult, panel, growl" accesskey="i" id="btnIn" action="#{sgc001.guardar}" 
@@ -321,7 +321,7 @@
      <p:dataTable id="tbResult" styleClass="table table-striped" emptyMessage="#{msg.result}" var="tb"  value="#{sgc001.lazyModel}"  lazy="true" sortBy="#{tb.zCODIGO}"
 			paginator="true" paginatorAlwaysVisible="false" rows="15" rowsPerPageTemplate="5,10,15,20,50,100,500" paginatorPosition="top"
 			paginatorTemplate="{FirstPageLink} {PreviousPageLink} &#160;&#160; {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}"
-			currentPageReportTemplate=" {currentPage} - {totalPages} #{msg.html28} #{sgc001.rows}"  
+			currentPageReportTemplate=" Pag: {currentPage} - {totalPages} | Total registros: #{sgc001.rows}"  
 			widgetVar="global" reflow="true">
 			
 			<f:facet name="header"> 			

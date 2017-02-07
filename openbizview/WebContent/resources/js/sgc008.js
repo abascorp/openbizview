@@ -23,10 +23,11 @@
 	    clearUpdateInput('formsgc008:coduser', 'white');
 	}
 	
-	function enviar(vT0,vT1,vT2,vT3){
+	function enviar(vT0,vT1,vT2,vT3,vT4){
 		  document.getElementById("formsgc008:coduser_input").value= rTrim(vT0);
 		  document.getElementById("formsgc008:comp_input").value= rTrim(vT1);
 		  document.getElementById("formsgc008:area_input").value= rTrim(vT2);
-		  document.getElementById("formsgc008:vop").value= rTrim(vT3);
+		  document.getElementById("formsgc008:duepro_input").value= rTrim(vT3);
+		  document.getElementById("formsgc008:vop").value= rTrim(vT4);
 		  updateInput('formsgc008:coduser', '#F2F2F2');
 		}
