@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- 
@@ -271,7 +272,7 @@
 				 <p:message for="tvalm"/> 
 			 </div>
 			 
-			 <div class="col-sm-2">
+			 <div class="col-sm-3">
 			 	 <div>#{msg.sgc001fca}</div>
 				 <p:calendar pattern="dd/MM/yyyy" id="feccam" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" locale="es" navigator="true" maxlength="10" value="#{sgc001.feccam}" showOn="button"/>
 	             <p:spacer height="1"/> 
@@ -287,7 +288,7 @@
 		     
 		     <div class="col-sm-4">	
 			 	 <div>#{msg.sgc001rem}</div>
-				 <p:inputTextarea id="resmet"  rows="1" cols="90" autoResize="true" maxlength="500" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc001.resmet}"/>
+				 <p:inputTextarea id="resmet"  rows="1" cols="60" autoResize="true" maxlength="500" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc001.resmet}"/>
 				 <p:spacer height="1"/> 
 				 <p:message for="resmet"/>	
 			 </div>
@@ -448,7 +449,7 @@
             <p:column width="60" >  
             <f:facet name="header">#{msg.bvt001TbEnviar}</f:facet>   
             <p:commandLink 
-            update=":formsgc001:tabView"
+            update=":formsgc001:tabView:respon :formsgc001:tabView:calculo :formsgc001:tabView:fuente :formsgc001:tabView:proces"
             styleClass="edit" onclick="enviar('#{tb.zcomp}','#{tb.zarea}','#{tb.zcodigo}','#{tb.zdesc}','#{tb.zrespon}','#{tb.zcalcul}','#{tb.zfuente}','#{tb.zproces}','#{tb.zperiod}','#{tb.zcompor}','#{tb.znivapp}','#{tb.zestatu}','#{tb.zvigenc}','1','#{tb.ztvalm}','#{tb.zfeccam}','#{tb.zmeta}','#{tb.zresmet}','#{tb.ztvalti}','#{tb.zfeccai}','#{tb.ztolinf}','#{tb.ztvalts}','#{tb.zfeccas}','#{tb.ztolsup}')" 
             title="Enviar"><i class="fa fa-pencil-square-o fa-2x text-info"></i>
             </p:commandLink>
