@@ -24,18 +24,20 @@
 	    clearUpdateInput('formsgc001:area_input', 'white');
 	    clearUpdateInput('formsgc001:codigo', 'white');
 	}
+
+	updateInput('formsgc001:tabView:calcul', '#F5F6CE');
 	
 	function enviar(vT0,vT1,vT2,vT3,vT4,vT5,vT6,vT7,vT8,vT9,vT10,vT11,vT12,vT13,vT14,vT15,vT16,vT17,vT18,vT19,vT20,vT21,vT22,vT23)
 	{
-		//alert(vT11);
+		   //alert(vT5);
 		  document.getElementById("formsgc001:tabView:comp_input").value= rTrim(vT0);
 		  document.getElementById("formsgc001:tabView:area_input").value= rTrim(vT1);
 		  document.getElementById("formsgc001:tabView:codigo").value= rTrim(vT2);
-		  document.getElementById("formsgc001:tabView:desc").value = rTrim(vT3);
-		  document.getElementById("formsgc001:tabView:respon").value= rTrim(vT4);
-		  document.getElementById("formsgc001:tabView:calcul").value= rTrim(vT5);
-		  document.getElementById("formsgc001:tabView:fuente").value= rTrim(vT6);
-		  document.getElementById("formsgc001:tabView:proces").value= rTrim(vT7);
+		  document.getElementById("formsgc001:tabView:desc").value  = rTrim(vT3);
+		  document.getElementById("formsgc001:tabView:respon_input").innerHTML= rTrim(vT4);
+		  document.getElementById("formsgc001:tabView:calculo_input").innerHTML = vT5;
+		  document.getElementById("formsgc001:tabView:fuente_input").innerHTML= rTrim(vT6);
+		  document.getElementById("formsgc001:tabView:proces_input").innerHTML= rTrim(vT7);
 		  document.getElementById("formsgc001:tabView:period_input").value= rTrim(vT8);
 		  document.getElementById("formsgc001:tabView:compor").value= rTrim(vT9);
 		  document.getElementById("formsgc001:tabView:nivapp_input").value= rTrim(vT10);
@@ -52,7 +54,11 @@
 		  document.getElementById("formsgc001:tabView:tvalts_input").value= rTrim(vT21);
 		  document.getElementById("formsgc001:tabView:feccas_input").value= rTrim(vT22);
 		  document.getElementById("formsgc001:tabView:tolsup").value= rTrim(vT23);
+		  
 		  updateInput('formsgc001:tabView:comp_input', '#F2F2F2');
 		  updateInput('formsgc001:tabView:area_input', '#F2F2F2');
 		  updateInput('formsgc001:tabView:codigo', '#F2F2F2');
+		  
+		  //alert(document.getElementById("formsgc001:tabView:calculo_input").innerHTML);
 		}
+	
