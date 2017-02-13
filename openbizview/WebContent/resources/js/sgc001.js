@@ -24,8 +24,6 @@
 	    clearUpdateInput('formsgc001:area_input', 'white');
 	    clearUpdateInput('formsgc001:codigo', 'white');
 	}
-
-	updateInput('formsgc001:tabView:calcul', '#F5F6CE');
 	
 	function enviar(vT0,vT1,vT2,vT3,vT4,vT5,vT6,vT7,vT8,vT9,vT10,vT11,vT12,vT13,vT14,vT15,vT16,vT17,vT18,vT19,vT20,vT21,vT22,vT23)
 	{
