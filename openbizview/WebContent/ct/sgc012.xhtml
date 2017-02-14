@@ -4,17 +4,17 @@
      Copyright (C) 2011 - 2016  DVCONSULTORES
 
     Este programa es software libre: usted puede redistribuirlo y/o modificarlo 
-    bajo los tÃ©rminos de la Licencia PÃºblica General GNU publicada 
-    por la FundaciÃ³n para el Software Libre, ya sea la versiÃ³n 3 
-    de la Licencia, o (a su elecciÃ³n) cualquier versiÃ³n posterior.
+    bajo los tÃƒÂ©rminos de la Licencia PÃƒÂºblica General GNU publicada 
+    por la FundaciÃƒÂ³n para el Software Libre, ya sea la versiÃƒÂ³n 3 
+    de la Licencia, o (a su elecciÃƒÂ³n) cualquier versiÃƒÂ³n posterior.
 
-    Este programa se distribuye con la esperanza de que sea Ãºtil, pero 
-    SIN GARANTÃ�A ALGUNA; ni siquiera la garantÃ­a implÃ­cita 
-    MERCANTIL o de APTITUD PARA UN PROPÃ“SITO DETERMINADO. 
-    Consulte los detalles de la Licencia PÃºblica General GNU para obtener 
-    una informaciÃ³n mÃ¡s detallada. 
+    Este programa se distribuye con la esperanza de que sea ÃƒÂºtil, pero 
+    SIN GARANTÃƒï¿½A ALGUNA; ni siquiera la garantÃƒÂ­a implÃƒÂ­cita 
+    MERCANTIL o de APTITUD PARA UN PROPÃƒâ€œSITO DETERMINADO. 
+    Consulte los detalles de la Licencia PÃƒÂºblica General GNU para obtener 
+    una informaciÃƒÂ³n mÃƒÂ¡s detallada. 
 
-    DeberÃ­a haber recibido una copia de la Licencia PÃºblica General GNU 
+    DeberÃƒÂ­a haber recibido una copia de la Licencia PÃƒÂºblica General GNU 
     junto a este programa. 
     En caso contrario, consulte <http://www.gnu.org/licenses/>.
  -->
@@ -128,74 +128,125 @@
 	  	  
 	   <!-- Panel -->      
      <div class="panel panel-info">
+     
      <div class="panel-body">
-     <p:panel id="panel"  header="#{msg.Sgc001tit}" toggleable="true" collapsed="true" style="white-space: normal;">	  
+     <p:panel id="panel"  header="#{msg.Sgc001tit}" toggleable="true" collapsed="false" style="white-space: normal;">	  
+
+ 	 <p:tabView id="tabView" style="background-color: #F4F4F4;">    
+ 	 
+ 	 	<p:tab id="tab1" title="Datos y Fecha" > 
+ 	 	 
  	     <div class="row">
-		 <div class="col-lg-4 col-md-4 col-sm-4">  
-	     <p:autoComplete id="comp" value="#{sgc012.comp}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeComp}"  valueChangeListener="#{bd.setComp(sgc012.comp)}" dropdown="true" scrollHeight="250">
-		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setComp(sgc012.comp)}" />	     
-		 </p:autoComplete> 
-		 <p:watermark for="comp" value="#{msg.sgc001com}"  />
-		 <p:spacer height="1"/>
-		 <p:message for="comp"/>     
-		 <p:autoComplete id="area" value="#{sgc012.area}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeArea}"  valueChangeListener="#{bd.setArea(sgc012.area)}" dropdown="true" scrollHeight="250">
-		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setArea(sgc012.area)}" />	     
-		 </p:autoComplete> 
-		 <p:watermark for="area" value="#{msg.sgc001are}"  />
-		 <p:spacer height="1"/>
-		 <p:message for="area"/>     
-		 <p:autoComplete id="codigo" value="#{sgc012.codigo}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeInd}"  valueChangeListener="#{bd.setCodigo(sgc012.codigo)}" dropdown="true" scrollHeight="250">
-		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setCodigo(sgc012.codigo)}" />	     
-		 </p:autoComplete> 
-		 <p:watermark for="codigo" value="#{msg.sgc003ind}"  />
-		 <p:spacer height="1"/>
-		 <p:message for="codigo"/> 
-		 <p:inputText id="anocal" styleClass="spacing" maxlength="4" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.anocal}"/>
-		 <p:watermark for="anocal" value="#{msg.autos02Anio}" />
-		 <p:spacer height="1"/>
-		 <p:message for="anocal"/>  	
-		 <p:inputText id="mescal" styleClass="spacing" maxlength="2" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.mescal}"/>
-		 <p:watermark for="mescal" value="#{msg.autos02Mes}" />
-		 <p:spacer height="1"/>
-		 <p:message for="mescal"/> 
-		 <p:inputTextarea id="invana" styleClass="spacing" autoResize="true" maxlength="250" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.invana}"/>
-		 <p:watermark for="invana" value="#{msg.sgc012iya}" />
-		 <p:spacer height="1"/>
-		 <p:message for="invana"/>	  
-		 <p:inputTextarea id="rrhh" styleClass="spacing" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.rrhh}"/>
-		 <p:watermark for="rrhh" value="#{msg.sgc012rrh}" />
-		 <p:spacer height="1"/>
-		 <p:message for="rrhh"/>
+			 
+			 <div class="col-lg-4 col-md-4 col-sm-4">  
+				 <div style="font-family:ubuntu;">#{msg.sgc001com}</div>
+				 <p:autoComplete inputStyle="width: 200px; height: 25px" id="comp" value="#{sgc012.comp}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeComp}"  valueChangeListener="#{bd.setComp(sgc012.comp)}" dropdown="true" scrollHeight="250">
+				 <p:ajax event="itemSelect" update=":formsgc012:tbResult" listener="#{bd.setComp(sgc012.comp)}" />	     
+				 </p:autoComplete> 
+				 <p:spacer height="1"/>
+				 <p:message for="comp"/>     
+				 
+				 <div style="font-family:ubuntu;">#{msg.sgc001are}</div>
+				 <p:autoComplete inputStyle="width: 200px; height: 25px" id="area" value="#{sgc012.area}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeArea}"  valueChangeListener="#{bd.setArea(sgc012.area)}" dropdown="true" scrollHeight="250">
+				 <p:ajax event="itemSelect" update="formsgc012:tbResult" listener="#{bd.setArea(sgc012.area)}" />	     
+				 </p:autoComplete> 
+				 <p:spacer height="1"/>
+				 <p:message for="area"/>     
+				 
+				 <div style="font-family:ubuntu;">#{msg.sgc001nin}</div>
+				 <p:autoComplete inputStyle="width: 250px; height: 25px" id="codigo" value="#{sgc012.codigo}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeInd}"  valueChangeListener="#{bd.setCodigo(sgc012.codigo)}" dropdown="true" scrollHeight="250">
+				 <p:ajax event="itemSelect" update="formsgc012:tbResult" listener="#{bd.setCodigo(sgc012.codigo)}" />	     
+				 </p:autoComplete> 
+				 <p:spacer height="1"/>
+				 <p:message for="codigo"/> 
+			 </div>
+		 
+			 <div class="col-lg-4 col-md-4 col-sm-4">
+			 	 <div style="font-family:ubuntu;">#{msg.VentasTbanio}</div>
+			 	 <p:inputTextarea rows="1" cols="5"  id="anocal" maxlength="4" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.anocal}"/>
+				 <p:spacer height="1"/>
+				 <p:message for="anocal"/>  	
+				 
+				 <div style="font-family:ubuntu;">#{msg.VentasTbmes}</div>
+				 <p:inputTextarea rows="1" cols="2"  id="mescal" maxlength="2" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.mescal}"/>
+				 <p:spacer height="1"/>
+				 <p:message for="mescal"/> 
+			 </div>
 		 </div>
-		 <div class="col-lg-4 col-md-4 col-sm-4">  	
-		 <p:inputTextarea id="superv" styleClass="spacing" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.superv}"/>
-		 <p:watermark for="superv" value="#{msg.sgc012sup}" />
-		 <p:spacer height="1"/>
-		 <p:message for="superv"/>	
-		 <p:inputTextarea id="medamb" styleClass="spacing" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.medamb}"/>
-		 <p:watermark for="medamb" value="#{msg.sgc012med}" />
-		 <p:spacer height="1"/>
-		 <p:message for="medamb"/>	
-		 <p:inputTextarea id="equipo" styleClass="spacing" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.equipo}"/>
-		 <p:watermark for="equipo" value="#{msg.sgc012equ}" />
-		 <p:spacer height="1"/>
-		 <p:message for="equipo"/>	
-		 <p:inputTextarea id="infstr" styleClass="spacing" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.infstr}"/>
-		 <p:watermark for="infstr" value="#{msg.sgc012ist}" />
-		 <p:spacer height="1"/>
-		 <p:message for="infstr"/>	
-		 <p:inputTextarea id="proced" styleClass="spacing" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.proced}"/>
-		 <p:watermark for="proced" value="#{msg.sgc012pro}" />
-		 <p:spacer height="1"/>
-		 <p:message for="proced"/>	
- 		 <p:inputTextarea id="otros" styleClass="spacing" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.otros}"/>
-		 <p:watermark for="otros" value="#{msg.sgc012otr}" />
-		 <p:spacer height="1"/>
-		 <p:message for="otros"/>
-		 <!--<input id="foto" type="file"  onchange="alertFilename()" name="uploadFile" size="60" multiple="multiple"/> 
-		 <h:inputText id="archivo" value="#{sgc012.foto}"/> -->
-	    </div>
-	    </div>
+		 </p:tab>
+		 
+		 <p:tab id="tab2" title="+ Info" > 
+    	 <div class="row">
+	     
+	     
+		     <div class="col-sm-6"> 
+			 
+				 <div style="font-family:ubuntu;">#{msg.sgc012iya}</div>
+				 <p:inputTextarea rows="5" cols="65" autoResize="true" id="invana" maxlength="250" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.invana}"/>
+				 <p:spacer height="1"/>
+				 <p:message for="invana"/>	  
+				 
+				 <div style="font-family:ubuntu;">#{msg.sgc012rrh}</div>
+				 <p:inputTextarea rows="5" cols="65" id="rrhh" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.rrhh}"/>
+				 <p:spacer height="1"/>
+				 <p:message for="rrhh"/>
+			 
+			 </div>
+		 
+			 <div class="col-sm-6">  	
+			 
+				 <div style="font-family:ubuntu;">#{msg.sgc012sup}</div>
+				 <p:inputTextarea rows="5" cols="65" id="superv" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.superv}"/>
+				 <p:spacer height="1"/>
+				 <p:message for="superv"/>	
+				 
+				 <div style="font-family:ubuntu;">#{msg.sgc012med}</div>
+				 <p:inputTextarea rows="5" cols="65" id="medamb" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.medamb}"/>
+				 <p:spacer height="1"/>
+				 <p:message for="medamb"/>	
+			 
+			 </div>
+			 
+			 
+		 </div>
+		 </p:tab>
+		 
+		 <p:tab id="tab3" title="+ Info" > 
+    	 <div class="row">
+	     
+		     <div class="col-sm-6"> 
+		     
+			     <div style="font-family:ubuntu;">#{msg.sgc012equ}</div>
+				 <p:inputTextarea rows="5" cols="65" id="equipo" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.equipo}"/>
+				 <p:spacer height="1"/>
+				 <p:message for="equipo"/>	
+				 
+				 <div style="font-family:ubuntu;">#{msg.sgc012ist}</div>
+				 <p:inputTextarea rows="5" cols="65" id="infstr" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.infstr}"/>
+				 <p:spacer height="1"/>
+				 <p:message for="infstr"/>	
+			 
+			 </div>
+		 
+			 <div class="col-sm-6">  
+		     
+			     <div style="font-family:ubuntu;">#{msg.sgc012pro}</div>
+				 <p:inputTextarea rows="5" cols="65" id="proced" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.proced}"/>
+				 <p:spacer height="1"/>
+				 <p:message for="proced"/>	
+		 		 
+		 		 <div style="font-family:ubuntu;">#{msg.sgc012otr}</div>
+				 <p:inputTextarea rows="5" cols="65" id="otros" autoResize="true" maxlength="250" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.otros}"/>
+				 <p:spacer height="1"/>
+				 <p:message for="otros"/>
+				 
+			 </div>
+		 </div>
+		 </p:tab>
+		 
+		 </p:tabView>
+		 
+	    
 	    <h:inputHidden id="vop" value="#{sgc012.validarOperacion}"/>
 	   </p:panel> 
      </div>
@@ -296,7 +347,9 @@
             
             <p:column width="60" >  
             <f:facet name="header">#{msg.bvt001TbEnviar}</f:facet>   
-             <p:commandLink styleClass="edit" onclick="enviar('#{tb.zcomp}','#{tb.zarea}','#{tb.zcodigo}','#{tb.zanocal}','#{tb.zmescal}','#{tb.zinvana}','#{tb.zrrhh}','#{tb.zsuperv}','#{tb.zmedamb}','#{tb.zequipo}','#{tb.zinfstr}','#{tb.zproced}','#{tb.zotros}','1')" 
+            <p:commandLink 
+            update=":formsgc012:tabView"
+            styleClass="edit" onclick="enviar('#{tb.zcomp}','#{tb.zarea}','#{tb.zcodigo}','#{tb.zanocal}','#{tb.zmescal}','#{tb.zinvana}','#{tb.zrrhh}','#{tb.zsuperv}','#{tb.zmedamb}','#{tb.zequipo}','#{tb.zinfstr}','#{tb.zproced}','#{tb.zotros}','1')" 
             title="Enviar"><i class="fa fa-pencil-square-o fa-2x text-info"></i></p:commandLink>
             </p:column> 
 			

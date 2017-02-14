@@ -135,7 +135,6 @@
 	  	  
 	   <!-- Panel -->      
      <div class="panel panel-info" >
-     
      <div class="panel-body">
      
      <p:panel id="panel" header="#{msg.Sgc001tit}" toggleable="true" collapsed="false" style="white-space: normal;">
@@ -206,7 +205,7 @@
 				 <p:message for="estatu"/>   
 				 
 				 <div style="font-family:ubuntu;">#{msg.sgc001vig}</div>
-				 <p:calendar pattern="dd/MM/yyyy" id="vigenc" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" locale="es" navigator="true" maxlength="10" value="#{sgc001.vigenc}" showOn="button"/>
+				 <p:calendar pattern="dd/MM/yyyy" id="vigenc" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" locale="es" navigator="true" maxlength="10" value="#{sgc001.vigenc}" />
 	             <p:tooltip for="vigenc" value="#{msg.sgc001vig}" />
 	             <p:spacer height="1"/> 
 	             <p:message for="vigenc"/>
@@ -220,7 +219,7 @@
 		     <div class="col-lg-6 col-md-4 col-sm-4">
 		     
 		     <div style="font-family:ubuntu;">#{msg.sgc001des}</div>
-			 <p:editor id="respon"  widgetVar="editorRespon" controls="bold italic underline | size style color highlight | alignleft center justify | bullets  numbering" value="#{sgc001.respon}" width="550"  required="true" requiredMessage="#{utils.getMessage('htmlvalidate')}"/>
+			 <p:editor id="respon"  widgetVar="editorRespon" controls="bold italic underline | color highlight | alignleft center justify | bullets  numbering" value="#{sgc001.respon}" width="480"  required="true" requiredMessage="#{utils.getMessage('htmlvalidate')}"/>
 			 <p:watermark for="respon" value="#{msg.sgc013Descripcion}" />
 			 <p:spacer height="1"/> 
 			 <p:message for="respon"/>	
@@ -229,7 +228,7 @@
 			 
 			 <div class="col-lg-6 col-md-4 col-sm-4">
 			 <div style="font-family:ubuntu;">#{msg.sgc001foc}</div>
-			 <p:editor id="calculo"  widgetVar="editorCalculo" controls="bold italic underline | size style color highlight | alignleft center justify | bullets  numbering" value="#{sgc001.calcul}" width="550"  required="true" requiredMessage="#{utils.getMessage('htmlvalidate')}"/>
+			 <p:editor id="calculo"  widgetVar="editorCalculo" controls="bold italic underline | color highlight | alignleft center justify | bullets  numbering" value="#{sgc001.calcul}" width="480"  required="true" requiredMessage="#{utils.getMessage('htmlvalidate')}"/>
 	         <p:watermark for="calculo" value="#{msg.sgc001foc}" />
 	         <p:spacer height="1"/>
 	         <p:message for="calculo"/>
@@ -243,7 +242,7 @@
 		     <div class="col-lg-6 col-md-4 col-sm-4">
 			 
 			 <div style="font-family:ubuntu;">#{msg.sgc001fda}</div>
-			 <p:editor id="fuente"  widgetVar="editorFuente" controls="bold italic underline | size style color highlight | alignleft center justify | bullets  numbering" value="#{sgc001.fuente}" width="550"  required="true" requiredMessage="#{utils.getMessage('htmlvalidate')}"/>
+			 <p:editor id="fuente"  widgetVar="editorFuente" controls="bold italic underline | color highlight | alignleft center justify | bullets  numbering" value="#{sgc001.fuente}" width="480"  required="true" requiredMessage="#{utils.getMessage('htmlvalidate')}"/>
 			 <p:watermark for="fuente" value="#{msg.sgc001fda}" />
 			 <p:spacer height="1"/> 
 			 <p:message for="fuente"/>	
@@ -252,7 +251,7 @@
 			 <div class="col-lg-6 col-md-4 col-sm-4">
 			 
 			 <div style="font-family:ubuntu;">#{msg.sgc001pro}</div>
-			 <p:editor id="proces"  widgetVar="editorProces" controls="bold italic underline | size style color highlight | alignleft center justify | bullets  numbering" value="#{sgc001.proces}" width="550"  required="true" requiredMessage="#{utils.getMessage('htmlvalidate')}"/>
+			 <p:editor id="proces"  widgetVar="editorProces" controls="bold italic underline | color highlight | alignleft center justify | bullets  numbering" value="#{sgc001.proces}" width="480"  required="true" requiredMessage="#{utils.getMessage('htmlvalidate')}"/>
 			 <p:watermark for="proces" value="#{msg.sgc001pro}" />
 			 <p:spacer height="1"/> 
 			 <p:message for="proces"/>
@@ -272,22 +271,22 @@
 				 <p:message for="tvalm"/> 
 			 </div>
 			 
-			 <div class="col-sm-3">
+			 <div class="col-sm-2">
 			 	 <div style="font-family:ubuntu;">#{msg.sgc001fca}</div>
-				 <p:calendar pattern="dd/MM/yyyy" id="feccam" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" locale="es" navigator="true" maxlength="10" value="#{sgc001.feccam}" showOn="button"/>
+				 <p:calendar Style="width: 20px" pattern="dd/MM/yyyy" id="feccam" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" locale="es" navigator="true" maxlength="10" value="#{sgc001.feccam}" />
 	             <p:spacer height="1"/> 
 	             <p:message for="feccam"/>	
 	         </div>
 	         
-	         <div class="col-sm-3">
+	         <div class="col-sm-2">
 	         	 <div style="font-family:ubuntu;">#{msg.sgc001met}</div>
-				 <p:inputText id="meta"   maxlength="8" rows="1" cols="10" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc001.meta}" converter="javax.faces.BigDecimal" converterMessage="#{bd.getMessage('htmlvalidatemt')}"/>
+				 <p:inputTextarea id="meta"   maxlength="4" rows="1" cols="8" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc001.meta}" converter="javax.faces.BigDecimal" converterMessage="#{bd.getMessage('htmlvalidatemt')}"/>
 				 <p:spacer height="1"/> 
 				 <p:message for="meta"/>
 			 </div>
 		     
 		     <div class="col-sm-3">	
-			 	 <div style="font-family:ubuntu;">#{msg.sgc001rem}</div>
+			 	 <div style="font-family:ubuntu; width: 650px">#{msg.sgc001rem}</div>
 				 <p:inputTextarea id="resmet"  rows="1" cols="60" autoResize="true" maxlength="500" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc001.resmet}"/>
 				 <p:spacer height="1"/> 
 				 <p:message for="resmet"/>	
@@ -309,7 +308,7 @@
 			 
 			 <div class="col-sm-3">			 
 			 <div style="font-family:ubuntu;">#{msg.sgc001fca}</div>
-			 <p:calendar pattern="dd/MM/yyyy" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" id="feccai"  locale="es" navigator="true" maxlength="10" value="#{sgc001.feccai}" showOn="button"/>
+			 <p:calendar pattern="dd/MM/yyyy" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" id="feccai"  locale="es" navigator="true" maxlength="10" value="#{sgc001.feccai}" />
              <p:spacer height="1"/> 
              <p:message for="feccai"/>
 			 </div>
@@ -338,7 +337,7 @@
 			 
 			 <div class="col-sm-3">			 
 				 <div style="font-family:ubuntu;">#{msg.sgc001fca}</div>
-				 <p:calendar pattern="dd/MM/yyyy" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" id="feccas"  locale="es" navigator="true" maxlength="10" value="#{sgc001.feccas}" showOn="button"/>
+				 <p:calendar pattern="dd/MM/yyyy" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" id="feccas"  locale="es" navigator="true" maxlength="10" value="#{sgc001.feccas}" />
 	             <p:spacer height="1"/> 
 	             <p:message for="feccas"/>
 			 </div>
@@ -353,6 +352,8 @@
 		</p:tab>
 	    
 	  </p:tabView>
+	  
+	 
 	    <h:inputHidden id="vop" value="#{sgc001.validarOperacion}"/>
 	   </p:panel> 
      </div>

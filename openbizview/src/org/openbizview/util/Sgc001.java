@@ -2082,7 +2082,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
     while (r.next()){
  	Sgc001 select = new Sgc001();
  	select.setZcodigo(r.getString(1));
- 	select.setZdesc(r.getString(1)+ " - " +  r.getString(2)) ;
+ 	select.setZdesc(r.getString(2)) ;
  	select.setZtvalm(r.getString(3)+ " - " + r.getString(27));
  	select.setZmeta(r.getString(4));
  	select.setZfeccam(r.getString(5));

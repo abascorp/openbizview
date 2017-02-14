@@ -28,25 +28,25 @@
 	}
 	
 	function enviar(vT0,vT1,vT2,vT3,vT4,vT5,vT6,vT7,vT8,vT9,vT10,vT11,vT12,vT13){
-		  document.getElementById("formsgc012:comp_input").value= rTrim(vT0);
-		  document.getElementById("formsgc012:area_input").value= rTrim(vT1);
-		  document.getElementById("formsgc012:codigo_input").value= rTrim(vT2);
-		  document.getElementById("formsgc012:anocal").value= rTrim(vT3);
-		  document.getElementById("formsgc012:mescal").value= rTrim(vT4);
-		  document.getElementById("formsgc012:invana").value= rTrim(vT5);
-		  document.getElementById("formsgc012:rrhh").value= rTrim(vT6);
-		  document.getElementById("formsgc012:superv").value= rTrim(vT7);
-		  document.getElementById("formsgc012:medamb").value= rTrim(vT8);
-		  document.getElementById("formsgc012:equipo").value= rTrim(vT9);
-		  document.getElementById("formsgc012:infstr").value= rTrim(vT10);
-		  document.getElementById("formsgc012:proced").value= rTrim(vT11);
-		  document.getElementById("formsgc012:otros").value= rTrim(vT12);
+		  document.getElementById("formsgc012:tabView:comp_input").value= rTrim(vT0);
+		  document.getElementById("formsgc012:tabView:area_input").value= rTrim(vT1);
+		  document.getElementById("formsgc012:tabView:codigo_input").value= rTrim(vT2);
+		  document.getElementById("formsgc012:tabView:anocal").value= rTrim(vT3);
+		  document.getElementById("formsgc012:tabView:mescal").value= rTrim(vT4);
+		  document.getElementById("formsgc012:tabView:invana").value= rTrim(vT5);
+		  document.getElementById("formsgc012:tabView:rrhh").value= rTrim(vT6);
+		  document.getElementById("formsgc012:tabView:superv").value= rTrim(vT7);
+		  document.getElementById("formsgc012:tabView:medamb").value= rTrim(vT8);
+		  document.getElementById("formsgc012:tabView:equipo").value= rTrim(vT9);
+		  document.getElementById("formsgc012:tabView:infstr").value= rTrim(vT10);
+		  document.getElementById("formsgc012:tabView:proced").value= rTrim(vT11);
+		  document.getElementById("formsgc012:tabView:otros").value= rTrim(vT12);
 		  document.getElementById("formsgc012:vop").value= rTrim(vT13);
-		  updateInput('formsgc012:comp_input', '#F2F2F2');
-		  updateInput('formsgc012:area_input', '#F2F2F2');
-		  updateInput('formsgc012:codigo_input', '#F2F2F2');
-		  updateInput('formsgc012:anocal', '#F2F2F2');
-		  updateInput('formsgc012:mescal', '#F2F2F2');
+		  updateInput('formsgc012:tabView:comp_input', '#F2F2F2');
+		  updateInput('formsgc012:tabView:area_input', '#F2F2F2');
+		  updateInput('formsgc012:tabView:codigo_input', '#F2F2F2');
+		  updateInput('formsgc012:tabView:anocal', '#F2F2F2');
+		  updateInput('formsgc012:tabView:mescal', '#F2F2F2');
 		}
 	/*
 	 function alertFilename()
