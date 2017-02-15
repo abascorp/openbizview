@@ -144,7 +144,7 @@
 		 <p:watermark for="area" value="#{msg.sgc001are}"  />
 		 <p:spacer height="1"/>
 		 <p:message for="area"/>     
-		 <p:autoComplete id="codigo" value="#{sgc012b.codigo}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeInd}"  valueChangeListener="#{bd.setCodigo(sgc012b.codigo)}" dropdown="true" scrollHeight="250">
+		 <p:autoComplete id="codigo" value="#{sgc012b.codigo}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeInd1}"  valueChangeListener="#{bd.setCodigo(sgc012b.codigo)}" dropdown="true" scrollHeight="250">
 		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setCodigo(sgc012b.codigo)}" />	     
 		 </p:autoComplete> 
 		 <p:watermark for="codigo" value="#{msg.sgc003ind}"  />

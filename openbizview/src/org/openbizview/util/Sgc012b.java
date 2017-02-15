@@ -413,7 +413,7 @@ public void insert() throws  NamingException {
         String[] vecarea = area.split("\\ - ", -1);
         String[] veccod = codigo.split("\\ - ", -1);
         
-        String query = "INSERT INTO SGC012B VALUES (?,?,?,?,?,?,null,?,'" + getFecha() + "',?,'" + getFecha() + "',?)";
+        String query = "INSERT INTO SGC012B VALUES (?,?,?,?,?,?,SGC012B_SEQ.NEXTVAL,?,sysdate,?,sysdate,?)";
         pstmt = con.prepareStatement(query);
         pstmt.setString(1, veccomp[0].toUpperCase());
         pstmt.setString(2, vecarea[0].toUpperCase());
@@ -426,13 +426,13 @@ public void insert() throws  NamingException {
         pstmt.setInt(9, Integer.parseInt(instancia));
         
         //System.out.println(query);
-        //System.out.println(veccomp[0]);
-        //System.out.println(vecarea[0]);
-        //System.out.println(veccod[0]);
-        //System.out.println(anocal);
-        //System.out.println(mescal);
-        //System.out.println(archiv);
-             extension = veccomp[0]+vecarea[0]+veccod[0]+anocal+mescal;
+        System.out.println(veccomp[0]);
+        System.out.println(vecarea[0]);
+        System.out.println(veccod[0]);
+        System.out.println(anocal);
+        System.out.println(mescal);
+        System.out.println(archiv);
+        //extension = veccomp[0]+vecarea[0]+veccod[0]+anocal+mescal;
         System.out.println(extension);
         try {
             //Avisando
