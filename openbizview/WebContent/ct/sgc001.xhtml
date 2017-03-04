@@ -83,11 +83,15 @@
 
             
        <p:commandButton update="tbResult, panel, growl" accesskey="i" id="btnIn" action="#{sgc001.guardar}" 
-        rendered="#{smnubean.opcbot('1')}" value="#{msg.htmlguardar}" title="#{msg.htmlg}" icon="fa fa-floppy-o text-info" styleClass="botonera"/>
+        rendered="#{smnubean.opcbot('1')}" value="#{msg.htmlguardar}" title="#{msg.htmlg}" icon="fa fa-floppy-o text-info" styleClass="botonera"
+        onclick="refresh()"/>
+       
        <p:commandButton accesskey="r" id="btnEl" onclick="modalDelete();" 
         rendered="#{smnubean.opcbot('2')}" value="#{msg.htmlborrar}" icon="fa fa-trash text-info" title="#{msg.htmle}" styleClass="botonera" />
+       
        <p:commandButton icon="fa fa-refresh text-info" update="tbResult, panel, growl" process="@this" actionListener="#{sgc001.reset()}"
         title="#{msg.htmlr}"  styleClass="botonera" accesskey="l">  
+       
        <p:resetInput target="panel" />
     	<f:actionListener binding="#{bd.setRespon('')}"/> 
         <f:actionListener binding="#{bd.setPeriod('')}"/> 
@@ -398,7 +402,7 @@
      <p:dataTable id="tbResult" styleClass="table table-striped" emptyMessage="#{msg.result}" var="tb"  value="#{sgc001.lazyModel}"  lazy="true" sortBy="#{tb.zCODIGO}"
 			paginator="true" paginatorAlwaysVisible="false" rows="15" rowsPerPageTemplate="5,10,15,20,50,100,500" paginatorPosition="top"
 			paginatorTemplate="{FirstPageLink} {PreviousPageLink} &#160;&#160; {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}"
-			currentPageReportTemplate=" Pag: {currentPage} - {totalPages} | Total registros: #{sgc001.rows}"  
+			currentPageReportTemplate=" Pag: {currentPage} - {totalPages} "  
 			widgetVar="global" reflow="true">
 			
 			<f:facet name="header"> 			

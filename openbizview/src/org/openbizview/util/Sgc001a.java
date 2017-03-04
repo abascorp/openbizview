@@ -670,6 +670,7 @@ public void borrar() throws NamingException, SQLException{
 	    query += "AND TRIM(A.COMP) LIKE TRIM('%" + veccomp[0] + "%') ";
 	    query += "AND TRIM(A.AREA) LIKE TRIM('%" + vecarea[0] + "%') ";
 	    query += "AND TRIM(A.CODIGO) LIKE TRIM('%" + veccodigo[0] + "%') ";
+	    query += " AND TRIM(D.CODIGO)||TRIM(D.NOMIND) LIKE TRIM('%" + ((String) filterValue).toUpperCase() +  "%')" ;
 	    query += "GROUP BY A.COMP, A.AREA, A.CODIGO, A.TIPVAL, A.FECCAM, A.META, B.DESCR, C.DESCR, D.NOMIND, E.DESCR, A.REGIST, A.RESMET ";
 	    query += "ORDER BY A.COMP, A.AREA, A.CODIGO, A.FECCAM, A.REGIST ";
 	    query += ")query ) " ;
@@ -751,6 +752,7 @@ public void borrar() throws NamingException, SQLException{
          query += "             AND A.AREA = F.AREA";
          query += "             AND A.CODIGO = F.INDICA";
          query += "             AND F.CODUSER = '" + login.toUpperCase() + "'";
+         query += "             AND TRIM(D.CODIGO)||TRIM(D.NOMIND) LIKE TRIM('%" + ((String) filterValue).toUpperCase() +  "%')" ;
          query += "             UNION ALL";
          query += "             SELECT  ";
          query += "             A.COMP, A.AREA, A.CODIGO, A.TIPVAL, TO_CHAR(A.FECCAM,'DD/MM/YYYY') AS FECCAM, A.META, B.DESCR AS DESC1, C.DESCR AS DESC2, ";
@@ -765,6 +767,7 @@ public void borrar() throws NamingException, SQLException{
          query += "             AND A.AREA = D.AREA ";
          query += "             AND A.CODIGO = D.CODIGO ";
          query += "             AND A.TIPVAL = E.CODIGO ";
+         query += "             AND TRIM(D.CODIGO)||TRIM(D.NOMIND) LIKE TRIM('%" + ((String) filterValue).toUpperCase() +  "%')" ;
          query += "             AND A.COMP||A.AREA IN (SELECT COMP||AREA FROM SGC008 WHERE CODUSER = '" + login.toUpperCase() + "' AND DUEPRO = '1')";
          query += "             ) RES";
          query += "       WHERE ";

@@ -1,5 +1,4 @@
-/*
- *  Copyright (C) 2011  ANDRES DOMINGUEZ
+/*  Copyright (C) 2011  ANDRES DOMINGUEZ
 
     Este programa es software libre: usted puede redistribuirlo y/o modificarlo 
     bajo los terminos de la Licencia Pública General GNU publicada 
@@ -1952,6 +1951,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 	    query += " AND A.TIPVALTS = L.CODIGO";	    
 	    query += " AND TRIM(A.COMP) LIKE TRIM('%" + veccomp[0] + "%')";
 	    query += " AND TRIM(A.AREA) LIKE TRIM('%" + vecarea[0] + "%')";
+	    query += " AND TRIM(A.CODIGO)||TRIM(A.NOMIND) LIKE TRIM('%" + ((String) filterValue).toUpperCase() +  "%')" ;
 	    query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET";
 	    query += " ORDER BY A.COMP, A.AREA, A.CODIGO ";
 	    query += ")query ) " ;
@@ -1960,9 +1960,9 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 
     pstmt = con.prepareStatement(query);
     
-    ////System.out.println(query);
-    ////System.out.println("Usuario ADMINISTRADOR...");
-		
+    System.out.println(query);
+    System.out.println("Usuario ADMINISTRADOR...");
+	
     r =  pstmt.executeQuery();
     while (r.next()){
  	Sgc001 select = new Sgc001();
@@ -2046,6 +2046,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 		 query += " AND A.AREA = M.AREA"; 
 		 query += " AND A.CODIGO = M.INDICA"; 
 		 query += " AND TRIM(M.CODUSER) LIKE ('%" + login.toUpperCase() + "%')"; 
+		 query += " AND TRIM(A.CODIGO)||TRIM(A.NOMIND) LIKE TRIM('%" + ((String) filterValue).toUpperCase() +  "%')" ;
 		 query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS,"; 
 		 query += " A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET";         
 		 query += " UNION ALL";
@@ -2065,6 +2066,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 		 query += " AND A.TIPVALTI = K.CODIGO ";
 		 query += " AND A.TIPVALTS = L.CODIGO  ";
 		 query += " AND A.COMP||A.AREA IN (SELECT COMP||AREA FROM SGC008 WHERE CODUSER = '" + login.toUpperCase() + "' AND DUEPRO = '1')";
+		 query += " AND TRIM(A.CODIGO)||TRIM(A.NOMIND) LIKE TRIM('%" + ((String) filterValue).toUpperCase() +  "%')" ;
 		 query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS, ";
 		 query += " A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET) REV";
 		 query += " WHERE";
@@ -2075,8 +2077,8 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 
     pstmt = con.prepareStatement(query);
     
-    ////System.out.println(query);
-    ////System.out.println("Usuario **** NO ****  ADMINISTRADOR...");
+    System.out.println(query);
+    System.out.println("Usuario **** NO ****  ADMINISTRADOR...");
 		
     r =  pstmt.executeQuery();
     while (r.next()){
@@ -2177,7 +2179,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 
            
            pstmt = con.prepareStatement(query);
-           ////System.out.println(query);
+           System.out.println(query);
            ////System.out.println(veccodven[0]);
 
             r =  pstmt.executeQuery();

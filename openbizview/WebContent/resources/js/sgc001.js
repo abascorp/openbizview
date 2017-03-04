@@ -17,6 +17,7 @@
 	    En caso contrario, consulte <http://www.gnu.org/licenses/>.
 	 */
 	
+
 	function limpiar()
 	{  //Llamado por el boton limpiar
 	    document.getElementById("formsgc001:vop").value="0";

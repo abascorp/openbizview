@@ -447,7 +447,7 @@ public void insert() throws  NamingException {
         String[] vecarea = area.split("\\ - ", -1);
         String[] veccod = codigo.split("\\ - ", -1);
         
-        String query  = "INSERT INTO SGC012A VALUES (?,?,?,?,?,?,?,to_date('" + sdfecha.format(fecacc) + "','dd/mm/yyyy'),?,'" + getFecha() + "',?,'" + getFecha() + "',?,null)";
+        String query  = "INSERT INTO SGC012A VALUES (?,?,?,?,?,?,?,to_date('" + sdfecha.format(fecacc) + "','dd/mm/yyyy'),?,'" + getFecha() + "',?,SYSDATE,?,OPENBIZVIEW.SGC012A_SEQ.NEXTVAL)";
         pstmt = con.prepareStatement(query);
         pstmt.setString(1, veccomp[0].toUpperCase());
         pstmt.setString(2, vecarea[0].toUpperCase());
@@ -460,7 +460,17 @@ public void insert() throws  NamingException {
         pstmt.setString(9, login);            
         pstmt.setInt(10, Integer.parseInt(instancia));
         
-        //System.out.println(query);       
+        System.out.println(
+        "INSERT INTO SGC012A VALUES ('" + veccomp[0].toUpperCase() + "','" + 
+                                          vecarea[0].toUpperCase() + "','" + 
+        		                          veccod[0].toUpperCase()  + "'," + 
+                                          Integer.parseInt(anocal) + "," + 
+        		                          Integer.parseInt(mescal) + ",'" + 
+                                          accion.toUpperCase() + "','" + 
+        		                          respon.toUpperCase() + "',TO_DATE('" + 
+                                          sdfecha.format(fecacc) + "','DD/MM/YYYY'),'" + 
+                                          login + "',SYSDATE,'" +
+                                          login + "',SYSDATE,1,OPENBIZVIEW.SGC012A_SEQ.NEXTVAL");       
         //System.out.println(veccomp[0]);
         //System.out.println(vecarea[0]);
         //System.out.println(veccod[0]);

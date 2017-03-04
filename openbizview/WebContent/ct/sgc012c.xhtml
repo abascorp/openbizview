@@ -131,59 +131,79 @@
 	   <!-- Panel -->      
      <div class="panel panel-info">
      <div class="panel-body">
-     <p:panel id="panel"  header="#{msg.Sgc012ctit}" toggleable="true" collapsed="true" style="white-space: normal;">	  
+     <p:panel id="panel"  header="#{msg.Sgc012ctit}" toggleable="true" collapsed="false" style="white-space: normal;">	  
+
 	     <div class="row">
-		 <div class="col-lg-4 col-md-4 col-sm-4">  
-	     <p:autoComplete id="comp" value="#{sgc012c.comp}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeComp1}"  valueChangeListener="#{bd.setComp(sgc012c.comp)}" dropdown="true" scrollHeight="250">
-		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setComp(sgc012c.comp)}" />	     
-		 </p:autoComplete> 
-		 <p:watermark for="comp" value="#{msg.sgc001com}"  />
-		 <p:spacer height="1"/>
-		 <p:message for="comp"/>     
-		 <p:autoComplete id="area" value="#{sgc012c.area}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeArea1}"  valueChangeListener="#{bd.setArea(sgc012c.area)}" dropdown="true" scrollHeight="250">
-		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setArea(sgc012c.area)}" />	     
-		 </p:autoComplete> 
-		 <p:watermark for="area" value="#{msg.sgc001are}"  />
-		 <p:spacer height="1"/>
-		 <p:message for="area"/>     
-		 <p:autoComplete id="codigo" value="#{sgc012c.codigo}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeInd1}"  valueChangeListener="#{bd.setCodigo(sgc012c.codigo)}" dropdown="true" scrollHeight="250">
-		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setCodigo(sgc012c.codigo)}" />	     
-		 </p:autoComplete> 
-		 <p:watermark for="codigo" value="#{msg.sgc003ind}"  />
-		 <p:spacer height="1"/>
-		 <p:message for="codigo"/> 
-		 <p:autoComplete id="anocal" value="#{sgc012c.anocal}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeAnocal}"  valueChangeListener="#{bd.setAnocal(sgc012c.anocal)}" dropdown="true" scrollHeight="250">
-		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setAnocal(sgc012c.anocal)}" />	     
-		 </p:autoComplete> 
-		 <p:watermark for="anocal" value="#{msg.autos02Anio}"  />
-		 <p:spacer height="1"/>
-		 <p:message for="anocal"/> 
-		 <p:autoComplete id="mescal" value="#{sgc012c.mescal}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeMescal}"  valueChangeListener="#{bd.setMescal(sgc012c.mescal)}" dropdown="true" scrollHeight="250">
-		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setMescal(sgc012c.mescal)}" />	     
-		 </p:autoComplete> 
-		 <p:watermark for="mescal" value="#{msg.autos02Mes}"  />
-		 <p:spacer height="1"/>
-		 <p:message for="mescal"/> 
-		 <p:autoComplete id="accion" value="#{sgc012c.accion}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeAccion}"  valueChangeListener="#{bd.setAccion(sgc012c.accion)}" dropdown="true" scrollHeight="250">
-		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setAccion(sgc012c.accion)}" />	     
-		 </p:autoComplete> 
-		 <p:watermark for="accion" value="#{msg.sgc012aac}"  />
-		 <p:spacer height="1"/>
-		 <p:message for="accion"/> 
-		 <p:inputTextarea id="coment" styleClass="spacing" autoResize="false" maxlength="250" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012c.coment}"/>
-		 <p:watermark for="coment" value="#{msg.sgc012cco}" />
-		 <p:spacer height="1"/>
-		 <p:message for="coment"/>	 
-		 <p:calendar pattern="dd/MM/yyyy" id="feccom"  locale="es" navigator="true" maxlength="10" value="#{sgc012c.feccom}" showOn="button"/>
-         <p:tooltip for="feccom" value="#{msg.sgc012cfc}" />
-         <p:spacer height="1"/>
-         <p:message for="feccom"/>	
-         <p:inputText id="porcum" styleClass="spacing" maxlength="8" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012c.porcum}" converter="javax.faces.BigDecimal" converterMessage="#{bd.getMessage('htmlvalidatnum')}"/>
-		 <p:watermark for="porcum" value="#{msg.sgc012apc}" />
-		 <p:spacer height="1"/> 
-		 <p:message for="porcum"/>	
-		 <h:inputHidden id="regist" value="#{sgc012c.regist}"/> 
-	    </div>
+		 	<div class="col-lg-4 col-md-4 col-sm-4">  
+
+			     <div style="font-family:ubuntu;">#{msg.sgc001com}</div>
+			     <p:autoComplete id="comp" inputStyle="width: 360px; height: 25px" value="#{sgc012c.comp}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeComp1}"  valueChangeListener="#{bd.setComp(sgc012c.comp)}" dropdown="true" scrollHeight="250">
+				 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setComp(sgc012c.comp)}" />	     
+				 </p:autoComplete> 
+				 <p:spacer height="1"/>
+				 <p:message for="comp"/>     
+		
+				 <div style="font-family:ubuntu;">#{msg.sgc001are}</div>
+				 <p:autoComplete id="area" inputStyle="width: 360px; height: 25px" value="#{sgc012c.area}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeArea1}"  valueChangeListener="#{bd.setArea(sgc012c.area)}" dropdown="true" scrollHeight="250">
+				 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setArea(sgc012c.area)}" />	     
+				 </p:autoComplete> 
+				 <p:spacer height="1"/>
+				 <p:message for="area"/>     
+		
+				 <div style="font-family:ubuntu;">#{msg.sgc001nin}</div>
+				 <p:autoComplete id="codigo" inputStyle="width: 360px; height: 25px" value="#{sgc012c.codigo}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeInd1}"  valueChangeListener="#{bd.setCodigo(sgc012c.codigo)}" dropdown="true" scrollHeight="250">
+				 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setCodigo(sgc012c.codigo)}" />	     
+				 </p:autoComplete> 
+				 <p:spacer height="1"/>
+				 <p:message for="codigo"/> 
+				 
+				 <div style="font-family:ubuntu;">#{msg.VentasTbanio}</div>
+				 <p:autoComplete id="anocal" inputStyle="width: 60px; height: 25px" value="#{sgc012c.anocal}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeAnocal}"  valueChangeListener="#{bd.setAnocal(sgc012c.anocal)}" dropdown="true" scrollHeight="250">
+				 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setAnocal(sgc012c.anocal)}" />	     
+				 </p:autoComplete> 
+				 <p:spacer height="1"/>
+				 <p:message for="anocal"/> 
+		
+				 <div style="font-family:ubuntu;">#{msg.VentasTbmes}</div>
+				 <p:autoComplete id="mescal" inputStyle="width: 60px; height: 25px" value="#{sgc012c.mescal}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeMescal}"  valueChangeListener="#{bd.setMescal(sgc012c.mescal)}" dropdown="true" scrollHeight="250">
+				 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setMescal(sgc012c.mescal)}" />	     
+				 </p:autoComplete> 
+				 <p:spacer height="1"/>
+				 <p:message for="mescal"/> 				 
+				 
+			</div>
+			
+			<div class="col-lg-4 col-md-4 col-sm-4">  
+			
+				 <div style="font-family:ubuntu;">#{msg.Sgc012aTbacc}</div>
+				 <p:autoComplete id="accion" inputStyle="width: 360px; height: 25px" value="#{sgc012c.accion}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeAccion}"  valueChangeListener="#{bd.setAccion(sgc012c.accion)}" dropdown="true" scrollHeight="250">
+				 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setAccion(sgc012c.accion)}" />	     
+				 </p:autoComplete> 
+				 <p:spacer height="1"/>
+				 <p:message for="accion"/> 
+				
+				 <div style="font-family:ubuntu;">Comentario</div>
+				 <p:inputTextarea id="coment" rows="9" style="width: 100%;" styleClass="spacing" autoResize="true" maxlength="250" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012c.coment}"/>
+				 <p:spacer height="1"/>
+				 <p:message for="coment"/>	 
+			     		 
+			</div>
+			
+			<div class="col-lg-4 col-md-4 col-sm-4">  
+
+				 <div style="font-family:ubuntu;">Fecha del comentario</div>
+		         <p:calendar pattern="dd/MM/yyyy" id="feccom"  locale="es" navigator="true" maxlength="10" value="#{sgc012c.feccom}" showOn="button"/>
+				 <p:spacer height="1"/>
+		         <p:message for="feccom"/>	
+		
+		         <div style="font-family:ubuntu;">% de Cumplimiento</div>
+		         <p:inputText id="porcum" style="width: 50px; height: 25px" styleClass="spacing" maxlength="8" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012c.porcum}" converter="javax.faces.BigDecimal" converterMessage="#{bd.getMessage('htmlvalidatnum')}"/>
+				 <p:spacer height="1"/> 
+				 <p:message for="porcum"/>	
+				 <h:inputHidden id="regist" value="#{sgc012c.regist}"/> 
+	    		
+	    	 </div>
+
 	    </div>
 	    <h:inputHidden id="vop" value="#{sgc012c.validarOperacion}"/>
 	   </p:panel> 
