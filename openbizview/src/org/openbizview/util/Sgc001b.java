@@ -397,7 +397,7 @@ public void insertm() throws  NamingException {
         String[] veccodigo = codigo.split("\\ - ", -1);
         String[] vectvalti = tvalti.split("\\ - ", -1);
                     
-        String query = "INSERT INTO SGC001B VALUES (?,?,?,?,to_date('" + sdfecha.format(feccai) + "','dd/mm/yyyy'),?,?,'" + getFecha() + "',?,'" + getFecha() + "',?,null)";
+        String query = "INSERT INTO SGC001B VALUES (?,?,?,?,to_date('" + sdfecha.format(feccai) + "','dd/mm/yyyy'),?,?,'" + getFecha() + "',?,'" + getFecha() + "',?,OPENBIZVIEW.SGC001B_SEQ.NEXTVAL)";
         pstmt = con.prepareStatement(query);
         pstmt.setString(1, veccomp[0].toUpperCase());
         pstmt.setString(2, vecarea[0].toUpperCase());
@@ -648,11 +648,10 @@ public void borrar() throws NamingException, SQLException{
 	    query += "AND TRIM(A.COMP) LIKE TRIM('%" + veccomp[0] + "%') ";
 	    query += "AND TRIM(A.AREA) LIKE TRIM('%" + vecarea[0] + "%') ";
 	    query += "AND TRIM(A.CODIGO) LIKE TRIM('%" + veccodigo[0] + "%') ";
-	    query += "GROUP BY A.COMP, A.AREA, A.CODIGO, A.TIPVAL, A.FECCAM, A.TOLINF, B.DESCR, C.DESCR, D.NOMIND, E.DESCR, A.REGIST";
+	    query += "GROUP BY A.COMP, A.AREA, A.CODIGO, A.TIPVAL, A.FECCAM, A.TOLINF, B.DESCR, C.DESCR, D.NOMIND, E.DESCR, A.REGIST ORDER BY 1,2,3";
 	    query += ")query ) " ;
 	    query += " WHERE ROWNUM <="+pageSize;
 	    query += " AND rn > ("+ first +")";
-	    query += " ORDER BY  " + sortField.replace("z", "");
 
     pstmt = con.prepareStatement(query);
     //System.out.println(query);
@@ -747,12 +746,10 @@ public void borrar() throws NamingException, SQLException{
 	         query += "       WHERE ";
 	         query += "       TRIM(RES.COMP) LIKE TRIM('%" + veccomp[0] + "%') ";
 	         query += "       AND TRIM(RES.AREA) LIKE TRIM('%" + vecarea[0] + "%') ";
-	         query += "       AND TRIM(RES.CODIGO) LIKE TRIM('%" + veccodigo[0] + "%')) TOT";
+	         query += "       AND TRIM(RES.CODIGO) LIKE TRIM('%" + veccodigo[0] + "%') ORDER BY 1,2,3) TOT";
 	         query += " WHERE      ";
 	         query += " ROWNUM <=" +pageSize;  
 	         query += " AND ROWNUM > ("+ first +")";
-	         query += " ORDER BY";
-	         query += " TOT.COMP, TOT.AREA, TOT.CODIGO";
 
     pstmt = con.prepareStatement(query);
     //System.out.println(query);

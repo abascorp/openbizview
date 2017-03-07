@@ -690,7 +690,7 @@ import org.primefaces.model.SortOrder;
   		
   		switch ( productName ) {
         case "Oracle":
-        	 query = "SELECT count_bvt001('" + ((String) filterValue).toUpperCase() + "','" +  vlRol +   "','" + veccodgrup[0] + "','" + instancia + "') from dual";
+        	 query = "SELECT count_bvt001('" + ((String) filterValue).toUpperCase() + "','" +  login.toUpperCase() +   "','" + veccodgrup[0] + "','" + instancia + "') from dual";
              break;
         case "PostgreSQL":
         	 query = "SELECT count_bvt001('" + ((String) filterValue).toUpperCase() + "','" +  vlRol +   "','" + veccodgrup[0] + "','" + instancia + "')";

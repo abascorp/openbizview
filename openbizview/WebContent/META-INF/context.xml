@@ -74,13 +74,25 @@
 	  <Resource name="mail/recibos"
 		    auth="Container"
 		    type="javax.mail.Session"
-		    mail.smtp.host="smtp.gmail.com"
-		    mail.smtp.port="465"
+		    mail.smtp.host="mail.office365.com"
+		    mail.smtp.port="587"
 		    mail.smtp.auth="true"
-		    mail.smtp.user="info@dvconsultores.com"
-		    password=""
+		    mail.smtp.user="avisos@tubrica.com"
+		    password="Notas2014*"
 		    mail.smtp.starttls.enable="true"
 		    mail.smtp.socketFactory.class="javax.net.ssl.SSLSocketFactory"
 		  />
+		  
+	  <Resource name="mail/mail2"
+		    auth="Container"
+		    type="javax.mail.Session"
+		    mail.smtp.host="mail.office365.com"
+		    mail.smtp.port="587"
+		    mail.smtp.auth="true"
+		    mail.smtp.user="avisos@tubrica.com"
+		    password="Notas2014*"
+		    mail.smtp.starttls.enable="true"
+		    mail.smtp.socketFactory.class="javax.net.ssl.SSLSocketFactory"
+		  />		  
 
 </Context>
