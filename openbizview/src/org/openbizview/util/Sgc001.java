@@ -708,18 +708,18 @@ public void insert() throws  NamingException {
         //String[] vecrespon = respon.split("\\ - ", -1);
                     
         //String query = "INSERT INTO SGC001 VALUES (?,?,?,?,?,?,?,to_date('" + sdfecha.format(feccam) + "','dd/mm/yyyy'),?,?,to_date('" + sdfecha.format(feccai) + "','dd/mm/yyyy'),?,?,to_date('" + sdfecha.format(feccas) + "','dd/mm/yyyy'),?,?,?,?,?,?,?,to_date('" + sdfecha.format(vigenc) + "','dd/mm/yyyy'),?,?,'" + getFecha() + "',?,'" + getFecha() + "',?)";
-        String query = "INSERT INTO SGC001 VALUES  (?, " +
+        String query = "INSERT INTO SGC001 VALUES  (trim(?), " +
+			" trim(?), " +
+				" trim(?), " +
+				" trim(?), " +
+				" trim(?), " +
 				" ?, " +
-				" ?, " +
-				" ?, " +
-				" ?, " +
-				" ?, " +
-				" ?, " +
+				" trim(?), " +
 				" to_date('" + sdfecha.format(feccam) + "','dd/mm/yyyy'), " +
-				" ?, " +
+				" trim(?), " +
 				" ?, " +
 				" to_date('" + sdfecha.format(feccai) + "','dd/mm/yyyy'), " +
-				" ?, " +
+				" trim(?), " +
 				" ?, " +
 				" to_date('" + sdfecha.format(feccas) + "','dd/mm/yyyy'), " +
 				" TRIM(?), " +
@@ -1403,15 +1403,15 @@ public void update() throws  NamingException {
   		con = ds.getConnection();		
   		 
         String query = "UPDATE SGC001";
-         query += " SET NOMIND = ?, ";   
-         query += " TIPVALM = ?, ";
+         query += " SET NOMIND = trim(?), ";   
+         query += " TIPVALM = trim(?), ";
          query += " META = ?, ";
-         query += " RESMET = ?, ";
+         query += " RESMET = trim(?), ";
          query += " FECCAM = to_date('" + sdfecha.format(feccam) + "','dd/mm/yyyy'),";
-         query += " TIPVALTI = ?, ";
+         query += " TIPVALTI = trim(?), ";
          query += " TOLINF = ?, ";
          query += " FECCATI = to_date('" + sdfecha.format(feccai) + "','dd/mm/yyyy'),";
-         query += " TIPVALTS = ?, ";
+         query += " TIPVALTS = trim(?), ";
          query += " TOLSUP = ?, ";
          query += " FECCATS = to_date('" + sdfecha.format(feccas) + "','dd/mm/yyyy'),";
          query += " CALCULO = TRIM(?), ";  
@@ -1944,8 +1944,8 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 
     pstmt = con.prepareStatement(query);
     
-    System.out.println(query);
-    System.out.println("Usuario ADMINISTRADOR...");
+    //System.out.println(query);
+    //System.out.println("Usuario ADMINISTRADOR...");
 	
     r =  pstmt.executeQuery();
     while (r.next()){
@@ -2062,7 +2062,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
     pstmt = con.prepareStatement(query);
     
     //System.out.println(query);
-    System.out.println("Usuario **** NO ****  ADMINISTRADOR...");
+    //System.out.println("Usuario **** NO ****  ADMINISTRADOR...");
 		
     r =  pstmt.executeQuery();
     while (r.next()){
