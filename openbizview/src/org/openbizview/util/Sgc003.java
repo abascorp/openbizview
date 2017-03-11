@@ -144,7 +144,7 @@ public void init() {
 	private int validarOperacion = 0;
 	private String instancia = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("instancia"); //Usuario logeado
 	private String zcomp = "";
-	private String exito = "exito";
+	//private String exito = "exito";
     private String zarea = "";
 	private String zcodigo = "";
 	private String zanocal = "";
@@ -422,11 +422,14 @@ public void insert() throws  NamingException {
 }
 
 public void delete() throws NamingException  {  
+	
 	HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
 	String[] chkbox = request.getParameterValues("toDelete");
 	
 	if (chkbox==null){
+		
 		msj = new FacesMessage(FacesMessage.SEVERITY_WARN, getMessage("del"), "");
+	
 	} else {
         try {
        	
@@ -447,10 +450,10 @@ public void delete() throws NamingException  {
         	  try {
                   //Avisando
               	pstmt.executeUpdate();
+              	msj = new FacesMessage(FacesMessage.SEVERITY_INFO, getMessage("msnDelete"), "");
                   
                } catch (SQLException e)  {
             	                                   
-
 				        if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001_FK1) violated - child record found")){msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("SGC_FK1"), ""); }
 				   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001A_FK1) violated - child record found")){msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("SGC_FK2"), ""); }
 				   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC001B_FK1) violated - child record found")){msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("SGC_FK3"), ""); }
@@ -503,10 +506,10 @@ public void delete() throws NamingException  {
 				   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012A_FK5) violated - child record found")){msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("SGC_FK11"), ""); }
 				   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012B_FK5) violated - child record found")){msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("SGC_FK12"), ""); }
 				   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012C_FK5) violated - child record found")){msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("SGC_FK13"), ""); }
-				   else {msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, e.getMessage(), "");}
+				   else {msj = new FacesMessage(FacesMessage.SEVERITY_INFO, getMessage("msnDelete"), "");}
                    
-              	FacesContext.getCurrentInstance().addMessage(null, msj);
-              	exito = "error";
+              	
+              	//exito = "error";
               }
               
               pstmt.close();
@@ -515,6 +518,7 @@ public void delete() throws NamingException  {
           	e.printStackTrace();
           }	       
       }
+	//FacesContext.getCurrentInstance().addMessage(null, msj);
 }
 
 /*

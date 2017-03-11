@@ -1199,7 +1199,7 @@ public void delete() throws NamingException  {
 				   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012A_FK5) violated - child record found")){msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("SGC_FK11"), ""); }
 				   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012B_FK5) violated - child record found")){msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("SGC_FK12"), ""); }
 				   else if (e.getMessage().trim().equals("ORA-02292: integrity constraint (OPENBIZVIEW.SGC012C_FK5) violated - child record found")){msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, getMessage("SGC_FK13"), ""); }
-				   else {msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, e.getMessage(), "");}
+				   else {msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, e.getMessage(), "msnDelete");}
                    
               	FacesContext.getCurrentInstance().addMessage(null, msj);
               	exito = "error";
