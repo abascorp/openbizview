@@ -132,17 +132,17 @@
      <p:panel id="panel"  header="#{msg.Sgc012btit}" toggleable="true" collapsed="false" style="white-space: normal;">	  
          
          <div class="row">
-		 <div class="col-lg-4 col-md-4 col-sm-4">  
+		 <div class="col-lg-4 col-md-4 col-sm-2">  
 	     
 	     <div style="font-family:ubuntu;">#{msg.sgc001com}</div>
-	     <p:autoComplete id="comp" inputStyle="width: 360px; height: 25px" value="#{sgc012b.comp}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeComp1}"  valueChangeListener="#{bd.setComp(sgc012b.comp)}" dropdown="true" scrollHeight="250">
+	     <p:autoComplete id="comp" inputStyle="width: 200px; height: 25px" value="#{sgc012b.comp}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeComp1}"  valueChangeListener="#{bd.setComp(sgc012b.comp)}" dropdown="true" scrollHeight="250">
 		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setComp(sgc012b.comp)}" />	     
 		 </p:autoComplete> 
 		 <p:spacer height="1"/>
 		 <p:message for="comp"/>     
 		 
 		 <div style="font-family:ubuntu;">#{msg.sgc001are}</div>
-		 <p:autoComplete id="area" inputStyle="width: 360px; height: 25px" value="#{sgc012b.area}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeArea1}"  valueChangeListener="#{bd.setArea(sgc012b.area)}" dropdown="true" scrollHeight="250">
+		 <p:autoComplete id="area" inputStyle="width: 200px; height: 25px" value="#{sgc012b.area}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeArea1}"  valueChangeListener="#{bd.setArea(sgc012b.area)}" dropdown="true" scrollHeight="250">
 		 <p:ajax event="itemSelect" update="tbResult" listener="#{bd.setArea(sgc012b.area)}" />	     
 		 </p:autoComplete> 
 		 <p:spacer height="1"/>
