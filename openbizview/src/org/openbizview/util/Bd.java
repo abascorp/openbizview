@@ -404,6 +404,15 @@ public class Bd  {
 	   	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("tvalts", tvalts);
 	}
 	
+	
+	public void setObvtoli(String obvtoli){
+	   	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("obvtoli", obvtoli);
+	}
+	
+	public void setObvtols(String obvtols){
+	   	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("obvtols", obvtols);
+	}
+	
 	/**
 	 * Setea anocal para busqueda
 	 * @param next

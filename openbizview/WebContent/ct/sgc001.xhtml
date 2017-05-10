@@ -323,6 +323,19 @@
 			 <p:message for="tolinf"/>
 			 </div>
 		 
+		     <div class="col-sm-3">			 
+			 <div style="font-family:ubuntu;">Obviar en mediciones</div>
+			 <p:autoComplete inputStyle="width: 70px; height: 25px" 
+			                 id="obvtoli" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" 
+			                 value="#{sgc001.obvtoli}" emptyMessage="#{msg.html138}"  
+			                 completeMethod="#{autocomplete.completeSino}"  
+			                 valueChangeListener="#{bd.setObvtols(sgc001.obvtoli)}" dropdown="true" scrollHeight="250">     
+			 <p:ajax event="itemSelect" update=":formsgc001:tbResult" listener="#{bd.setObvtoli(sgc001.obvtoli)}" />
+			 </p:autoComplete> 
+			 <p:spacer height="1"/> 
+			 <p:message for="obvtoli"/>  
+			 </div>	
+		 
 		 </div>	 
 		 </p:tab>
 		 
@@ -345,12 +358,25 @@
 	             <p:message for="feccas"/>
 			 </div>
 			 
-			 <div class="col-sm-2">			 
+			 <div class="col-sm-3">			 
 				 <div style="font-family:ubuntu;">#{msg.sgc001tols}</div>
 				 <p:inputText id="tolsup"  maxlength="8" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc001.tolsup}" converter="javax.faces.BigDecimal" converterMessage="#{bd.getMessage('htmlvalidatets')}"/>
 				 <p:spacer height="1"/> 
 				 <p:message for="tolsup"/>
 			 </div>
+			 
+		     <div class="col-sm-3">			 
+			 <div style="font-family:ubuntu;">Obviar en mediciones</div>
+			 <p:autoComplete inputStyle="width: 70px; height: 25px" 
+			                 id="obvtols" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" 
+			                 value="#{sgc001.obvtols}" emptyMessage="#{msg.html138}"  
+			                 completeMethod="#{autocomplete.completeSino}"  
+			                 valueChangeListener="#{bd.setObvtols(sgc001.obvtols)}" dropdown="true" scrollHeight="250">     
+			 <p:ajax event="itemSelect" update=":formsgc001:tbResult" listener="#{bd.setObvtols(sgc001.obvtols)}" />
+			 </p:autoComplete> 
+			 <p:spacer height="1"/> 
+			 <p:message for="obvtols"/>  
+			 </div>				 
 		</div>	 	
 		</p:tab>
 	    
@@ -455,7 +481,7 @@
             <f:facet name="header">#{msg.bvt001TbEnviar}</f:facet>   
             <p:commandLink 
             update=":formsgc001:tabView:respon :formsgc001:tabView:calculo :formsgc001:tabView:fuente :formsgc001:tabView:proces"
-            styleClass="edit" onclick="enviar('#{tb.zcomp}','#{tb.zarea}','#{tb.zcodigo}','#{tb.zdesc}','#{tb.zrespon}','#{tb.zcalcul}','#{tb.zfuente}','#{tb.zproces}','#{tb.zperiod}','#{tb.zcompor}','#{tb.znivapp}','#{tb.zestatu}','#{tb.zvigenc}','1','#{tb.ztvalm}','#{tb.zfeccam}','#{tb.zmeta}','#{tb.zresmet}','#{tb.ztvalti}','#{tb.zfeccai}','#{tb.ztolinf}','#{tb.ztvalts}','#{tb.zfeccas}','#{tb.ztolsup}');tabView.select(1)" 
+            styleClass="edit" onclick="enviar('#{tb.zcomp}','#{tb.zarea}','#{tb.zcodigo}','#{tb.zdesc}','#{tb.zrespon}','#{tb.zcalcul}','#{tb.zfuente}','#{tb.zproces}','#{tb.zperiod}','#{tb.zcompor}','#{tb.znivapp}','#{tb.zestatu}','#{tb.zvigenc}','1','#{tb.ztvalm}','#{tb.zfeccam}','#{tb.zmeta}','#{tb.zresmet}','#{tb.ztvalti}','#{tb.zfeccai}','#{tb.ztolinf}','#{tb.zobvtoli}','#{tb.ztvalts}','#{tb.zfeccas}','#{tb.ztolsup}','#{tb.zobvtols}');tabView.select(1)" 
             title="Enviar"><i class="fa fa-pencil-square-o fa-2x text-info"></i>
             </p:commandLink>
             </p:column> 

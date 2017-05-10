@@ -77,7 +77,7 @@ public class Sgc001 extends Bd implements Serializable {
 
 @PostConstruct
 public void init() {
-	////System.out.println("entre al metodo INIT");
+	//////System.out.println("entre al metodo INIT");
 	lazyModel  = new LazyDataModel<Sgc001>(){
 		/**
 		 * 
@@ -149,6 +149,10 @@ public void init() {
 	private String tvalm = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("tvalm"); //Usuario logeado
 	private String tvalti = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("tvalti"); //Usuario logeado
 	private String tvalts = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("tvalts"); //Usuario logeado
+	
+	private String obvtoli = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("obvtoli"); 
+	private String obvtols = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("obvtols"); 
+	
 	private Date vigenc = null; //new Date();
 	private Date feccam = null; //new Date();
 	private Date feccai = null; //new Date();
@@ -182,6 +186,10 @@ public void init() {
 	private String ztvalm = "";
 	private String ztvalti = "";
 	private String ztvalts = "";
+	
+	private String zobvtoli = "";
+	private String zobvtols = "";
+	
 	private String zfeccam = "";	
 	private String zfeccai = "";
 	private String zfeccas = "";
@@ -606,6 +614,39 @@ public void init() {
 	public void setZvigenc(String zvigenc) {
 		this.zvigenc = zvigenc;
 	}
+	
+	
+	public String getObvtoli() {
+		return obvtoli;
+	}
+
+	public void setObvtoli(String obvtoli) {
+		this.obvtoli = obvtoli;
+	}
+
+	public String getObvtols() {
+		return obvtols;
+	}
+
+	public void setObvtols(String obvtols) {
+		this.obvtols = obvtols;
+	}
+
+	public String getZobvtoli() {
+		return zobvtoli;
+	}
+
+	public void setZobvtoli(String zobvtoli) {
+		this.zobvtoli = zobvtoli;
+	}
+
+	public String getZobvtols() {
+		return zobvtols;
+	}
+
+	public void setZobvtols(String zobvtols) {
+		this.zobvtols = zobvtols;
+	}	
 
 	/**
 	 * @return the validarOperacion
@@ -644,7 +685,7 @@ public void init() {
 
 
 public void insert() throws  NamingException {   	
-	////System.out.println("entre al metodo INSERT");	
+	//////System.out.println("entre al metodo INSERT");	
     try {
     	Context initContext = new InitialContext();     
  		DataSource ds = (DataSource) initContext.lookup(JNDI);
@@ -697,6 +738,20 @@ public void insert() throws  NamingException {
  		if(tvalts==""){
  			tvalts = " - ";
  		}  
+ 		
+ 		if(obvtoli==null){
+ 			obvtoli = " - ";
+ 		}
+ 		if(obvtoli==""){
+ 			obvtoli = " - ";
+ 		}   		
+
+ 		if(obvtols==null){
+ 			obvtols = " - ";
+ 		}
+ 		if(obvtols==""){
+ 			obvtols = " - ";
+ 		}   		
         String[] vectval = tvalts.split("\\ - ", -1);
         String[] vectvalt = tvalti.split("\\ - ", -1);
         String[] vecperiod = period.split("\\ - ", -1);
@@ -705,6 +760,8 @@ public void insert() throws  NamingException {
         String[] veccomp = comp.split("\\ - ", -1);
         String[] vecarea = area.split("\\ - ", -1);
         String[] vectvalm = tvalm.split("\\ - ", -1);
+        String[] vecobvtoli = obvtoli.split("\\ - ", -1);
+        String[] vecobvtols = obvtols.split("\\ - ", -1);
         //String[] vecrespon = respon.split("\\ - ", -1);
                     
         //String query = "INSERT INTO SGC001 VALUES (?,?,?,?,?,?,?,to_date('" + sdfecha.format(feccam) + "','dd/mm/yyyy'),?,?,to_date('" + sdfecha.format(feccai) + "','dd/mm/yyyy'),?,?,to_date('" + sdfecha.format(feccas) + "','dd/mm/yyyy'),?,?,?,?,?,?,?,to_date('" + sdfecha.format(vigenc) + "','dd/mm/yyyy'),?,?,'" + getFecha() + "',?,'" + getFecha() + "',?)";
@@ -735,6 +792,8 @@ public void insert() throws  NamingException {
 				" '" + getFecha() + "', " +
 				" TRIM(?), " +
 				" '" + getFecha() + "', " +
+				" TRIM(?), " +
+				" TRIM(?), " + 
 				" TRIM(?))";
         
         pstmt = con.prepareStatement(query);
@@ -760,28 +819,30 @@ public void insert() throws  NamingException {
         pstmt.setString(20, login);
         pstmt.setString(21, login);            
         pstmt.setInt(22,Integer.parseInt(instancia));
+        pstmt.setString(23, vecobvtoli[0].toUpperCase());
+        pstmt.setString(24, vecobvtols[0].toUpperCase());
    
-        ////System.out.println(query);
-        ////System.out.println(veccomp[0]);
-        ////System.out.println(vecarea[0]);
-        ////System.out.println(codigo);
-        ////System.out.println(desc);
-        ////System.out.println(vectvalm[0].toUpperCase());
-        ////System.out.println(meta);
-        ////System.out.println(resmet);
-        ////System.out.println(vectvalt[0].toUpperCase());
-        ////System.out.println(tolinf);
-        ////System.out.println(vectval[0].toUpperCase());
-        ////System.out.println(tolsup);
-        ////System.out.println(calcul);
-        ////System.out.println(fuente);
-        ////System.out.println(proces);
-        ////System.out.println(vecperiod[0]);
-        ////System.out.println(vecnivapp[0]);
-        ////System.out.println(respon.toUpperCase());
-        ////System.out.println(vecestatu[0]);
-        ////System.out.println(sdfecha.format(vigenc));
-        ////System.out.println(compor);
+        //////System.out.println(query);
+        //////System.out.println(veccomp[0]);
+        //////System.out.println(vecarea[0]);
+        //////System.out.println(codigo);
+        //////System.out.println(desc);
+        //////System.out.println(vectvalm[0].toUpperCase());
+        //////System.out.println(meta);
+        //////System.out.println(resmet);
+        //////System.out.println(vectvalt[0].toUpperCase());
+        //////System.out.println(tolinf);
+        //////System.out.println(vectval[0].toUpperCase());
+        //////System.out.println(tolsup);
+        //////System.out.println(calcul);
+        //////System.out.println(fuente);
+        //////System.out.println(proces);
+        //////System.out.println(vecperiod[0]);
+        //////System.out.println(vecnivapp[0]);
+        //////System.out.println(respon.toUpperCase());
+        //////System.out.println(vecestatu[0]);
+        //////System.out.println(sdfecha.format(vigenc));
+        //////System.out.println(compor);
      
         try {
             //Avisando
@@ -808,7 +869,7 @@ public void insert() throws  NamingException {
  * String pool, String login.<br><br>
  **/
 public void inserth() throws  NamingException {   	
-	////System.out.println("entre al metodo INSERTH");	
+	//////System.out.println("entre al metodo INSERTH");	
     try {
     	Context initContext = new InitialContext();     
  		DataSource ds = (DataSource) initContext.lookup(JNDI);
@@ -868,20 +929,20 @@ public void inserth() throws  NamingException {
         pstmt.setString(13, login);         
         pstmt.setInt(14,Integer.parseInt(instancia));
    
-        ////System.out.println(query);
-        ////System.out.println(veccomp[0]);
-        ////System.out.println(vecarea[0]);
-        ////System.out.println(codigo);
-        ////System.out.println(desc);
-        ////System.out.println(calcul);
-        ////System.out.println(fuente);
-        ////System.out.println(proces);
-        ////System.out.println(vecperiod[0]);
-        ////System.out.println(vecnivapp[0]);
-        ////System.out.println(respon.toUpperCase());
-        ////System.out.println(vecestatu[0]);
-        ////System.out.println(sdfecha.format(vigenc));
-        ////System.out.println(compor);
+        //////System.out.println(query);
+        //////System.out.println(veccomp[0]);
+        //////System.out.println(vecarea[0]);
+        //////System.out.println(codigo);
+        //////System.out.println(desc);
+        //////System.out.println(calcul);
+        //////System.out.println(fuente);
+        //////System.out.println(proces);
+        //////System.out.println(vecperiod[0]);
+        //////System.out.println(vecnivapp[0]);
+        //////System.out.println(respon.toUpperCase());
+        //////System.out.println(vecestatu[0]);
+        //////System.out.println(sdfecha.format(vigenc));
+        //////System.out.println(compor);
      
         try {
             //Avisando
@@ -907,7 +968,7 @@ public void inserth() throws  NamingException {
  * String pool, String login.<br><br>
  **/
 public void insertm() throws  NamingException {   	
-	////System.out.println("entre al metodo INSERT");	
+	//////System.out.println("entre al metodo INSERT");	
     try {
     	Context initContext = new InitialContext();     
  		DataSource ds = (DataSource) initContext.lookup(JNDI);
@@ -947,14 +1008,14 @@ public void insertm() throws  NamingException {
         pstmt.setString(8, login);            
         pstmt.setInt(9, Integer.parseInt(instancia));
    
-        System.out.println(query);
-        ////System.out.println(veccomp[0]);
-        ////System.out.println(vecarea[0]);
-        ////System.out.println(codigo);
-        ////System.out.println(vectvalm[0]);
-        ////System.out.println(sdfecha.format(feccam));
-        ////System.out.println(meta);
-        ////System.out.println(resmet);
+        //System.out.println(query);
+        //////System.out.println(veccomp[0]);
+        //////System.out.println(vecarea[0]);
+        //////System.out.println(codigo);
+        //////System.out.println(vectvalm[0]);
+        //////System.out.println(sdfecha.format(feccam));
+        //////System.out.println(meta);
+        //////System.out.println(resmet);
      
         try {
             //Avisando
@@ -980,7 +1041,7 @@ public void insertm() throws  NamingException {
  * String pool, String login.<br><br>
  **/
 public void insertti() throws  NamingException {   	
-	////System.out.println("entre al metodo INSERT");	
+	//////System.out.println("entre al metodo INSERT");	
     try {
     	Context initContext = new InitialContext();     
  		DataSource ds = (DataSource) initContext.lookup(JNDI);
@@ -1019,13 +1080,13 @@ public void insertti() throws  NamingException {
         pstmt.setString(7, login);            
         pstmt.setInt(8, Integer.parseInt(instancia));
    
-        ////System.out.println(query);
-        ////System.out.println(veccomp[0]);
-        ////System.out.println(vecarea[0]);
-        ////System.out.println(codigo);
-        ////System.out.println(vectvalt[0]);
-        ////System.out.println(sdfecha.format(feccai));
-        ////System.out.println(tolinf);
+        //////System.out.println(query);
+        //////System.out.println(veccomp[0]);
+        //////System.out.println(vecarea[0]);
+        //////System.out.println(codigo);
+        //////System.out.println(vectvalt[0]);
+        //////System.out.println(sdfecha.format(feccai));
+        //////System.out.println(tolinf);
      
         try {
             //Avisando
@@ -1051,7 +1112,7 @@ public void insertti() throws  NamingException {
  * String pool, String login.<br><br>
  **/
 public void insertts() throws  NamingException {   	
-	////System.out.println("entre al metodo INSERT");	
+	//////System.out.println("entre al metodo INSERT");	
     try {
     	Context initContext = new InitialContext();     
  		DataSource ds = (DataSource) initContext.lookup(JNDI);
@@ -1090,13 +1151,13 @@ public void insertts() throws  NamingException {
         pstmt.setString(7, login);            
         pstmt.setInt(8, Integer.parseInt(instancia));
    
-        ////System.out.println(query);
-        ////System.out.println(veccomp[0]);
-        ////System.out.println(vecarea[0]);
-        ////System.out.println(codigo);
-        ////System.out.println(vectvalt[0]);
-        ////System.out.println(sdfecha.format(feccas));
-        ////System.out.println(tolsup);
+        //////System.out.println(query);
+        //////System.out.println(veccomp[0]);
+        //////System.out.println(vecarea[0]);
+        //////System.out.println(codigo);
+        //////System.out.println(vectvalt[0]);
+        //////System.out.println(sdfecha.format(feccas));
+        //////System.out.println(tolsup);
      
         try {
             //Avisando
@@ -1137,8 +1198,8 @@ public void delete() throws NamingException  {
         	pstmt = con.prepareStatement(query2);
         	pstmt = con.prepareStatement(query);
             
-        	////System.out.println(query2);
-        	////System.out.println(query);
+        	//////System.out.println(query2);
+        	//////System.out.println(query);
 
         	  try {
                   //Avisando
@@ -1232,7 +1293,7 @@ public void deletem() throws NamingException  {
         	String query = "DELETE from SGC001A WHERE COMP || AREA || CODIGO in (" + param + ") and INSTANCIA = " + instancia + "";        	
             
         	pstmt = con.prepareStatement(query);
-            ////System.out.println(query);
+            //////System.out.println(query);
 
       	  try {
               //Avisando
@@ -1271,7 +1332,7 @@ public void deleteti() throws NamingException  {
         	String query = "DELETE from SGC001B WHERE COMP || AREA || CODIGO in (" + param + ") and INSTANCIA = " + instancia + "";        	
             
         	pstmt = con.prepareStatement(query);
-            ////System.out.println(query);
+            //////System.out.println(query);
 
       	  try {
               //Avisando
@@ -1310,7 +1371,7 @@ public void deletets() throws NamingException  {
         	String query = "DELETE from SGC001C WHERE COMP || AREA || CODIGO in (" + param + ") and INSTANCIA = " + instancia + "";
        	
             pstmt = con.prepareStatement(query);
-            ////System.out.println(query);
+            //////System.out.println(query);
 
       	  try {
               //Avisando
@@ -1336,7 +1397,7 @@ public void deletets() throws NamingException  {
  * String pool, String login.<br><br>
  **/
 public void update() throws  NamingException {
-	////System.out.println("entre al metodo UPDATE");
+	//////System.out.println("entre al metodo UPDATE");
      
 	try { 	 
     	 Context initContext = new InitialContext();     
@@ -1390,6 +1451,20 @@ public void update() throws  NamingException {
 		if(tvalts==""){
 			tvalts = " - ";
 		} 
+		
+ 		if(obvtoli==null){
+ 			obvtoli = " - ";
+ 		}
+ 		if(obvtoli==""){
+ 			obvtoli = " - ";
+ 		}   		
+
+ 		if(obvtols==null){
+ 			obvtols = " - ";
+ 		}
+ 		if(obvtols==""){
+ 			obvtols = " - ";
+ 		}  		
          String[] vectvalts = tvalts.split("\\ - ", -1);
          String[] vectvalti = tvalti.split("\\ - ", -1);
          String[] vectvalm = tvalm.split("\\ - ", -1);
@@ -1398,6 +1473,8 @@ public void update() throws  NamingException {
          String[] vecestatu = estatu.split("\\ - ", -1);
          String[] veccomp = comp.split("\\ - ", -1);
          String[] vecarea = area.split("\\ - ", -1);
+         String[] vecobvtoli = obvtoli.split("\\ - ", -1);
+         String[] vecobvtols = obvtols.split("\\ - ", -1);         
         // String[] vecrespon = respon.split("\\ - ", -1);
   		
   		con = ds.getConnection();		
@@ -1424,7 +1501,9 @@ public void update() throws  NamingException {
          query += " VIGENC = to_date('" + sdfecha.format(vigenc) + "','dd/mm/yyyy'),";
          query += " COMPOR = TRIM(?),";
          query += " USRACT = TRIM(?),";
-         query += " FECACT = SYSDATE ";
+         query += " FECACT = SYSDATE,";
+         query += " OBVTOLI = TRIM(?),";
+         query += " OBVTOLS = TRIM(?) ";
          query += " WHERE CODIGO = ? AND COMP = ? AND AREA = ? AND INSTANCIA = " + instancia + "";
 
         pstmt = con.prepareStatement(query);
@@ -1445,39 +1524,45 @@ public void update() throws  NamingException {
         pstmt.setString(15, vecestatu[0].toUpperCase());
         pstmt.setString(16, compor.toUpperCase());
         pstmt.setString(17, login);
-        pstmt.setString(18, codigo.toUpperCase());       
-        pstmt.setString(19, veccomp[0].toUpperCase());    
-        pstmt.setString(20, vecarea[0].toUpperCase());    
+        pstmt.setString(18, vecobvtoli[0].toUpperCase());
+        pstmt.setString(19, vecobvtols[0].toUpperCase()); 
+        pstmt.setString(20, codigo.toUpperCase());       
+        pstmt.setString(21, veccomp[0].toUpperCase());    
+        pstmt.setString(22, vecarea[0].toUpperCase());   
+       
 
-        ////System.out.println(query);
-        ////System.out.println(desc);
-        ////System.out.println(vectvalm[0]);
-        ////System.out.println(meta);
-        ////System.out.println(sdfecha.format(feccam));
-        ////System.out.println(vectvalti[0]);
-        ////System.out.println(tolinf);
-        ////System.out.println(sdfecha.format(feccai));
-        ////System.out.println(vectvalts[0]);
-        ////System.out.println(tolsup);       
-        ////System.out.println(sdfecha.format(feccas));
-        ////System.out.println(calcul);
-        ////System.out.println(fuente);
-        ////System.out.println(proces);
-        ////System.out.println(vecperiod[0]);
-        ////System.out.println(vecnivapp[0]);
-        ////System.out.println(respon);
-        ////System.out.println(vecestatu[0]);
-        ////System.out.println(sdfecha.format(vigenc));
-        ////System.out.println(codigo);
-        ////System.out.println(veccomp[0]);
-        ////System.out.println(vecarea[0]);
+        //System.out.println(query);
+        //System.out.println(desc);
+        //System.out.println(vectvalm[0]);
+        //System.out.println(meta);
+        //System.out.println(sdfecha.format(feccam));
+        //System.out.println(vectvalti[0]);
+        //System.out.println(tolinf);
+        //System.out.println(sdfecha.format(feccai));
+        //System.out.println(vectvalts[0]);
+        //System.out.println(tolsup);       
+        //System.out.println(sdfecha.format(feccas));
+        //System.out.println(calcul);
+        //System.out.println(fuente);
+        //System.out.println(proces);
+        //System.out.println(vecperiod[0]);
+        //System.out.println(vecnivapp[0]);
+        //System.out.println(respon);
+        //System.out.println(vecestatu[0]);
+        //System.out.println(sdfecha.format(vigenc));
+        //System.out.println(codigo);
+        //System.out.println(vecobvtoli[0]);
+        //System.out.println(vecobvtols[0]);
+        //System.out.println(veccomp[0]);
+        //System.out.println(vecarea[0]);
+        
         
         // Antes de ejecutar valida si existe el registro en la base de Datos.
    	  try {
           //Avisando
       	pstmt.executeUpdate();
     	msj = new FacesMessage(FacesMessage.SEVERITY_INFO, getMessage("msnUpdate"), "");
-    	//System.out.println("Update - Paso 0");
+    	////System.out.println("Update - Paso 0");
        } catch (SQLException e)  {
       	msj = new FacesMessage(FacesMessage.SEVERITY_FATAL, e.getMessage(), "");
       	FacesContext.getCurrentInstance().addMessage(null, msj);
@@ -1532,7 +1617,7 @@ public void guardar() throws NamingException, SQLException{
          String[] veccomp = comp.split("\\ - ", -1);
          String[] vecarea = area.split("\\ - ", -1);
          String[] veccod = codigo.split("\\ - ", -1);
-		////System.out.println("entre al metodo SELECT");	
+		//////System.out.println("entre al metodo SELECT");	
 		Context initContext = new InitialContext();     
 		DataSource ds = (DataSource) initContext.lookup(JNDI);
 		con = ds.getConnection();		
@@ -1558,7 +1643,7 @@ public void guardar() throws NamingException, SQLException{
 	    query += " ORDER BY  8";
 
     pstmt = con.prepareStatement(query);
-    ////System.out.println(query);
+    //////System.out.println(query);
 		
     r =  pstmt.executeQuery();
     while (r.next()){
@@ -1568,16 +1653,16 @@ public void guardar() throws NamingException, SQLException{
  	select.setZfeccam(r.getString(3));
  	select.setZresmet(r.getString(7));
  	
-	////System.out.println(r.getString(1));	
+	//////System.out.println(r.getString(1));	
 	if ((meta+tvalm+sdfecha3.format(feccam)+resmet).equals(r.getString(2)+r.getString(1)+ " - " + r.getString(6)+r.getString(3)+r.getString(7))){		
-		//System.out.println(meta+tvalm+sdfecha3.format(feccam)+resmet);
-		//System.out.println(r.getString(2)+r.getString(1)+ " - " + r.getString(6)+r.getString(3)+r.getString(7));
-		//System.out.println("no hago el insert meta, los valores son iguales");
+		////System.out.println(meta+tvalm+sdfecha3.format(feccam)+resmet);
+		////System.out.println(r.getString(2)+r.getString(1)+ " - " + r.getString(6)+r.getString(3)+r.getString(7));
+		////System.out.println("no hago el insert meta, los valores son iguales");
 	}
 	else {
-		//System.out.println(meta+tvalm+sdfecha3.format(feccam)+resmet);
-		//System.out.println(r.getString(2)+r.getString(1)+ " - " + r.getString(6)+r.getString(3)+r.getString(7));
-		//System.out.println("hago el insert meta, los valores son diferentes");	
+		////System.out.println(meta+tvalm+sdfecha3.format(feccam)+resmet);
+		////System.out.println(r.getString(2)+r.getString(1)+ " - " + r.getString(6)+r.getString(3)+r.getString(7));
+		////System.out.println("hago el insert meta, los valores son diferentes");	
 		insertm();
 	}
 	
@@ -1591,7 +1676,7 @@ public void guardar() throws NamingException, SQLException{
 }
 
 public void guardarh() throws NamingException, SQLException{   	
-	////System.out.println("entre al metodo guardarh");
+	//////System.out.println("entre al metodo guardarh");
 	if(comp==null){
 			comp = " - ";
 		}
@@ -1615,7 +1700,7 @@ public void guardarh() throws NamingException, SQLException{
      String[] vecarea = area.split("\\ - ", -1);
      String[] veccod = codigo.split("\\ - ", -1);
      
-	////System.out.println("entre al metodo SELECT");	
+	//////System.out.println("entre al metodo SELECT");	
 	Context initContext = new InitialContext();     
 	DataSource ds = (DataSource) initContext.lookup(JNDI);
 	con = ds.getConnection();		
@@ -1640,20 +1725,20 @@ public void guardarh() throws NamingException, SQLException{
     query += " ORDER BY 19";
     
 	pstmt = con.prepareStatement(query);
-	////System.out.println(query);
-	////System.out.println(veccomp[0]);
-	////System.out.println(vecarea[0]);
-	////System.out.println(codigo);
-	////System.out.println(desc);
-	////System.out.println(calcul);
-	////System.out.println(fuente);
-	////System.out.println(proces);
-	////System.out.println(vecperiod[0]);
-	////System.out.println(vecnivapp[0]);
-	////System.out.println(respon.toUpperCase());
-	////System.out.println(vecestatu[0]);
-	////System.out.println(sdfecha.format(vigenc));
-	////System.out.println(compor);
+	//////System.out.println(query);
+	//////System.out.println(veccomp[0]);
+	//////System.out.println(vecarea[0]);
+	//////System.out.println(codigo);
+	//////System.out.println(desc);
+	//////System.out.println(calcul);
+	//////System.out.println(fuente);
+	//////System.out.println(proces);
+	//////System.out.println(vecperiod[0]);
+	//////System.out.println(vecnivapp[0]);
+	//////System.out.println(respon.toUpperCase());
+	//////System.out.println(vecestatu[0]);
+	//////System.out.println(sdfecha.format(vigenc));
+	//////System.out.println(compor);
 	
 	r =  pstmt.executeQuery();
 	while (r.next()){
@@ -1675,16 +1760,16 @@ public void guardarh() throws NamingException, SQLException{
  	select.setZarea(r.getString(15)+ " - " + r.getString(17));
  	select.setZcompor(r.getString(18));
 	
-	////System.out.println(r.getString(1));	
+	//////System.out.println(r.getString(1));	
 	if ((comp+area+codigo+desc+calcul+fuente+proces+period+nivapp+respon+estatu+sdfecha3.format(vigenc)+compor).equals(r.getString(14) + " - " + r.getString(16)+r.getString(15) + " - " + r.getString(17)+r.getString(1)+r.getString(2)+r.getString(3)+r.getString(4)+r.getString(5)+r.getString(6) + " - " + r.getString(13)+r.getString(7) + " - " + r.getString(11)+r.getString(8)+r.getString(9) + " - " + r.getString(12)+r.getString(10)+r.getString(18))){		
-		////System.out.println(comp+area+codigo+desc+calcul+fuente+proces+period+nivapp+respon+estatu+sdfecha3.format(vigenc)+compor);
-		////System.out.println(r.getString(14) + " - " + r.getString(16)+r.getString(15) + " - " + r.getString(17)+r.getString(1)+r.getString(2)+r.getString(3)+r.getString(4)+r.getString(5)+r.getString(6) + " - " + r.getString(13)+r.getString(7) + " - " + r.getString(11)+r.getString(8)+r.getString(9) + " - " + r.getString(12)+r.getString(10)+r.getString(18));
-		////System.out.println("no hago el insert historico, los valores son iguales");
+		//////System.out.println(comp+area+codigo+desc+calcul+fuente+proces+period+nivapp+respon+estatu+sdfecha3.format(vigenc)+compor);
+		//////System.out.println(r.getString(14) + " - " + r.getString(16)+r.getString(15) + " - " + r.getString(17)+r.getString(1)+r.getString(2)+r.getString(3)+r.getString(4)+r.getString(5)+r.getString(6) + " - " + r.getString(13)+r.getString(7) + " - " + r.getString(11)+r.getString(8)+r.getString(9) + " - " + r.getString(12)+r.getString(10)+r.getString(18));
+		//////System.out.println("no hago el insert historico, los valores son iguales");
 	}
 	else {
-		////System.out.println(comp+area+codigo+desc+calcul+fuente+proces+period+nivapp+respon+estatu+sdfecha3.format(vigenc)+compor);
-		////System.out.println(r.getString(14) + " - " + r.getString(16)+r.getString(15) + " - " + r.getString(17)+r.getString(1)+r.getString(2)+r.getString(3)+r.getString(4)+r.getString(5)+r.getString(6) + " - " + r.getString(13)+r.getString(7) + " - " + r.getString(11)+r.getString(8)+r.getString(9) + " - " + r.getString(12)+r.getString(10)+r.getString(18));
-		////System.out.println("hago el insert historico, los valores son diferentes");	
+		//////System.out.println(comp+area+codigo+desc+calcul+fuente+proces+period+nivapp+respon+estatu+sdfecha3.format(vigenc)+compor);
+		//////System.out.println(r.getString(14) + " - " + r.getString(16)+r.getString(15) + " - " + r.getString(17)+r.getString(1)+r.getString(2)+r.getString(3)+r.getString(4)+r.getString(5)+r.getString(6) + " - " + r.getString(13)+r.getString(7) + " - " + r.getString(11)+r.getString(8)+r.getString(9) + " - " + r.getString(12)+r.getString(10)+r.getString(18));
+		//////System.out.println("hago el insert historico, los valores son diferentes");	
 		inserth();
 	}
 				
@@ -1720,7 +1805,7 @@ public void guardarti() throws NamingException, SQLException{
          String[] veccomp = comp.split("\\ - ", -1);
          String[] vecarea = area.split("\\ - ", -1);
          String[] veccod = codigo.split("\\ - ", -1);
-		////System.out.println("entre al metodo SELECT");	
+		//////System.out.println("entre al metodo SELECT");	
 		Context initContext = new InitialContext();     
 		DataSource ds = (DataSource) initContext.lookup(JNDI);
 		con = ds.getConnection();		
@@ -1746,7 +1831,7 @@ public void guardarti() throws NamingException, SQLException{
 	    query += " ORDER BY  7";
 
     pstmt = con.prepareStatement(query);
-    ////System.out.println(query);
+    //////System.out.println(query);
 		
     r =  pstmt.executeQuery();
     while (r.next()){
@@ -1755,16 +1840,16 @@ public void guardarti() throws NamingException, SQLException{
  	select.setZtolinf(r.getString(2));
  	select.setZfeccai(r.getString(3));
  	
-	////System.out.println(r.getString(1));	
+	//////System.out.println(r.getString(1));	
 	if ((tolinf+tvalti+sdfecha3.format(feccai)).equals(r.getString(2)+r.getString(1)+ " - " + r.getString(6)+r.getString(3))){		
-		//System.out.println(tolinf+tvalti+sdfecha3.format(feccai));
-		//System.out.println(r.getString(2)+r.getString(1)+ " - " + r.getString(6)+r.getString(3));
-		//System.out.println("no hago el insert tolinf, los valores son iguales");
+		////System.out.println(tolinf+tvalti+sdfecha3.format(feccai));
+		////System.out.println(r.getString(2)+r.getString(1)+ " - " + r.getString(6)+r.getString(3));
+		////System.out.println("no hago el insert tolinf, los valores son iguales");
 	}
 	else {
-		//System.out.println(tolinf+tvalti+sdfecha3.format(feccai));
-		//System.out.println(r.getString(2)+r.getString(1)+ " - " + r.getString(6)+r.getString(3));
-		//System.out.println("hago el insert tolinf, los valores son diferentes");	
+		////System.out.println(tolinf+tvalti+sdfecha3.format(feccai));
+		////System.out.println(r.getString(2)+r.getString(1)+ " - " + r.getString(6)+r.getString(3));
+		////System.out.println("hago el insert tolinf, los valores son diferentes");	
 		insertti();
 	}
  			
@@ -1799,7 +1884,7 @@ public void guardarts() throws NamingException, SQLException{
      String[] veccomp = comp.split("\\ - ", -1);
      String[] vecarea = area.split("\\ - ", -1);
      String[] veccod = codigo.split("\\ - ", -1);
-	////System.out.println("entre al metodo SELECT");	
+	//////System.out.println("entre al metodo SELECT");	
 	Context initContext = new InitialContext();     
 	DataSource ds = (DataSource) initContext.lookup(JNDI);
 	con = ds.getConnection();		
@@ -1825,7 +1910,7 @@ public void guardarts() throws NamingException, SQLException{
     query += " ORDER BY  7";
 
 pstmt = con.prepareStatement(query);
-////System.out.println(query);
+//////System.out.println(query);
 	
 r =  pstmt.executeQuery();
 while (r.next()){
@@ -1834,21 +1919,21 @@ while (r.next()){
 	select.setZtolsup(r.getString(2));
 	select.setZfeccas(r.getString(3));
 	
-////System.out.println(r.getString(1));	
+//////System.out.println(r.getString(1));	
 if ((tolsup+tvalts+sdfecha3.format(feccas)).equals(r.getString(2)+r.getString(1)+ " - " + r.getString(6)+r.getString(3))){		
-	//System.out.println(tolsup+tvalts+sdfecha3.format(feccas));
-	//System.out.println(r.getString(2)+r.getString(1)+ " - " + r.getString(6)+r.getString(3));
-	//System.out.println("no hago el insert tolsup, los valores son iguales");
+	////System.out.println(tolsup+tvalts+sdfecha3.format(feccas));
+	////System.out.println(r.getString(2)+r.getString(1)+ " - " + r.getString(6)+r.getString(3));
+	////System.out.println("no hago el insert tolsup, los valores son iguales");
 	limpiarValores();
-	//System.out.println("Limpio Valores");
+	////System.out.println("Limpio Valores");
 }
 else {
-	//System.out.println(tolsup+tvalts+sdfecha3.format(feccas));
-    //System.out.println(r.getString(2)+r.getString(1)+ " - " + r.getString(6)+r.getString(3));
-	//System.out.println("hago el insert tolsup, los valores son diferentes");	
+	////System.out.println(tolsup+tvalts+sdfecha3.format(feccas));
+    ////System.out.println(r.getString(2)+r.getString(1)+ " - " + r.getString(6)+r.getString(3));
+	////System.out.println("hago el insert tolsup, los valores son diferentes");	
 	insertts();
 	limpiarValores();
-	//System.out.println("Limpio Valores");
+	////System.out.println("Limpio Valores");
 }
 			
 }
@@ -1892,14 +1977,14 @@ public void select(int first, int pageSize, String sortField, Object filterValue
  		String validar = "1";
 		String querycon = "SELECT BI_SGC014('" + login.toUpperCase() + "') AS VALIDAR FROM DUAL";
 		
-		////System.out.println(querycon);
-		////System.out.println(JNDI);
+		//////System.out.println(querycon);
+		//////System.out.println(JNDI);
 		
 		consulta.selectPntGenerica(querycon, JNDI);
 		
 		rows = consulta.getRows();
 		tabla = consulta.getArray();
-		////System.out.println(tabla[0][0]);
+		//////System.out.println(tabla[0][0]);
 
 		if (tabla[0][0].equals(validar)) {	
 			
@@ -1923,7 +2008,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 		//Consulta paginada	
         String query = "SELECT * FROM"; 
 	    query += "(select query.*, rownum as rn from";
-		query += "(SELECT A.CODIGO, A.NOMIND, A.TIPVALM, A.META, TO_CHAR(A.FECCAM,'DD/MM/YYYY') AS FECCAM, A.TIPVALTI, A.TOLINF, TO_CHAR(A.FECCATI,'DD/MM/YYYY') AS FECCATI, A.TIPVALTS, A.TOLSUP, TO_CHAR(A.FECCATS,'DD/MM/YYYY') AS FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, TO_CHAR(A.VIGENC,'DD/MM/YYYY') AS VIGENC, B.DESCR AS DESC1, C.DESCR AS DESC2, D.DESCR AS DESC3, A.COMP, A.AREA, E.DESCR AS DESC4, F.DESCR AS DESC5, J.DESCR AS DESC6, A.COMPOR, A.RESMET ";
+		query += "(SELECT A.CODIGO, A.NOMIND, A.TIPVALM, A.META, TO_CHAR(A.FECCAM,'DD/MM/YYYY') AS FECCAM, A.TIPVALTI, A.TOLINF, TO_CHAR(A.FECCATI,'DD/MM/YYYY') AS FECCATI, A.TIPVALTS, A.TOLSUP, TO_CHAR(A.FECCATS,'DD/MM/YYYY') AS FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, TO_CHAR(A.VIGENC,'DD/MM/YYYY') AS VIGENC, B.DESCR AS DESC1, C.DESCR AS DESC2, D.DESCR AS DESC3, A.COMP, A.AREA, E.DESCR AS DESC4, F.DESCR AS DESC5, J.DESCR AS DESC6, A.COMPOR, A.RESMET, A.OBVTOLI, DECODE(A.OBVTOLI,'1','SI','NO') SINOTI, A.OBVTOLS, DECODE(A.OBVTOLS,'1','SI','NO') SINOTS ";
 	    query += " FROM SGC001 A, TUBDER08 B, TUBDER10 C, TUBDER09 D, SGC005 E, SGC006 F, TUBDER11 J, TUBDER11 K, TUBDER11 L ";
 	    query += " WHERE A.PERIOD = D.CODIGO";
 	    query += " AND A.NIVAPP = B.CODIGO";
@@ -1936,7 +2021,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 	    query += " AND TRIM(A.COMP) LIKE TRIM('%" + veccomp[0] + "%')";
 	    query += " AND TRIM(A.AREA) LIKE TRIM('%" + vecarea[0] + "%')";
 	    query += " AND TRIM(A.CODIGO)||TRIM(A.NOMIND) LIKE TRIM('%" + ((String) filterValue).toUpperCase() +  "%')" ;
-	    query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET";
+	    query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET, A.OBVTOLI, A.OBVTOLS";
 	    query += " ORDER BY A.COMP, A.AREA, A.CODIGO ";
 	    query += ")query ) " ;
 	    query += " WHERE ROWNUM <="+pageSize;
@@ -1944,8 +2029,8 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 
     pstmt = con.prepareStatement(query);
     
-    //System.out.println(query);
-    //System.out.println("Usuario ADMINISTRADOR...");
+    ////System.out.println(query);
+    ////System.out.println("Usuario ADMINISTRADOR...");
 	
     r =  pstmt.executeQuery();
     while (r.next()){
@@ -1978,7 +2063,9 @@ public void select(int first, int pageSize, String sortField, Object filterValue
  	select.setZdelete(r.getString(23)+ "" + r.getString(24)+ "" + r.getString(1));
  	select.setZcompor(r.getString(28));
  	select.setZresmet(r.getString(29));
-    	
+ 	select.setZobvtoli(r.getString(30) + " - " + r.getString(31));
+ 	select.setZobvtols(r.getString(32) + " - " + r.getString(33));
+ 	
     	//Agrega la lista
     	list.add(select);
     }
@@ -2010,11 +2097,11 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 		 query += " FROM (select"; 
 		 query += " DISTINCT"; 
 		 query += " REV.CODIGO, REV.NOMIND, REV.TIPVALM, REV.META, REV.FECCAM, REV.TIPVALTI, REV.TOLINF, REV.FECCATI, REV.TIPVALTS, REV.TOLSUP, REV.FECCATS, REV.CALCULO, REV.DATOS, REV.PROCES, REV.PERIOD,"; 
-		 query += " REV.NIVAPP, REV.DESCRI, REV.ESTATU, REV.VIGENC, REV.DESC1, REV.DESC2, REV.DESC3, REV.COMP, REV.AREA, REV.DESC4, REV.DESC5, REV.DESC6, REV.COMPOR, REV.RESMET";
+		 query += " REV.NIVAPP, REV.DESCRI, REV.ESTATU, REV.VIGENC, REV.DESC1, REV.DESC2, REV.DESC3, REV.COMP, REV.AREA, REV.DESC4, REV.DESC5, REV.DESC6, REV.COMPOR, REV.RESMET, REV.OBVTOLI, REV.SINOTI, REV.OBVTOLS, REV.SINOTS ";
 		 query += " from (SELECT"; 
 		 query += " A.COMP, A.AREA, A.CODIGO, A.NOMIND, A.TIPVALM, A.META, TO_CHAR(A.FECCAM,'DD/MM/YYYY') FECCAM, A.TIPVALTI, A.TOLINF, TO_CHAR(A.FECCATI,'DD/MM/YYYY') FECCATI, A.TIPVALTS, A.TOLSUP,"; 
 		 query += " TO_CHAR(A.FECCATS,'DD/MM/YYYY') FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, TO_CHAR(A.VIGENC,'DD/MM/YYYY') VIGENC, B.DESCR DESC1,"; 
-		 query += " C.DESCR DESC2, D.DESCR DESC3, E.DESCR DESC4, F.DESCR DESC5, J.DESCR DESC6, A.COMPOR, A.RESMET";
+		 query += " C.DESCR DESC2, D.DESCR DESC3, E.DESCR DESC4, F.DESCR DESC5, J.DESCR DESC6, A.COMPOR, A.RESMET, A.OBVTOLI, DECODE(A.OBVTOLI,'1','SI','NO') SINOTI, A.OBVTOLS, DECODE(A.OBVTOLS,'1','SI','NO') SINOTS ";
 		 query += " FROM"; 
 		 query += " SGC001 A, TUBDER08 B, TUBDER10 C, TUBDER09 D, SGC005 E, SGC006 F, TUBDER11 J, TUBDER11 K, TUBDER11 L, SGC009 M";   
 		 query += " WHERE"; 
@@ -2032,12 +2119,12 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 		 query += " AND TRIM(M.CODUSER) LIKE ('%" + login.toUpperCase() + "%')"; 
 		 query += " AND TRIM(A.CODIGO)||TRIM(A.NOMIND) LIKE TRIM('%" + ((String) filterValue).toUpperCase() +  "%')" ;
 		 query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS,"; 
-		 query += " A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET";         
+		 query += " A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET, A.OBVTOLI, A.OBVTOLS ";         
 		 query += " UNION ALL";
 		 query += " SELECT"; 
 		 query += " A.COMP, A.AREA, A.CODIGO, A.NOMIND, A.TIPVALM, A.META, TO_CHAR(A.FECCAM,'DD/MM/YYYY') FECCAM, A.TIPVALTI, A.TOLINF, TO_CHAR(A.FECCATI,'DD/MM/YYYY') FECCATI, A.TIPVALTS, A.TOLSUP,"; 
 		 query += " TO_CHAR(A.FECCATS,'DD/MM/YYYY') FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, TO_CHAR(A.VIGENC,'DD/MM/YYYY') VIGENC, B.DESCR DESC1,"; 
-		 query += " C.DESCR DESC2, D.DESCR DESC3, E.DESCR DESC4, F.DESCR DESC5, J.DESCR DESC6, A.COMPOR, A.RESMET";
+		 query += " C.DESCR DESC2, D.DESCR DESC3, E.DESCR DESC4, F.DESCR DESC5, J.DESCR DESC6, A.COMPOR, A.RESMET, A.OBVTOLI, DECODE(A.OBVTOLI,'1','SI','NO') SINOTI, A.OBVTOLS, DECODE(A.OBVTOLS,'1','SI','NO') SINOTS ";
 		 query += " FROM ";
 		 query += " SGC001 A, TUBDER08 B, TUBDER10 C, TUBDER09 D, SGC005 E, SGC006 F, TUBDER11 J, TUBDER11 K, TUBDER11 L"; 
 		 query += " WHERE ";
@@ -2052,7 +2139,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 		 query += " AND A.COMP||A.AREA IN (SELECT COMP||AREA FROM SGC008 WHERE CODUSER = '" + login.toUpperCase() + "' AND DUEPRO = '1')";
 		 query += " AND TRIM(A.CODIGO)||TRIM(A.NOMIND) LIKE TRIM('%" + ((String) filterValue).toUpperCase() +  "%')" ;
 		 query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS, ";
-		 query += " A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET) REV";
+		 query += " A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET, A.OBVTOLI, A.OBVTOLS) REV";
 		 query += " WHERE";
 		 query += " TRIM(REV.COMP) LIKE TRIM('%" + veccomp[0] + "%')";
 		 query += " AND TRIM(REV.AREA) LIKE TRIM('%" + vecarea[0] + "%')";
@@ -2061,8 +2148,8 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 
     pstmt = con.prepareStatement(query);
     
-    //System.out.println(query);
-    //System.out.println("Usuario **** NO ****  ADMINISTRADOR...");
+    ////System.out.println(query);
+    ////System.out.println("Usuario **** NO ****  ADMINISTRADOR...");
 		
     r =  pstmt.executeQuery();
     while (r.next()){
@@ -2095,6 +2182,8 @@ public void select(int first, int pageSize, String sortField, Object filterValue
  	select.setZdelete(r.getString(23)+ "" + r.getString(24)+ "" + r.getString(1));
  	select.setZcompor(r.getString(28));
  	select.setZresmet(r.getString(29));
+ 	select.setZobvtoli(r.getString(30) + " - " + r.getString(31));
+ 	select.setZobvtols(r.getString(32) + " - " + r.getString(33)); 	
     	
     	//Agrega la lista
     	list.add(select);
@@ -2114,7 +2203,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
     **/	
 
     public void counter(Object filterValue) throws SQLException, NamingException {
-    	////System.out.println("entre al metodo COUNTER");
+    	//////System.out.println("entre al metodo COUNTER");
         try {	
       		if(period==null){
       			period = " - ";
@@ -2163,8 +2252,8 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 
            
            pstmt = con.prepareStatement(query);
-           //System.out.println(query);
-           ////System.out.println(veccodven[0]);
+           ////System.out.println(query);
+           //////System.out.println(veccodven[0]);
 
             r =  pstmt.executeQuery();
            
@@ -2210,6 +2299,8 @@ public void select(int first, int pageSize, String sortField, Object filterValue
   		tvalts = "";
   		compor = "";
   		resmet = "";
+  		obvtoli = "";
+  		obvtols = "";
   		feccam = new Date();
   		feccai = new Date();
   		feccas = new Date();
@@ -2228,8 +2319,12 @@ public void select(int first, int pageSize, String sortField, Object filterValue
   		tvalm = null;
   		tvalti = null;
   		tvalts = null;
-    		
+  		obvtoli = null;
+  		obvtols = null;
+  		    		
     }
+
+
   
     
 }
