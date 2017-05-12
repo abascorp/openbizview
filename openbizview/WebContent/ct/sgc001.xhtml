@@ -323,6 +323,7 @@
 			 <p:message for="tolinf"/>
 			 </div>
 		 
+		     <!--  
 		     <div class="col-sm-3">			 
 			 <div style="font-family:ubuntu;">Obviar en mediciones</div>
 			 <p:autoComplete inputStyle="width: 70px; height: 25px" 
@@ -335,7 +336,8 @@
 			 <p:spacer height="1"/> 
 			 <p:message for="obvtoli"/>  
 			 </div>	
-		 
+		     -->
+		     
 		 </div>	 
 		 </p:tab>
 		 
@@ -365,6 +367,7 @@
 				 <p:message for="tolsup"/>
 			 </div>
 			 
+			 <!--  
 		     <div class="col-sm-3">			 
 			 <div style="font-family:ubuntu;">Obviar en mediciones</div>
 			 <p:autoComplete inputStyle="width: 70px; height: 25px" 
@@ -376,7 +379,8 @@
 			 </p:autoComplete> 
 			 <p:spacer height="1"/> 
 			 <p:message for="obvtols"/>  
-			 </div>				 
+			 </div>		
+			 -->		 
 		</div>	 	
 		</p:tab>
 	    
@@ -481,12 +485,12 @@
             <f:facet name="header">#{msg.bvt001TbEnviar}</f:facet>   
             <p:commandLink 
             update=":formsgc001:tabView:respon :formsgc001:tabView:calculo :formsgc001:tabView:fuente :formsgc001:tabView:proces"
-            styleClass="edit" onclick="enviar('#{tb.zcomp}','#{tb.zarea}','#{tb.zcodigo}','#{tb.zdesc}','#{tb.zrespon}','#{tb.zcalcul}','#{tb.zfuente}','#{tb.zproces}','#{tb.zperiod}','#{tb.zcompor}','#{tb.znivapp}','#{tb.zestatu}','#{tb.zvigenc}','1','#{tb.ztvalm}','#{tb.zfeccam}','#{tb.zmeta}','#{tb.zresmet}','#{tb.ztvalti}','#{tb.zfeccai}','#{tb.ztolinf}','#{tb.zobvtoli}','#{tb.ztvalts}','#{tb.zfeccas}','#{tb.ztolsup}','#{tb.zobvtols}');tabView.select(1)" 
+            styleClass="edit" onclick="enviar('#{tb.zcomp}','#{tb.zarea}','#{tb.zcodigo}','#{tb.zdesc}','#{tb.zrespon}','#{tb.zcalcul}','#{tb.zfuente}','#{tb.zproces}','#{tb.zperiod}','#{tb.zcompor}','#{tb.znivapp}','#{tb.zestatu}','#{tb.zvigenc}','1','#{tb.ztvalm}','#{tb.zfeccam}','#{tb.zmeta}','#{tb.zresmet}','#{tb.ztvalti}','#{tb.zfeccai}','#{tb.ztolinf}','#{tb.ztvalts}','#{tb.zfeccas}','#{tb.ztolsup}');tabView.select(1)" 
             title="Enviar"><i class="fa fa-pencil-square-o fa-2x text-info"></i>
             </p:commandLink>
             </p:column> 
             		
-
+			<!-- styleClass="edit" onclick="enviar('#{tb.zcomp}','#{tb.zarea}','#{tb.zcodigo}','#{tb.zdesc}','#{tb.zrespon}','#{tb.zcalcul}','#{tb.zfuente}','#{tb.zproces}','#{tb.zperiod}','#{tb.zcompor}','#{tb.znivapp}','#{tb.zestatu}','#{tb.zvigenc}','1','#{tb.ztvalm}','#{tb.zfeccam}','#{tb.zmeta}','#{tb.zresmet}','#{tb.ztvalti}','#{tb.zfeccai}','#{tb.ztolinf}','#{tb.zobvtoli}','#{tb.ztvalts}','#{tb.zfeccas}','#{tb.ztolsup}','#{tb.zobvtols}');tabView.select(1)" -->
             </p:dataTable>   
 
        </h:form>

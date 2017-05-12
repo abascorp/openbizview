@@ -26,7 +26,8 @@
 	    clearUpdateInput('formsgc001:codigo', 'white');
 	}
 	
-	function enviar(vT0,vT1,vT2,vT3,vT4,vT5,vT6,vT7,vT8,vT9,vT10,vT11,vT12,vT13,vT14,vT15,vT16,vT17,vT18,vT19,vT20,vT21,vT22,vT23,vT24,vT25)
+	//function enviar(vT0,vT1,vT2,vT3,vT4,vT5,vT6,vT7,vT8,vT9,vT10,vT11,vT12,vT13,vT14,vT15,vT16,vT17,vT18,vT19,vT20,vT21,vT22,vT23,vT24,vT25)
+	function enviar(vT0,vT1,vT2,vT3,vT4,vT5,vT6,vT7,vT8,vT9,vT10,vT11,vT12,vT13,vT14,vT15,vT16,vT17,vT18,vT19,vT20,vT21,vT22,vT23)
 	{
 		   //alert(vT5);
 		  document.getElementById("formsgc001:tabView:comp_input").value= rTrim(vT0);
@@ -50,11 +51,11 @@
 		  document.getElementById("formsgc001:tabView:tvalti_input").value= rTrim(vT18);
 		  document.getElementById("formsgc001:tabView:feccai_input").value= rTrim(vT19);
 		  document.getElementById("formsgc001:tabView:tolinf").value= rTrim(vT20);
-		  document.getElementById("formsgc001:tabView:obvtoli_input").value= rTrim(vT21);
-		  document.getElementById("formsgc001:tabView:tvalts_input").value= rTrim(vT22);
-		  document.getElementById("formsgc001:tabView:feccas_input").value= rTrim(vT23);
-		  document.getElementById("formsgc001:tabView:tolsup").value= rTrim(vT24);
-		  document.getElementById("formsgc001:tabView:obvtols_input").value= rTrim(vT25);
+		  //document.getElementById("formsgc001:tabView:obvtoli_input").value= rTrim(vT21);
+		  document.getElementById("formsgc001:tabView:tvalts_input").value= rTrim(vT21);
+		  document.getElementById("formsgc001:tabView:feccas_input").value= rTrim(vT22);
+		  document.getElementById("formsgc001:tabView:tolsup").value= rTrim(vT23);
+		  //document.getElementById("formsgc001:tabView:obvtols_input").value= rTrim(vT25);
 		  
 		  
 		  updateInput('formsgc001:tabView:comp_input', '#F2F2F2');

@@ -739,6 +739,7 @@ public void insert() throws  NamingException {
  			tvalts = " - ";
  		}  
  		
+ 		/*
  		if(obvtoli==null){
  			obvtoli = " - ";
  		}
@@ -751,7 +752,9 @@ public void insert() throws  NamingException {
  		}
  		if(obvtols==""){
  			obvtols = " - ";
- 		}   		
+ 		}   
+ 		*/
+ 		
         String[] vectval = tvalts.split("\\ - ", -1);
         String[] vectvalt = tvalti.split("\\ - ", -1);
         String[] vecperiod = period.split("\\ - ", -1);
@@ -760,11 +763,11 @@ public void insert() throws  NamingException {
         String[] veccomp = comp.split("\\ - ", -1);
         String[] vecarea = area.split("\\ - ", -1);
         String[] vectvalm = tvalm.split("\\ - ", -1);
-        String[] vecobvtoli = obvtoli.split("\\ - ", -1);
-        String[] vecobvtols = obvtols.split("\\ - ", -1);
+        //String[] vecobvtoli = obvtoli.split("\\ - ", -1);
+        //String[] vecobvtols = obvtols.split("\\ - ", -1);
         //String[] vecrespon = respon.split("\\ - ", -1);
                     
-        //String query = "INSERT INTO SGC001 VALUES (?,?,?,?,?,?,?,to_date('" + sdfecha.format(feccam) + "','dd/mm/yyyy'),?,?,to_date('" + sdfecha.format(feccai) + "','dd/mm/yyyy'),?,?,to_date('" + sdfecha.format(feccas) + "','dd/mm/yyyy'),?,?,?,?,?,?,?,to_date('" + sdfecha.format(vigenc) + "','dd/mm/yyyy'),?,?,'" + getFecha() + "',?,'" + getFecha() + "',?)";
+        //String query = "INSERT INTO SGC001 VALUES (?,?,?,?,?,?,?,to_date('" + sdfecha.format(feccam) + "','dd/mm/yyyy'),?,?,to_date('" + sdfecha.format(feccai) + "','dd/mm/yyyy'),?,?,to_date('" + sdfecha.format(feccas) + "','dd/mm/yyyy'),?,?,?,?,?,?,?,to_date('" + sdfecha.format(vigenc) + "','dd/mm/yyyy'),?,?,'" + getFecha() + "',?,'" + getFecha() + "',?,null,null)";
         String query = "INSERT INTO SGC001 VALUES  (trim(?), " +
 			" trim(?), " +
 				" trim(?), " +
@@ -792,9 +795,10 @@ public void insert() throws  NamingException {
 				" '" + getFecha() + "', " +
 				" TRIM(?), " +
 				" '" + getFecha() + "', " +
-				" TRIM(?), " +
-				" TRIM(?), " + 
-				" TRIM(?))";
+				" TRIM(?),"
+				+ "null,"
+				+ "null)";
+        
         
         pstmt = con.prepareStatement(query);
         pstmt.setString(1, veccomp[0].toUpperCase());
@@ -819,31 +823,63 @@ public void insert() throws  NamingException {
         pstmt.setString(20, login);
         pstmt.setString(21, login);            
         pstmt.setInt(22,Integer.parseInt(instancia));
-        pstmt.setString(23, vecobvtoli[0].toUpperCase());
-        pstmt.setString(24, vecobvtols[0].toUpperCase());
+        //pstmt.setString(23, vecobvtoli[0].toUpperCase());
+        //pstmt.setString(24, vecobvtols[0].toUpperCase());
    
-        //////System.out.println(query);
-        //////System.out.println(veccomp[0]);
-        //////System.out.println(vecarea[0]);
-        //////System.out.println(codigo);
-        //////System.out.println(desc);
-        //////System.out.println(vectvalm[0].toUpperCase());
-        //////System.out.println(meta);
-        //////System.out.println(resmet);
-        //////System.out.println(vectvalt[0].toUpperCase());
-        //////System.out.println(tolinf);
-        //////System.out.println(vectval[0].toUpperCase());
-        //////System.out.println(tolsup);
-        //////System.out.println(calcul);
-        //////System.out.println(fuente);
-        //////System.out.println(proces);
-        //////System.out.println(vecperiod[0]);
-        //////System.out.println(vecnivapp[0]);
-        //////System.out.println(respon.toUpperCase());
-        //////System.out.println(vecestatu[0]);
-        //////System.out.println(sdfecha.format(vigenc));
-        //////System.out.println(compor);
-     
+        //System.out.println(query);
+        //System.out.println(veccomp[0]);
+        //System.out.println(vecarea[0]);
+        //System.out.println(codigo);
+        //System.out.println(desc);
+        //System.out.println(vectvalm[0].toUpperCase());
+        //System.out.println(meta);
+        //System.out.println(resmet);
+        //System.out.println(vectvalt[0].toUpperCase());
+        //System.out.println(tolinf);
+        //System.out.println(vectval[0].toUpperCase());
+        //System.out.println(tolsup);
+        //System.out.println(calcul);
+        //System.out.println(fuente);
+        //System.out.println(proces);
+        //System.out.println(vecperiod[0]);
+        //System.out.println(vecnivapp[0]);
+        //System.out.println(respon.toUpperCase());
+        //System.out.println(vecestatu[0]);
+        //System.out.println(compor.toUpperCase());
+        //System.out.println(login);
+        //System.out.println(login);
+        //System.out.println(Integer.parseInt(instancia));
+        
+        
+        /*System.out.println("INSERT INTO SGC001 VALUES ('" + 
+        		            veccomp[0].toUpperCase()   + "','" +
+        		            vecarea[0].toUpperCase()   + "','" +
+        		            codigo.toUpperCase()       + "','" +
+        		            desc.toUpperCase()         + "','" +
+        		            vectvalm[0].toUpperCase()  + "'," +
+        		            Float.parseFloat(meta)     + ",'" +
+        		            resmet.toUpperCase()       + "'," +
+        		            " to_date('" + sdfecha.format(feccam) + "','dd/mm/yyyy'),'" +
+        		            vectvalt[0].toUpperCase()  + "'," +
+                            Float.parseFloat(tolinf)   + "," +
+                            " to_date('" + sdfecha.format(feccai) + "','dd/mm/yyyy'),'" +
+                            vectval[0].toUpperCase()   + "'," +
+					        Float.parseFloat(tolsup)   + "," +
+					        " to_date('" + sdfecha.format(feccas) + "','dd/mm/yyyy'),'" +
+					        calcul.toUpperCase()       + "','" +
+					        fuente.toUpperCase()       + "','" +
+					        proces.toUpperCase()       + "','" +
+					        vecperiod[0].toUpperCase() + "','" +
+					        vecnivapp[0].toUpperCase() + "'," +
+					        " to_date('" + sdfecha.format(vigenc) + "','dd/mm/yyyy'),'" +
+					        respon.toUpperCase()       + "','" +
+					        vecestatu[0].toUpperCase() + "','" +
+					        compor.toUpperCase()       + "','" + 
+					        login                      + "',SYSDATE,'" +
+					        login                      + "',SYSDATE," +
+					        Integer.parseInt(instancia)+ ",NULL,NULL);" );
+        */
+        
         try {
             //Avisando
         	pstmt.executeUpdate();
@@ -1452,7 +1488,7 @@ public void update() throws  NamingException {
 			tvalts = " - ";
 		} 
 		
- 		if(obvtoli==null){
+ 		/*if(obvtoli==null){
  			obvtoli = " - ";
  		}
  		if(obvtoli==""){
@@ -1465,6 +1501,7 @@ public void update() throws  NamingException {
  		if(obvtols==""){
  			obvtols = " - ";
  		}  		
+ 		*/
          String[] vectvalts = tvalts.split("\\ - ", -1);
          String[] vectvalti = tvalti.split("\\ - ", -1);
          String[] vectvalm = tvalm.split("\\ - ", -1);
@@ -1473,9 +1510,9 @@ public void update() throws  NamingException {
          String[] vecestatu = estatu.split("\\ - ", -1);
          String[] veccomp = comp.split("\\ - ", -1);
          String[] vecarea = area.split("\\ - ", -1);
-         String[] vecobvtoli = obvtoli.split("\\ - ", -1);
-         String[] vecobvtols = obvtols.split("\\ - ", -1);         
-        // String[] vecrespon = respon.split("\\ - ", -1);
+         //String[] vecobvtoli = obvtoli.split("\\ - ", -1);
+         //String[] vecobvtols = obvtols.split("\\ - ", -1);         
+         // String[] vecrespon = respon.split("\\ - ", -1);
   		
   		con = ds.getConnection();		
   		 
@@ -1501,9 +1538,7 @@ public void update() throws  NamingException {
          query += " VIGENC = to_date('" + sdfecha.format(vigenc) + "','dd/mm/yyyy'),";
          query += " COMPOR = TRIM(?),";
          query += " USRACT = TRIM(?),";
-         query += " FECACT = SYSDATE,";
-         query += " OBVTOLI = TRIM(?),";
-         query += " OBVTOLS = TRIM(?) ";
+         query += " FECACT = SYSDATE";
          query += " WHERE CODIGO = ? AND COMP = ? AND AREA = ? AND INSTANCIA = " + instancia + "";
 
         pstmt = con.prepareStatement(query);
@@ -1524,11 +1559,11 @@ public void update() throws  NamingException {
         pstmt.setString(15, vecestatu[0].toUpperCase());
         pstmt.setString(16, compor.toUpperCase());
         pstmt.setString(17, login);
-        pstmt.setString(18, vecobvtoli[0].toUpperCase());
-        pstmt.setString(19, vecobvtols[0].toUpperCase()); 
-        pstmt.setString(20, codigo.toUpperCase());       
-        pstmt.setString(21, veccomp[0].toUpperCase());    
-        pstmt.setString(22, vecarea[0].toUpperCase());   
+        //pstmt.setString(18, vecobvtoli[0].toUpperCase());
+        //pstmt.setString(19, vecobvtols[0].toUpperCase()); 
+        pstmt.setString(18, codigo.toUpperCase());       
+        pstmt.setString(19, veccomp[0].toUpperCase());    
+        pstmt.setString(20, vecarea[0].toUpperCase());   
        
 
         //System.out.println(query);
@@ -2008,7 +2043,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 		//Consulta paginada	
         String query = "SELECT * FROM"; 
 	    query += "(select query.*, rownum as rn from";
-		query += "(SELECT A.CODIGO, A.NOMIND, A.TIPVALM, A.META, TO_CHAR(A.FECCAM,'DD/MM/YYYY') AS FECCAM, A.TIPVALTI, A.TOLINF, TO_CHAR(A.FECCATI,'DD/MM/YYYY') AS FECCATI, A.TIPVALTS, A.TOLSUP, TO_CHAR(A.FECCATS,'DD/MM/YYYY') AS FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, TO_CHAR(A.VIGENC,'DD/MM/YYYY') AS VIGENC, B.DESCR AS DESC1, C.DESCR AS DESC2, D.DESCR AS DESC3, A.COMP, A.AREA, E.DESCR AS DESC4, F.DESCR AS DESC5, J.DESCR AS DESC6, A.COMPOR, A.RESMET, A.OBVTOLI, DECODE(A.OBVTOLI,'1','SI','NO') SINOTI, A.OBVTOLS, DECODE(A.OBVTOLS,'1','SI','NO') SINOTS ";
+		query += "(SELECT A.CODIGO, A.NOMIND, A.TIPVALM, A.META, TO_CHAR(A.FECCAM,'DD/MM/YYYY') AS FECCAM, A.TIPVALTI, A.TOLINF, TO_CHAR(A.FECCATI,'DD/MM/YYYY') AS FECCATI, A.TIPVALTS, A.TOLSUP, TO_CHAR(A.FECCATS,'DD/MM/YYYY') AS FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, TO_CHAR(A.VIGENC,'DD/MM/YYYY') AS VIGENC, B.DESCR AS DESC1, C.DESCR AS DESC2, D.DESCR AS DESC3, A.COMP, A.AREA, E.DESCR AS DESC4, F.DESCR AS DESC5, J.DESCR AS DESC6, A.COMPOR, A.RESMET ";
 	    query += " FROM SGC001 A, TUBDER08 B, TUBDER10 C, TUBDER09 D, SGC005 E, SGC006 F, TUBDER11 J, TUBDER11 K, TUBDER11 L ";
 	    query += " WHERE A.PERIOD = D.CODIGO";
 	    query += " AND A.NIVAPP = B.CODIGO";
@@ -2021,7 +2056,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 	    query += " AND TRIM(A.COMP) LIKE TRIM('%" + veccomp[0] + "%')";
 	    query += " AND TRIM(A.AREA) LIKE TRIM('%" + vecarea[0] + "%')";
 	    query += " AND TRIM(A.CODIGO)||TRIM(A.NOMIND) LIKE TRIM('%" + ((String) filterValue).toUpperCase() +  "%')" ;
-	    query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET, A.OBVTOLI, A.OBVTOLS";
+	    query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET";
 	    query += " ORDER BY A.COMP, A.AREA, A.CODIGO ";
 	    query += ")query ) " ;
 	    query += " WHERE ROWNUM <="+pageSize;
@@ -2063,8 +2098,8 @@ public void select(int first, int pageSize, String sortField, Object filterValue
  	select.setZdelete(r.getString(23)+ "" + r.getString(24)+ "" + r.getString(1));
  	select.setZcompor(r.getString(28));
  	select.setZresmet(r.getString(29));
- 	select.setZobvtoli(r.getString(30) + " - " + r.getString(31));
- 	select.setZobvtols(r.getString(32) + " - " + r.getString(33));
+ 	//select.setZobvtoli(r.getString(30) + " - " + r.getString(31));
+ 	//select.setZobvtols(r.getString(32) + " - " + r.getString(33));
  	
     	//Agrega la lista
     	list.add(select);
@@ -2097,49 +2132,51 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 		 query += " FROM (select"; 
 		 query += " DISTINCT"; 
 		 query += " REV.CODIGO, REV.NOMIND, REV.TIPVALM, REV.META, REV.FECCAM, REV.TIPVALTI, REV.TOLINF, REV.FECCATI, REV.TIPVALTS, REV.TOLSUP, REV.FECCATS, REV.CALCULO, REV.DATOS, REV.PROCES, REV.PERIOD,"; 
-		 query += " REV.NIVAPP, REV.DESCRI, REV.ESTATU, REV.VIGENC, REV.DESC1, REV.DESC2, REV.DESC3, REV.COMP, REV.AREA, REV.DESC4, REV.DESC5, REV.DESC6, REV.COMPOR, REV.RESMET, REV.OBVTOLI, REV.SINOTI, REV.OBVTOLS, REV.SINOTS ";
+		 query += " REV.NIVAPP, REV.DESCRI, REV.ESTATU, REV.VIGENC, REV.DESC1, REV.DESC2, REV.DESC3, REV.COMP, REV.AREA, REV.DESC4, REV.DESC5, REV.DESC6, REV.COMPOR, REV.RESMET ";
 		 query += " from (SELECT"; 
-		 query += " A.COMP, A.AREA, A.CODIGO, A.NOMIND, A.TIPVALM, A.META, TO_CHAR(A.FECCAM,'DD/MM/YYYY') FECCAM, A.TIPVALTI, A.TOLINF, TO_CHAR(A.FECCATI,'DD/MM/YYYY') FECCATI, A.TIPVALTS, A.TOLSUP,"; 
-		 query += " TO_CHAR(A.FECCATS,'DD/MM/YYYY') FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, TO_CHAR(A.VIGENC,'DD/MM/YYYY') VIGENC, B.DESCR DESC1,"; 
-		 query += " C.DESCR DESC2, D.DESCR DESC3, E.DESCR DESC4, F.DESCR DESC5, J.DESCR DESC6, A.COMPOR, A.RESMET, A.OBVTOLI, DECODE(A.OBVTOLI,'1','SI','NO') SINOTI, A.OBVTOLS, DECODE(A.OBVTOLS,'1','SI','NO') SINOTS ";
-		 query += " FROM"; 
-		 query += " SGC001 A, TUBDER08 B, TUBDER10 C, TUBDER09 D, SGC005 E, SGC006 F, TUBDER11 J, TUBDER11 K, TUBDER11 L, SGC009 M";   
-		 query += " WHERE"; 
-		 query += " A.PERIOD = D.CODIGO"; 
-		 query += " AND A.NIVAPP = B.CODIGO"; 
-		 query += " AND A.ESTATU = C.CODIGO ";
-		 query += " AND A.COMP = E.CODIGO"; 
-		 query += " AND A.AREA = F.CODIGO"; 
-		 query += " AND A.TIPVALM = J.CODIGO"; 
-		 query += " AND A.TIPVALTI = K.CODIGO"; 
-		 query += " AND A.TIPVALTS = L.CODIGO"; 
-		 query += " AND A.COMP = M.COMP"; 
-		 query += " AND A.AREA = M.AREA"; 
-		 query += " AND A.CODIGO = M.INDICA"; 
-		 query += " AND TRIM(M.CODUSER) LIKE ('%" + login.toUpperCase() + "%')"; 
-		 query += " AND TRIM(A.CODIGO)||TRIM(A.NOMIND) LIKE TRIM('%" + ((String) filterValue).toUpperCase() +  "%')" ;
-		 query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS,"; 
-		 query += " A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET, A.OBVTOLI, A.OBVTOLS ";         
-		 query += " UNION ALL";
-		 query += " SELECT"; 
-		 query += " A.COMP, A.AREA, A.CODIGO, A.NOMIND, A.TIPVALM, A.META, TO_CHAR(A.FECCAM,'DD/MM/YYYY') FECCAM, A.TIPVALTI, A.TOLINF, TO_CHAR(A.FECCATI,'DD/MM/YYYY') FECCATI, A.TIPVALTS, A.TOLSUP,"; 
-		 query += " TO_CHAR(A.FECCATS,'DD/MM/YYYY') FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, TO_CHAR(A.VIGENC,'DD/MM/YYYY') VIGENC, B.DESCR DESC1,"; 
-		 query += " C.DESCR DESC2, D.DESCR DESC3, E.DESCR DESC4, F.DESCR DESC5, J.DESCR DESC6, A.COMPOR, A.RESMET, A.OBVTOLI, DECODE(A.OBVTOLI,'1','SI','NO') SINOTI, A.OBVTOLS, DECODE(A.OBVTOLS,'1','SI','NO') SINOTS ";
-		 query += " FROM ";
-		 query += " SGC001 A, TUBDER08 B, TUBDER10 C, TUBDER09 D, SGC005 E, SGC006 F, TUBDER11 J, TUBDER11 K, TUBDER11 L"; 
-		 query += " WHERE ";
-		 query += " A.PERIOD = D.CODIGO ";
-		 query += " AND A.NIVAPP = B.CODIGO ";
-		 query += " AND A.ESTATU = C.CODIGO ";
-		 query += " AND A.COMP = E.CODIGO ";
-		 query += " AND A.AREA = F.CODIGO ";
-		 query += " AND A.TIPVALM = J.CODIGO ";
-		 query += " AND A.TIPVALTI = K.CODIGO ";
-		 query += " AND A.TIPVALTS = L.CODIGO  ";
-		 query += " AND A.COMP||A.AREA IN (SELECT COMP||AREA FROM SGC008 WHERE CODUSER = '" + login.toUpperCase() + "' AND DUEPRO = '1')";
-		 query += " AND TRIM(A.CODIGO)||TRIM(A.NOMIND) LIKE TRIM('%" + ((String) filterValue).toUpperCase() +  "%')" ;
-		 query += " GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS, ";
-		 query += " A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET, A.OBVTOLI, A.OBVTOLS) REV";
+		 query += "       A.COMP, A.AREA, A.CODIGO, A.NOMIND, A.TIPVALM, A.META, TO_CHAR(A.FECCAM,'DD/MM/YYYY') FECCAM, A.TIPVALTI, A.TOLINF, TO_CHAR(A.FECCATI,'DD/MM/YYYY') FECCATI, A.TIPVALTS, A.TOLSUP,"; 
+		 query += "       TO_CHAR(A.FECCATS,'DD/MM/YYYY') FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, TO_CHAR(A.VIGENC,'DD/MM/YYYY') VIGENC, B.DESCR DESC1,"; 
+		 query += "       C.DESCR DESC2, D.DESCR DESC3, E.DESCR DESC4, F.DESCR DESC5, J.DESCR DESC6, A.COMPOR, A.RESMET, A.OBVTOLI, DECODE(A.OBVTOLI,'1','SI','NO') SINOTI, A.OBVTOLS, DECODE(A.OBVTOLS,'1','SI','NO') SINOTS ";
+		 query += "       FROM"; 
+		 query += "       SGC001 A, TUBDER08 B, TUBDER10 C, TUBDER09 D, SGC005 E, SGC006 F, TUBDER11 J, TUBDER11 K, TUBDER11 L, SGC009 M";   
+		 query += "       WHERE"; 
+		 query += " 	  A.PERIOD = D.CODIGO"; 
+		 query += "       AND A.NIVAPP = B.CODIGO"; 
+		 query += "       AND A.ESTATU = C.CODIGO ";
+		 query += "       AND A.COMP = E.CODIGO"; 
+		 query += "       AND A.AREA = F.CODIGO"; 
+		 query += "       AND A.TIPVALM = J.CODIGO"; 
+		 query += "       AND A.TIPVALTI = K.CODIGO"; 
+		 query += "       AND A.TIPVALTS = L.CODIGO"; 
+		 query += "       AND A.COMP = M.COMP"; 
+		 query += "       AND A.AREA = M.AREA"; 
+		 query += "       AND A.CODIGO = M.INDICA"; 
+		 query += "       AND TRIM(M.CODUSER) LIKE ('%" + login.toUpperCase() + "%')"; 
+		 query += "       AND TRIM(A.CODIGO)||TRIM(A.NOMIND) LIKE TRIM('%" + ((String) filterValue).toUpperCase() +  "%')" ;
+		 query += "       GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS,"; 
+		 query += "       A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET, A.OBVTOLI, A.OBVTOLS ";         
+		 
+		 query += "       UNION ALL";
+		 
+		 query += "       SELECT"; 
+		 query += "       A.COMP, A.AREA, A.CODIGO, A.NOMIND, A.TIPVALM, A.META, TO_CHAR(A.FECCAM,'DD/MM/YYYY') FECCAM, A.TIPVALTI, A.TOLINF, TO_CHAR(A.FECCATI,'DD/MM/YYYY') FECCATI, A.TIPVALTS, A.TOLSUP,"; 
+		 query += "       TO_CHAR(A.FECCATS,'DD/MM/YYYY') FECCATS, A.CALCULO, A.DATOS, A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, TO_CHAR(A.VIGENC,'DD/MM/YYYY') VIGENC, B.DESCR DESC1,"; 
+		 query += "       C.DESCR DESC2, D.DESCR DESC3, E.DESCR DESC4, F.DESCR DESC5, J.DESCR DESC6, A.COMPOR, A.RESMET, A.OBVTOLI, DECODE(A.OBVTOLI,'1','SI','NO') SINOTI, A.OBVTOLS, DECODE(A.OBVTOLS,'1','SI','NO') SINOTS ";
+		 query += "       FROM ";
+		 query += "       SGC001 A, TUBDER08 B, TUBDER10 C, TUBDER09 D, SGC005 E, SGC006 F, TUBDER11 J, TUBDER11 K, TUBDER11 L"; 
+		 query += "       WHERE ";
+		 query += "       A.PERIOD = D.CODIGO ";
+		 query += "       AND A.NIVAPP = B.CODIGO ";
+		 query += "       AND A.ESTATU = C.CODIGO ";
+		 query += "       AND A.COMP = E.CODIGO ";
+		 query += "       AND A.AREA = F.CODIGO ";
+		 query += "       AND A.TIPVALM = J.CODIGO ";
+		 query += "       AND A.TIPVALTI = K.CODIGO ";
+		 query += "       AND A.TIPVALTS = L.CODIGO  ";
+		 query += "       AND A.COMP||A.AREA IN (SELECT COMP||AREA FROM SGC008 WHERE CODUSER = '" + login.toUpperCase() + "' AND DUEPRO = '1')";
+		 query += "       AND TRIM(A.CODIGO)||TRIM(A.NOMIND) LIKE TRIM('%" + ((String) filterValue).toUpperCase() +  "%')" ;
+		 query += "       GROUP BY A.CODIGO, A.NOMIND, A.TIPVALM, A.META, A.FECCAM, A.TIPVALTI, A.TOLINF, A.FECCATI, A.TIPVALTS, A.TOLSUP, A.FECCATS, A.CALCULO, A.DATOS, ";
+		 query += "       A.PROCES, A.PERIOD, A.NIVAPP, A.DESCRI, A.ESTATU, A.VIGENC, B.DESCR, C.DESCR, D.DESCR, A.COMP, A.AREA, E.DESCR, F.DESCR, J.DESCR, A.COMPOR, A.RESMET, A.OBVTOLI, A.OBVTOLS) REV";
 		 query += " WHERE";
 		 query += " TRIM(REV.COMP) LIKE TRIM('%" + veccomp[0] + "%')";
 		 query += " AND TRIM(REV.AREA) LIKE TRIM('%" + vecarea[0] + "%')";
@@ -2148,7 +2185,7 @@ public void select(int first, int pageSize, String sortField, Object filterValue
 
     pstmt = con.prepareStatement(query);
     
-    ////System.out.println(query);
+    //System.out.println(query);
     ////System.out.println("Usuario **** NO ****  ADMINISTRADOR...");
 		
     r =  pstmt.executeQuery();
@@ -2182,8 +2219,8 @@ public void select(int first, int pageSize, String sortField, Object filterValue
  	select.setZdelete(r.getString(23)+ "" + r.getString(24)+ "" + r.getString(1));
  	select.setZcompor(r.getString(28));
  	select.setZresmet(r.getString(29));
- 	select.setZobvtoli(r.getString(30) + " - " + r.getString(31));
- 	select.setZobvtols(r.getString(32) + " - " + r.getString(33)); 	
+ 	//select.setZobvtoli(r.getString(30) + " - " + r.getString(31));
+ 	//select.setZobvtols(r.getString(32) + " - " + r.getString(33)); 	
     	
     	//Agrega la lista
     	list.add(select);
@@ -2299,8 +2336,8 @@ public void select(int first, int pageSize, String sortField, Object filterValue
   		tvalts = "";
   		compor = "";
   		resmet = "";
-  		obvtoli = "";
-  		obvtols = "";
+  		//obvtoli = "";
+  		//obvtols = "";
   		feccam = new Date();
   		feccai = new Date();
   		feccas = new Date();
@@ -2319,8 +2356,8 @@ public void select(int first, int pageSize, String sortField, Object filterValue
   		tvalm = null;
   		tvalti = null;
   		tvalts = null;
-  		obvtoli = null;
-  		obvtols = null;
+  		//obvtoli = null;
+  		//obvtols = null;
   		    		
     }
 
