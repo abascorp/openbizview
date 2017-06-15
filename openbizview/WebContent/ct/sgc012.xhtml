@@ -139,7 +139,7 @@
  	 	 
  	     <div class="row">
 			 
-			 <div class="col-lg-4 col-md-4 col-sm-4">  
+			 <div class="col-lg-6 col-md-4 col-sm-2">  
 				 <div style="font-family:ubuntu;">#{msg.sgc001com}</div>
 				 <p:autoComplete inputStyle="width: 200px; height: 25px" id="comp" value="#{sgc012.comp}" emptyMessage="#{msg.html138}"  completeMethod="#{autocomplete.completeComp}"  valueChangeListener="#{bd.setComp(sgc012.comp)}" dropdown="true" scrollHeight="250">
 				 <p:ajax event="itemSelect" update=":formsgc012:tbResult" listener="#{bd.setComp(sgc012.comp)}" />	     
@@ -161,24 +161,25 @@
 				 <p:spacer height="1"/>
 				 <p:message for="codigo"/> 
 			 </div>
-		 
-			 <div class="col-lg-2 col-md-2 col-sm-2">
+		
+			 <div class="col-lg-6 col-md-4 col-sm-2">
+			
 			 	 <div style="font-family:ubuntu;">#{msg.VentasTbanio}</div>
 			 	 <p:inputTextarea rows="1" cols="5"  id="anocal" maxlength="4" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.anocal}"/>
 				 <p:spacer height="1"/>
 				 <p:message for="anocal"/>  	
-				 
+			 
+		
 				 <div style="font-family:ubuntu;">#{msg.VentasTbmes}</div>
 				 <p:inputTextarea rows="1" cols="2"  id="mescal" maxlength="2" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.mescal}"/>
 				 <p:spacer height="1"/>
 				 <p:message for="mescal"/> 
-			 </div>
-			 
-			 
-			 <div class="col-lg-6 col-md-6 col-sm-6">
-
+			
+			</div> 
+			<div class="col-lg-6 col-md-4 col-sm-2">
+			
 				 <div style="font-family:ubuntu;">#{msg.sgc012iya}</div>
-				 <p:inputTextarea rows="5" cols="65" autoResize="true" id="invana" maxlength="4000" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.invana}"/>
+				 <p:inputTextarea rows="5" style="width: 100%;" autoResize="true" id="invana" maxlength="4000" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.invana}"/>
 				 <p:spacer height="1"/>
  				 <p:message for="invana"/>
 
@@ -191,23 +192,23 @@
     	 <div class="row">
 	     
 	     
-		     <div class="col-sm-4"> 
+		     <div class="col-lg-6 col-md-4 col-sm-2"> 
 			 
 				 <div style="font-family:ubuntu;">#{msg.sgc012rrh}</div>
-				 <p:inputTextarea rows="5" cols="65" id="rrhh" autoResize="true" maxlength="4000" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.rrhh}"/>
+				 <p:inputTextarea rows="5"  style="width: 100%;" id="rrhh" autoResize="true" maxlength="4000" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.rrhh}"/>
 				 <p:spacer height="1"/>
 				 <p:message  for="rrhh"/>
 			 </div>	 				
-			<div class="col-sm-4">  
+			<div class="col-lg-6 col-md-4 col-sm-2">  
 				 <div style="font-family:ubuntu;">#{msg.sgc012sup}</div>
-				 <p:inputTextarea rows="5" cols="65" id="superv" autoResize="true" maxlength="4000" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.superv}"/>
+				 <p:inputTextarea rows="5" style="width: 100%;" id="superv" autoResize="true" maxlength="4000" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.superv}"/>
 				 <p:spacer height="1"/>
 				 <p:message for="superv"/>	
 			 </div>	 
 			
-			<div class="col-sm-4"> 
+			<div class="col-lg-6 col-md-4 col-sm-2">
 				 <div style="font-family:ubuntu;">#{msg.sgc012med}</div>
-				 <p:inputTextarea rows="5" cols="65" id="medamb" autoResize="true" maxlength="4000" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.medamb}"/>
+				 <p:inputTextarea rows="5" style="width: 100%;" id="medamb" autoResize="true" maxlength="4000" required="false" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012.medamb}"/>
 				 <p:spacer height="1"/>
 				 <p:message for="medamb"/>	
 			 
@@ -312,7 +313,7 @@
                       
             <p:column width="40" >  
             <f:facet  name="header">
-            <p:commandLink onclick="fm_check('toDelete',true)"><i class="fa fa-trash fa-2x" title="#{msg.borrar}"></i></p:commandLink>
+            <p:commandLink onclick="fm_check('toDelete',true)"><i class="fa fa-check-square-o fa-2x" title="Todos"></i></p:commandLink>
             </f:facet>            
             <input type="checkbox" name="toDelete" class="chk" value="#{tb.zcoddel}"/>
             </p:column>  

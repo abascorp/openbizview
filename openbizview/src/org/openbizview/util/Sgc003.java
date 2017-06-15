@@ -440,12 +440,13 @@ public void delete() throws NamingException  {
         	
         	String param = "'" + StringUtils.join(chkbox, "','") + "'";
 
-        	String query = "DELETE from SGC003 WHERE CODIGO in (" + param + ") and INSTANCIA = " + instancia + "";	        	
+        	String query = "DELETE from SGC003 WHERE COMP||AREA||CODIGO||TO_CHAR(ANOCAL)||TO_CHAR(MESCAL) in (" + param + ") and INSTANCIA = " + instancia + "";	        	
             
         	pstmt = con.prepareStatement(query);
             
-        	////System.out.println(query2);
-        	////System.out.println(query);
+        	//System.out.println(query2);
+        	//System.out.println(param);
+        	//System.out.println(query);
 
         	  try {
                   //Avisando
@@ -791,7 +792,7 @@ public void guardar() throws NamingException, SQLException{
  	select.setZanocal(r.getString(4));
  	select.setZmescal(r.getString(5));
  	select.setZvalor(r.getString(6));
- 	select.setZcoddel(r.getString(3));
+ 	select.setZcoddel(r.getString(1) + r.getString(2) + r.getString(3) + r.getString(4) + r.getString(5));
  	select.setZorderby(r.getString(1) + ", " + r.getString(2) + ", " + r.getString(3) + ", " + r.getString(4) + ", " + r.getString(5));
  	select.setZusrcre(r.getString(10));
  	select.setZfeccre(r.getString(11));

@@ -183,7 +183,7 @@
 				 <p:message for="accion"/> 
 				
 				 <div style="font-family:ubuntu;">Comentario</div>
-				 <p:inputTextarea id="coment" rows="5" style="width: 130%;" styleClass="spacing" autoResize="true" maxlength="4000" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012c.coment}"/>
+				 <p:inputTextarea id="coment" rows="5" style="width: 130%;" styleClass="spacing" autoResize="true" maxlength="250" required="true" requiredMessage="#{bd.getMessage('htmlvalidate')}" value="#{sgc012c.coment}"/>
 				 <p:spacer height="1"/>
 				 <p:message for="coment"/>	 
 			     		 
@@ -264,7 +264,7 @@
                       
             <p:column width="40" >  
             <f:facet  name="header">
-            <p:commandLink onclick="fm_check('toDelete',true)"><i class="fa fa-trash fa-2x" title="#{msg.borrar}"></i></p:commandLink>
+            <p:commandLink onclick="fm_check('toDelete',true)"><i class="fa fa-check-square-o fa-2x" title="Todos"></i></p:commandLink>
             </f:facet>            
             <input type="checkbox" name="toDelete" class="chk" value="#{tb.zregist}"/>
             </p:column>  
